@@ -609,6 +609,41 @@ body {
 .footer-badge { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(250,246,238,0.18); display: flex; align-items: center; gap: 6px; }
 .footer-badge::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); opacity: 0.5; }
 
+/* TWEMOJI */
+img.emoji { height:1em; width:1em; margin:0 .05em 0 .1em; vertical-align:-.15em; }
+.feat-icon img, .role-icon img { width:32px; height:32px; vertical-align:middle; }
+.cost-item-icon img { width:22px; height:22px; vertical-align:middle; filter:brightness(0) invert(1); opacity:.7; }
+.flujo-st-ico img, .demo-lcard-ico img { width:26px; height:26px; vertical-align:middle; }
+
+/* COMPARATIVA TOGGLE BUTTON */
+.comp-toggle { text-align:center; margin-top:48px; }
+.comp-toggle button {
+  background:transparent; border:1px solid rgba(200,169,81,0.4); color:var(--gold);
+  padding:14px 32px; font-family:var(--sans); font-size:12px; font-weight:700;
+  letter-spacing:.12em; text-transform:uppercase; cursor:pointer;
+  display:inline-flex; align-items:center; gap:10px;
+  transition:border-color .2s,background .2s,color .2s;
+}
+.comp-toggle button:hover { border-color:var(--gold); background:rgba(200,169,81,0.08); }
+.comp-toggle button .toggle-arrow {
+  display:inline-block; transition:transform .3s;
+  font-style:normal; font-size:14px;
+}
+.comp-toggle button.open .toggle-arrow { transform:rotate(180deg); }
+
+/* PLAN CARDS - FEATURED ELEVATION */
+.planes-grid { align-items:start; }
+.plan-card.featured {
+  padding:64px 40px; border-top:3px solid var(--gold);
+  box-shadow:0 32px 100px rgba(92,26,43,0.4),0 0 0 1px rgba(200,169,81,0.2);
+  z-index:2; overflow:visible; transform:none;
+}
+.plan-card.featured .plan-price { font-size:68px; }
+
+/* FOOTER LINKS */
+.footer-dev-name a, .footer-prop-dev-name a { color:inherit; text-decoration:none; transition:opacity .2s; }
+.footer-dev-name a:hover, .footer-prop-dev-name a:hover { opacity:.7; }
+
 /* ═══════════════════════════════════════════════
    EL FLUJO (sección clonada de entregables)
 ═══════════════════════════════════════════════ */
@@ -1042,7 +1077,7 @@ body {
     <div class="comparativa">
       <div class="comp-toggle">
         <button onclick="toggleComparativa(this)">
-          <span>↓</span> Ver comparativa completa de funciones
+          <span class="toggle-arrow">↓</span> Ver comparativa completa de funciones
         </button>
       </div>
       <table class="comp-table" id="compTable">
@@ -1419,7 +1454,7 @@ body {
         <div class="footer-dev">
           <div>
             <span class="footer-dev-label">Desarrollado por</span>
-            <span class="footer-dev-name">AppCors SAS</span>
+            <a href="https://appcors.co" target="_blank" rel="noopener" class="footer-dev-name">AppCors SAS</a>
           </div>
         </div>
       </div>
@@ -1445,7 +1480,7 @@ body {
       </div>
     </div>
     <div class="footer-bottom">
-      <span class="footer-copy">© 2026 Mesaio — <strong>AppCors SAS</strong> · Colombia</span>
+      <span class="footer-copy">© 2026 Mesaio — <a href="https://appcors.co" target="_blank" rel="noopener"><strong>AppCors SAS</strong></a> · Colombia</span>
       <span class="footer-badge">Sistema activo · Netlify Deploy</span>
     </div>
   </div>
@@ -1529,10 +1564,18 @@ sections.forEach(s => activeObs.observe(s));
 function toggleComparativa(btn) {
   const table = document.getElementById('compTable');
   const open = table.classList.toggle('open');
+  btn.classList.toggle('open', open);
   btn.innerHTML = open
-    ? '<span>↑</span> Ocultar comparativa'
-    : '<span>↓</span> Ver comparativa completa de funciones';
+    ? '<span class="toggle-arrow">↑</span> Ocultar comparativa'
+    : '<span class="toggle-arrow">↓</span> Ver comparativa completa de funciones';
 }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js" crossorigin="anonymous"></script>
+<script>
+twemoji.parse(document.body, {
+  folder: 'svg', ext: '.svg',
+  base: 'https://cdn.jsdelivr.net/npm/twemoji@14.0.2/assets/'
+});
 </script>
 
 </body>
