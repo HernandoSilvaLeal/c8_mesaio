@@ -580,13 +580,34 @@ body {
 /* ═══════════════════════════════════════════════
    FOOTER
 ═══════════════════════════════════════════════ */
-.footer { background: var(--ink); padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.04); }
-.footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
-.footer-logo { font-family: var(--serif); font-size: 20px; font-weight: 600; color: rgba(250,246,238,0.3); }
-.footer-links { display: flex; gap: 24px; }
-.footer-links a { font-size: 12px; color: rgba(250,246,238,0.2); text-decoration: none; transition: color .2s; }
-.footer-links a:hover { color: var(--gold); }
-.footer-copy { font-size: 11px; color: rgba(250,246,238,0.12); }
+.footer { background: var(--ink); position: relative; overflow: hidden; }
+.footer::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.footer-top {
+  padding: 80px 0 56px;
+  display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; gap: 48px;
+}
+.footer-brand-col { max-width: 280px; }
+.footer-brand { font-family: var(--serif); font-size: 28px; font-weight: 600; color: var(--cream); letter-spacing: -0.02em; margin-bottom: 14px; }
+.footer-brand span { color: var(--gold); }
+.footer-tagline { font-size: 13px; color: rgba(250,246,238,0.45); line-height: 1.85; margin-bottom: 24px; }
+.footer-dev {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 10px 16px; border: 1px solid rgba(200,169,81,0.25);
+  border-radius: 4px; background: rgba(200,169,81,0.06);
+}
+.footer-dev-label { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: rgba(250,246,238,0.3); display: block; margin-bottom: 2px; }
+.footer-dev-name { font-family: var(--serif); font-size: 17px; font-weight: 600; color: var(--gold); letter-spacing: .01em; }
+.footer-col h4 { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(250,246,238,0.25); margin-bottom: 20px; }
+.footer-col a { display: block; font-size: 13px; color: rgba(250,246,238,0.45); text-decoration: none; margin-bottom: 12px; transition: color .2s; }
+.footer-col a:hover { color: var(--gold); }
+.footer-bottom { padding: 20px 0; border-top: 1px solid rgba(255,255,255,0.04); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.footer-copy { font-size: 11px; color: rgba(250,246,238,0.18); }
+.footer-copy strong { color: rgba(200,169,81,0.6); font-weight: 500; }
+.footer-badge { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(250,246,238,0.18); display: flex; align-items: center; gap: 6px; }
+.footer-badge::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); opacity: 0.5; }
 
 /* ═══════════════════════════════════════════════
    RESPONSIVE
@@ -608,6 +629,8 @@ body {
   .container-sm      { padding: 0 24px; }
   .planes, .problema, .roi, .features, .roles, .cta-final { padding: 80px 0; }
   .hero-stats        { gap: 24px; }
+  .footer-top        { grid-template-columns: 1fr 1fr; }
+  .footer-brand-col  { grid-column: 1/-1; max-width: none; }
 }
 
 /* ═══════════════════════════════════════════════
@@ -1220,15 +1243,41 @@ body {
 <!-- ═══ FOOTER ═══ -->
 <footer class="footer">
   <div class="container">
-    <div class="footer-inner">
-      <span class="footer-logo">Mesaio</span>
-      <div class="footer-links">
-        <a href="/login">Demo</a>
-        <a href="/menu">Carta</a>
-        <a href="/entregables/">Módulos</a>
-        <a href="https://github.com/HernandoSilvaLeal/c8_mesaio">GitHub</a>
+    <div class="footer-top">
+      <div class="footer-brand-col">
+        <div class="footer-brand">Mes<span>aio</span></div>
+        <p class="footer-tagline">Sistema de gestión profesional para restaurantes colombianos. Mesas, cocina, inventario, facturación y contabilidad en una sola pantalla.</p>
+        <div class="footer-dev">
+          <div>
+            <span class="footer-dev-label">Desarrollado por</span>
+            <span class="footer-dev-name">AppCors SAS</span>
+          </div>
+        </div>
       </div>
-      <span class="footer-copy">Sistema de gestión profesional para restaurantes</span>
+      <div class="footer-col">
+        <h4>Sistema</h4>
+        <a href="/mesero/">Vista Mesero</a>
+        <a href="/cocina/">Vista Cocina</a>
+        <a href="/admin/">Panel Dueño</a>
+        <a href="/login">Demo en vivo</a>
+      </div>
+      <div class="footer-col">
+        <h4>Módulos</h4>
+        <a href="/entregables/">Propuesta completa</a>
+        <a href="#planes">Planes y precios</a>
+        <a href="#roi">Retorno de inversión</a>
+        <a href="#problema">El problema</a>
+      </div>
+      <div class="footer-col">
+        <h4>AppCors</h4>
+        <a href="https://github.com/HernandoSilvaLeal/c8_mesaio" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://wa.me/573TUNUMERO" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="mailto:contacto@mesaio.co">Contacto</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Mesaio — <strong>AppCors SAS</strong> · Colombia</span>
+      <span class="footer-badge">Sistema activo · Netlify Deploy</span>
     </div>
   </div>
 </footer>
