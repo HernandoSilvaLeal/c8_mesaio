@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Entregables · Mesaio</title>
+<title>Mesaio — Sistema de Gestión para Restaurantes</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
 <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
 <style>
@@ -14,28 +14,8 @@
   .brand span{color:var(--gold-lt)}
   .nav-back{color:rgba(255,255,255,.85);font-size:13px;text-decoration:none;font-weight:600}
   .nav-back:hover{color:var(--gold-lt)}
-  .hero{background:linear-gradient(135deg,rgba(61,15,28,.92),rgba(92,26,43,.85)),url('https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg?auto=compress&cs=tinysrgb&w=1600') center/cover;color:white;padding:80px 28px 60px;text-align:center}
-  .hero .lbl{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-lt);background:rgba(200,169,81,.14);border:1px solid rgba(200,169,81,.32);padding:7px 16px;border-radius:50px;margin-bottom:16px}
-  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,4.5vw,3.2rem);margin:0 0 14px;font-weight:900}
-  .hero p{font-size:1.05rem;opacity:.85;max-width:620px;margin:0 auto}
-  .wrap{max-width:1080px;margin:0 auto;padding:50px 20px}
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:20px}
-  .card{background:white;border-radius:16px;padding:26px;box-shadow:0 4px 20px rgba(92,26,43,.08);border-left:4px solid var(--gold);text-decoration:none;color:inherit;transition:all .25s;display:flex;flex-direction:column;gap:14px}
-  .card:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(92,26,43,.18);border-left-color:var(--burgundy)}
-  .card-h{display:flex;align-items:center;gap:14px}
-  .icon{width:52px;height:52px;border-radius:13px;background:linear-gradient(135deg,var(--burgundy),var(--burgundy-lt));display:flex;align-items:center;justify-content:center;color:var(--gold-lt);font-size:22px;flex-shrink:0;box-shadow:0 6px 18px rgba(92,26,43,.25)}
-  .tit{font-family:'Playfair Display',serif;font-weight:800;color:var(--burgundy);font-size:18px;line-height:1.2}
-  .desc{font-size:13px;color:var(--charcoal-2);line-height:1.55}
-  .tag{display:inline-block;font-size:9px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:50px;background:rgba(200,169,81,.16);color:var(--gold-dk);align-self:flex-start}
-  .tag.priv{background:rgba(92,26,43,.12);color:var(--burgundy)}
-  .visit{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--burgundy);text-transform:uppercase;letter-spacing:.06em;border-bottom:2px solid var(--gold);padding-bottom:2px;align-self:flex-start;transition:all .2s}
-  .card:hover .visit{gap:10px;color:var(--gold-dk)}
-  .stack{margin-top:50px;background:white;border-radius:16px;padding:28px;text-align:center;border:1px solid var(--border)}
-  .stack h3{font-family:'Playfair Display',serif;color:var(--burgundy);margin:0 0 12px;font-size:20px}
-  .stack-pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:14px}
-  .stack-pill{background:var(--cream-2);padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;color:var(--charcoal);border:1px solid var(--border)}
-  .footer-mini{text-align:center;font-size:12px;color:var(--charcoal-2);margin-top:30px}
-  .footer-mini strong{color:var(--burgundy)}
+  .footer-mini{text-align:center;font-size:11px;color:var(--charcoal-2);margin-top:24px;opacity:.6}
+  .footer-mini a{color:var(--burgundy);text-decoration:none}
 </style>
 </head>
 <body>
@@ -44,218 +24,167 @@
   <a href="/" class="nav-back"><i class="bi bi-arrow-left"></i> Volver al sitio</a>
 </div>
 
-<section class="hero">
-  <span class="lbl">Hackathon 2026 · Demo en vivo</span>
-  <h1>Mesaio — Guía de pitch</h1>
-  <p>Un restaurante real usa 3 sistemas separados. Mesaio los reemplaza todos. Aquí el flujo completo en 4 minutos.</p>
-</section>
+<main style="max-width:700px; margin:0 auto; padding:24px 16px 60px;">
 
-<div class="wrap">
+  <!-- GANCHO PRINCIPAL -->
+  <div style="background:linear-gradient(135deg,#5C1A2B 0%,#7C2A3A 100%);border-radius:20px;padding:32px 28px;margin-bottom:24px;color:white;text-align:center;">
 
-  <!-- GANCHO FINANCIERO -->
-  <div style="background:linear-gradient(135deg,#5C1A2B,#3D0F1C);border-radius:16px;padding:32px;margin-bottom:36px;color:white;text-align:center;">
-    <div style="font-size:13px;opacity:.7;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;">El restaurante colombiano promedio paga hoy</div>
-    <div style="display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
-      <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:14px 20px;text-align:center;"><div style="font-size:10px;opacity:.6;margin-bottom:4px;">Mesas + órdenes</div><div style="font-size:20px;font-weight:800;">$80.000</div><div style="font-size:10px;opacity:.5;">/mes</div></div>
-      <div style="color:rgba(255,255,255,.3);font-size:24px;">+</div>
-      <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:14px 20px;text-align:center;"><div style="font-size:10px;opacity:.6;margin-bottom:4px;">Contabilidad / Alegra</div><div style="font-size:20px;font-weight:800;">$150.000</div><div style="font-size:10px;opacity:.5;">/mes</div></div>
-      <div style="color:rgba(255,255,255,.3);font-size:24px;">+</div>
-      <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:14px 20px;text-align:center;"><div style="font-size:10px;opacity:.6;margin-bottom:4px;">Inventario</div><div style="font-size:20px;font-weight:800;">$120.000</div><div style="font-size:10px;opacity:.5;">/mes</div></div>
+    <div style="font-size:13px;color:#C8A951;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;">
+      ¿Cuánto paga su restaurante por estos 3 sistemas?
     </div>
-    <div style="font-size:42px;font-weight:900;color:#C8A951;line-height:1;">$350.000<span style="font-size:16px;opacity:.7;">/mes</span></div>
-    <div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.15);font-size:16px;opacity:.9;">Mesaio integra los 3 · <strong style="color:#C8A951;">desde $200.000/mes con infraestructura profesional incluida</strong></div>
-    <div style="margin-top:14px;background:rgba(200,169,81,0.15);border:1px solid rgba(200,169,81,0.4);border-radius:10px;padding:14px;text-align:left;">
-      <div style="font-size:12px;font-weight:bold;color:#C8A951;margin-bottom:6px;">🔧 Infraestructura profesional</div>
-      <div style="font-size:12px;opacity:0.85;line-height:1.6;">Arquitectura cloud escalable con sincronización en tiempo real entre mesas, cocina y administración. Datos protegidos, respaldados automáticamente y accesibles desde cualquier dispositivo.</div>
+
+    <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:24px;">
+      <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:14px 18px;text-align:center;">
+        <div style="font-size:11px;opacity:.7;margin-bottom:4px;">Mesas y pedidos</div>
+        <div style="font-size:22px;font-weight:bold;">$80.000</div>
+        <div style="font-size:10px;opacity:.5;">/mes</div>
+      </div>
+      <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:14px 18px;text-align:center;">
+        <div style="font-size:11px;opacity:.7;margin-bottom:4px;">Contabilidad</div>
+        <div style="font-size:22px;font-weight:bold;">$150.000</div>
+        <div style="font-size:10px;opacity:.5;">/mes</div>
+      </div>
+      <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:14px 18px;text-align:center;">
+        <div style="font-size:11px;opacity:.7;margin-bottom:4px;">Inventario</div>
+        <div style="font-size:22px;font-weight:bold;">$120.000</div>
+        <div style="font-size:10px;opacity:.5;">/mes</div>
+      </div>
     </div>
+
+    <div style="font-size:36px;font-weight:bold;color:#C8A951;margin-bottom:6px;">$350.000 / mes</div>
+    <div style="font-size:14px;opacity:.7;margin-bottom:20px;">en 3 facturas separadas que no se hablan entre sí</div>
+
+    <div style="background:rgba(200,169,81,.2);border:2px solid #C8A951;border-radius:12px;padding:16px;">
+      <div style="font-size:13px;opacity:.8;margin-bottom:4px;">Con Mesaio, todo integrado desde</div>
+      <div style="font-size:30px;font-weight:bold;color:#C8A951;">$200.000 / mes</div>
+      <div style="font-size:12px;opacity:.7;margin-top:4px;">Un solo sistema · Una sola factura · Cero duplicación</div>
+    </div>
+
   </div>
 
-  <!-- FLUJO DEMO -->
-  <h2 style="font-family:'Playfair Display',serif;color:#5C1A2B;text-align:center;margin-bottom:6px;">Flujo del demo — 4 minutos</h2>
-  <p style="text-align:center;color:#9CA3AF;font-size:13px;margin-bottom:28px;">Haz clic en cada paso para abrir el módulo directamente</p>
+  <!-- QUÉ INCLUYE -->
+  <h3 style="font-family:'Playfair Display',serif;color:#5C1A2B;font-size:20px;margin:0 0 16px;">¿Qué tiene Mesaio?</h3>
 
-  <div style="display:grid;gap:12px;margin-bottom:40px;">
+  <div style="display:grid;gap:10px;margin-bottom:28px;">
 
-    <!-- PASO 0 -->
-    <div style="background:white;border-radius:14px;padding:0;overflow:hidden;box-shadow:0 2px 12px rgba(92,26,43,.08);border:1px solid #E8DDD0;">
-      <div style="background:#F9F5EF;padding:14px 20px;display:flex;align-items:center;gap:14px;border-bottom:1px solid #E8DDD0;">
-        <div style="width:32px;height:32px;background:#5C1A2B;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#C8A951;font-weight:900;font-size:14px;flex-shrink:0;">0</div>
-        <div style="flex:1;"><strong style="color:#5C1A2B;">El gancho</strong> <span style="font-size:11px;color:#9CA3AF;margin-left:8px;">30 seg</span></div>
-        <span style="font-size:11px;font-weight:700;color:#9CA3AF;text-transform:uppercase;letter-spacing:.06em;">Esta página</span>
-      </div>
-      <div style="padding:14px 20px;font-size:13px;color:#5A4A4F;line-height:1.6;">
-        Muestra el banner de los <strong>$350.000/mes</strong> que el cliente ya está pagando. Di: <em>"Mesaio no es una app más — es reemplazar 3 facturas por una."</em>
+    <div style="background:white;border:1px solid #E5E7EB;border-radius:12px;padding:16px;display:flex;gap:14px;align-items:center;">
+      <div style="font-size:28px;flex-shrink:0;">🪑</div>
+      <div>
+        <div style="font-weight:700;color:#111827;font-size:14px;">Mesas en tiempo real</div>
+        <div style="font-size:12px;color:#6B7280;margin-top:2px;">24 mesas · 4 zonas · meseros identificados por nombre · sincronización cada 3 segundos</div>
       </div>
     </div>
 
-    <!-- PASO 1 -->
-    <a href="/mesero" style="text-decoration:none;">
-    <div style="background:white;border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(92,26,43,.08);border:2px solid #E8DDD0;transition:all .2s;" onmouseover="this.style.borderColor='#C8A951'" onmouseout="this.style.borderColor='#E8DDD0'">
-      <div style="background:linear-gradient(135deg,#5C1A2B,#7C2A3A);padding:14px 20px;display:flex;align-items:center;gap:14px;">
-        <div style="width:32px;height:32px;background:#C8A951;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#3D0F1C;font-weight:900;font-size:14px;flex-shrink:0;">1</div>
-        <div style="flex:1;"><strong style="color:white;">Panel del Mesero</strong> <span style="font-size:11px;color:rgba(255,255,255,.6);margin-left:8px;">60 seg</span></div>
-        <span style="font-size:11px;font-weight:700;color:#C8A951;text-transform:uppercase;letter-spacing:.06em;">Abrir →</span>
-      </div>
-      <div style="padding:14px 20px;font-size:13px;color:#5A4A4F;line-height:1.6;">
-        <strong>Qué hacer:</strong> Mesa 3 → toca <em>Tomar orden</em> → agrega Bandeja Paisa + Limonada → <em>Enviar a cocina</em>.<br>
-        <strong>Qué decir:</strong> <em>"El mesero opera desde el celular, sin papel, sin imprimir nada."</em>
+    <div style="background:white;border:1px solid #E5E7EB;border-radius:12px;padding:16px;display:flex;gap:14px;align-items:center;">
+      <div style="font-size:28px;flex-shrink:0;">👨‍🍳</div>
+      <div>
+        <div style="font-weight:700;color:#111827;font-size:14px;">Cocina digital (KDS)</div>
+        <div style="font-size:12px;color:#6B7280;margin-top:2px;">Pantalla exclusiva para cocina · estados de pedido · alerta si pasan 10 minutos</div>
       </div>
     </div>
-    </a>
 
-    <!-- PASO 2 -->
-    <a href="/cocina" style="text-decoration:none;">
-    <div style="background:white;border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(92,26,43,.08);border:2px solid #E8DDD0;transition:all .2s;" onmouseover="this.style.borderColor='#C8A951'" onmouseout="this.style.borderColor='#E8DDD0'">
-      <div style="background:linear-gradient(135deg,#5C1A2B,#7C2A3A);padding:14px 20px;display:flex;align-items:center;gap:14px;">
-        <div style="width:32px;height:32px;background:#C8A951;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#3D0F1C;font-weight:900;font-size:14px;flex-shrink:0;">2</div>
-        <div style="flex:1;"><strong style="color:white;">Cocina KDS</strong> <span style="font-size:11px;color:rgba(255,255,255,.6);margin-left:8px;">30 seg</span></div>
-        <span style="font-size:11px;font-weight:700;color:#C8A951;text-transform:uppercase;letter-spacing:.06em;">Abrir →</span>
-      </div>
-      <div style="padding:14px 20px;font-size:13px;color:#5A4A4F;line-height:1.6;">
-        <strong>Qué hacer:</strong> Clic en <em>Preparando</em> → luego <em>Listo</em>. Verás toast <em>"Inventario actualizado"</em>.<br>
-        <strong>Qué decir:</strong> <em>"Al marcar listo, el sistema descuenta automáticamente los ingredientes. Sin hoja de Excel."</em>
+    <div style="background:white;border:1px solid #E5E7EB;border-radius:12px;padding:16px;display:flex;gap:14px;align-items:center;">
+      <div style="font-size:28px;flex-shrink:0;">📦</div>
+      <div>
+        <div style="font-weight:700;color:#111827;font-size:14px;">Inventario automático</div>
+        <div style="font-size:12px;color:#6B7280;margin-top:2px;">25 ingredientes · 15 recetas · se descuenta solo cuando cocina marca "listo" · alerta de stock bajo</div>
       </div>
     </div>
-    </a>
 
-    <!-- PASO 3 -->
-    <a href="/mesero" style="text-decoration:none;">
-    <div style="background:white;border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(92,26,43,.08);border:2px solid #E8DDD0;transition:all .2s;" onmouseover="this.style.borderColor='#C8A951'" onmouseout="this.style.borderColor='#E8DDD0'">
-      <div style="background:linear-gradient(135deg,#5C1A2B,#7C2A3A);padding:14px 20px;display:flex;align-items:center;gap:14px;">
-        <div style="width:32px;height:32px;background:#C8A951;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#3D0F1C;font-weight:900;font-size:14px;flex-shrink:0;">3</div>
-        <div style="flex:1;"><strong style="color:white;">Cobro + Factura electrónica</strong> <span style="font-size:11px;color:rgba(255,255,255,.6);margin-left:8px;">30 seg</span></div>
-        <span style="font-size:11px;font-weight:700;color:#C8A951;text-transform:uppercase;letter-spacing:.06em;">Abrir →</span>
-      </div>
-      <div style="padding:14px 20px;font-size:13px;color:#5A4A4F;line-height:1.6;">
-        <strong>Qué hacer:</strong> Mesa 3 entregada → <em>Cobrar</em> → selecciona método pago → <em>Generar factura</em>.<br>
-        <strong>Qué decir:</strong> <em>"Factura electrónica DIAN con CUFE, IVA desglosado. Lo que Alegra cobra $150k/mes."</em>
+    <div style="background:white;border:1px solid #E5E7EB;border-radius:12px;padding:16px;display:flex;gap:14px;align-items:center;">
+      <div style="font-size:28px;flex-shrink:0;">🧾</div>
+      <div>
+        <div style="font-weight:700;color:#111827;font-size:14px;">Facturación electrónica</div>
+        <div style="font-size:12px;color:#6B7280;margin-top:2px;">IVA 19% automático · CUFE · imprimible · 3 métodos de pago: Efectivo, Tarjeta, Nequi</div>
       </div>
     </div>
-    </a>
 
-    <!-- PASO 4 -->
-    <a href="/admin" style="text-decoration:none;">
-    <div style="background:white;border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(92,26,43,.08);border:2px solid #E8DDD0;transition:all .2s;" onmouseover="this.style.borderColor='#C8A951'" onmouseout="this.style.borderColor='#E8DDD0'">
-      <div style="background:linear-gradient(135deg,#5C1A2B,#7C2A3A);padding:14px 20px;display:flex;align-items:center;gap:14px;">
-        <div style="width:32px;height:32px;background:#C8A951;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#3D0F1C;font-weight:900;font-size:14px;flex-shrink:0;">4</div>
-        <div style="flex:1;"><strong style="color:white;">Admin — el dinero en tiempo real</strong> <span style="font-size:11px;color:rgba(255,255,255,.6);margin-left:8px;">60 seg</span></div>
-        <span style="font-size:11px;font-weight:700;color:#C8A951;text-transform:uppercase;letter-spacing:.06em;">Abrir →</span>
+    <div style="background:white;border:1px solid #E5E7EB;border-radius:12px;padding:16px;display:flex;gap:14px;align-items:center;">
+      <div style="font-size:28px;flex-shrink:0;">📊</div>
+      <div>
+        <div style="font-weight:700;color:#111827;font-size:14px;">Contabilidad y cierre de día</div>
+        <div style="font-size:12px;color:#6B7280;margin-top:2px;">Ingresos · costos · margen · arqueo de caja · acta de cierre imprimible con firma</div>
       </div>
-      <div style="padding:16px 20px;font-size:13px;color:#5A4A4F;line-height:1.8;">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-          <div style="background:#F9F5EF;border-radius:8px;padding:10px;"><div style="font-weight:700;color:#5C1A2B;margin-bottom:2px;">Tab Inventario</div><div style="font-size:12px;color:#9CA3AF;">Stock decrementado · badge rojo críticos</div></div>
-          <div style="background:#F9F5EF;border-radius:8px;padding:10px;"><div style="font-weight:700;color:#5C1A2B;margin-bottom:2px;">Tab Facturación</div><div style="font-size:12px;color:#9CA3AF;">Factura recién generada con CUFE</div></div>
-          <div style="background:#F9F5EF;border-radius:8px;padding:10px;"><div style="font-weight:700;color:#5C1A2B;margin-bottom:2px;">Tab Contabilidad</div><div style="font-size:12px;color:#9CA3AF;">Ingresos · margen · movimientos</div></div>
-          <div style="background:#F9F5EF;border-radius:8px;padding:10px;"><div style="font-weight:700;color:#5C1A2B;margin-bottom:2px;">Tab Investors</div><div style="font-size:12px;color:#9CA3AF;">Gráfico 7 días · KPIs · tendencias</div></div>
+    </div>
+
+    <div style="background:white;border:1px solid #E5E7EB;border-radius:12px;padding:16px;display:flex;gap:14px;align-items:center;">
+      <div style="font-size:28px;flex-shrink:0;">📈</div>
+      <div>
+        <div style="font-weight:700;color:#111827;font-size:14px;">Dashboard para el dueño</div>
+        <div style="font-size:12px;color:#6B7280;margin-top:2px;">KPIs históricos · gráfico de ingresos · tendencias 7/30/90 días · ticket promedio</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DEMO EN VIVO -->
+  <h3 style="font-family:'Playfair Display',serif;color:#5C1A2B;font-size:20px;margin:0 0 16px;">Pruébelo ahora</h3>
+
+  <div style="display:grid;gap:10px;margin-bottom:28px;">
+
+    <a href="/mesero/" style="text-decoration:none;background:#FAF6EE;border:2px solid #C8A951;border-radius:12px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="font-size:24px;">🧑‍🍽️</div>
+        <div>
+          <div style="font-weight:700;color:#5C1A2B;font-size:14px;">Vista del Mesero</div>
+          <div style="font-size:12px;color:#9CA3AF;">Tomar pedidos, cobrar, generar factura</div>
         </div>
-        <div style="margin-top:10px;padding:10px;background:#FEF9EC;border-radius:8px;border-left:3px solid #C8A951;font-style:italic;color:#7C5A1E;">"Esto es lo que el dueño ve cada noche antes de irse a casa."</div>
       </div>
-    </div>
+      <div style="color:#C8A951;font-weight:bold;font-size:18px;">→</div>
     </a>
 
-    <!-- PASO 5 — CIERRE -->
-    <a href="/admin" style="text-decoration:none;">
-    <div style="background:white;border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(92,26,43,.08);border:2px solid #E8DDD0;transition:all .2s;" onmouseover="this.style.borderColor='#C8A951'" onmouseout="this.style.borderColor='#E8DDD0'">
-      <div style="background:linear-gradient(135deg,#5C1A2B,#7C2A3A);padding:14px 20px;display:flex;align-items:center;gap:14px;">
-        <div style="width:32px;height:32px;background:#C8A951;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#3D0F1C;font-weight:900;font-size:14px;flex-shrink:0;">5</div>
-        <div style="flex:1;"><strong style="color:white;">Cierre de día — el golpe final</strong> <span style="font-size:11px;color:rgba(255,255,255,.6);margin-left:8px;">30 seg</span></div>
-        <span style="font-size:11px;font-weight:700;color:#C8A951;text-transform:uppercase;letter-spacing:.06em;">Abrir →</span>
+    <a href="/cocina/" style="text-decoration:none;background:#FAF6EE;border:2px solid #E5E7EB;border-radius:12px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="font-size:24px;">👨‍🍳</div>
+        <div>
+          <div style="font-weight:700;color:#374151;font-size:14px;">Vista de Cocina</div>
+          <div style="font-size:12px;color:#9CA3AF;">Pedidos en tiempo real, gestión de estados</div>
+        </div>
       </div>
-      <div style="padding:14px 20px;font-size:13px;color:#5A4A4F;line-height:1.6;">
-        <strong>Qué hacer:</strong> Tab <em>Cierre</em> → escribe nombre → clic <em>Cerrar día</em> → modal muestra resumen → confirmar.<br>
-        <strong>Qué decir:</strong> <em>"Acta oficial con firma. El contador la recibe, el dueño la imprime. Listo. Buenas noches."</em>
-      </div>
-    </div>
+      <div style="color:#9CA3AF;font-size:18px;">→</div>
     </a>
 
-  </div>
-
-  <!-- MÓDULOS ACCESO RÁPIDO -->
-  <h2 style="font-family:'Playfair Display',serif;color:#5C1A2B;text-align:center;margin-bottom:24px;">Acceso directo a módulos</h2>
-  <div class="grid">
-
-    <a href="/" class="card">
-      <div class="card-h">
-        <div class="icon"><i class="bi bi-globe"></i></div>
-        <div><div class="tit">Landing comercial</div></div>
+    <a href="/admin/" style="text-decoration:none;background:#FAF6EE;border:2px solid #E5E7EB;border-radius:12px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="font-size:24px;">👔</div>
+        <div>
+          <div style="font-weight:700;color:#374151;font-size:14px;">Panel del Dueño</div>
+          <div style="font-size:12px;color:#9CA3AF;">Inventario, contabilidad, facturas, inversores</div>
+        </div>
       </div>
-      <div class="desc">Página principal del producto. Hero burgundy+gold premium · narrativa 5 actos · stats en vivo · mockup de KDS · CTA a demo.</div>
-      <span class="tag">Público</span>
-      <span class="visit">Visitar <i class="bi bi-arrow-right"></i></span>
-    </a>
-
-    <a href="/login" class="card">
-      <div class="card-h">
-        <div class="icon"><i class="bi bi-box-arrow-in-right"></i></div>
-        <div><div class="tit">Login · Selector de rol</div></div>
-      </div>
-      <div class="desc">Acceso directo sin contraseña (modo demo). Tres puertas de entrada: Mesero · Cocinero · Administrador.</div>
-      <span class="tag">Autenticación</span>
-      <span class="visit">Ingresar <i class="bi bi-arrow-right"></i></span>
-    </a>
-
-    <a href="/mesero" class="card">
-      <div class="card-h">
-        <div class="icon"><i class="bi bi-person-badge"></i></div>
-        <div><div class="tit">Panel del Mesero</div></div>
-      </div>
-      <div class="desc">Mapa visual de 12 mesas color-coded · modal de toma de orden con 4 categorías · carrito con totales · envío directo a cocina · gestión de cuenta.</div>
-      <span class="tag priv">Rol mesero</span>
-      <span class="visit">Operar <i class="bi bi-arrow-right"></i></span>
-    </a>
-
-    <a href="/cocina" class="card">
-      <div class="card-h">
-        <div class="icon"><i class="bi bi-fire"></i></div>
-        <div><div class="tit">Kitchen Display System</div></div>
-      </div>
-      <div class="desc">KDS de 3 columnas estilo Toast/Square: Pendientes → Preparando → Listos. Cards con cronómetro, alerta visual roja a los 10 min, refresh cada 3s.</div>
-      <span class="tag priv">Rol cocinero</span>
-      <span class="visit">Operar <i class="bi bi-arrow-right"></i></span>
-    </a>
-
-    <a href="/admin" class="card">
-      <div class="card-h">
-        <div class="icon"><i class="bi bi-graph-up-arrow"></i></div>
-        <div><div class="tit">Dashboard Admin V2</div></div>
-      </div>
-      <div class="desc">11 módulos: Dashboard · Platos · Mesas · Órdenes · Reportes · <strong>Inventario</strong> · <strong>Contabilidad</strong> · <strong>Facturación DIAN</strong> · <strong>Arqueo de caja</strong> · <strong>Cierre de día</strong> · <strong>Investors dashboard</strong>.</div>
-      <span class="tag priv">Rol admin</span>
-      <span class="visit">Gestionar <i class="bi bi-arrow-right"></i></span>
-    </a>
-
-    <a href="/menu" class="card">
-      <div class="card-h">
-        <div class="icon"><i class="bi bi-journal-richtext"></i></div>
-        <div><div class="tit">Carta Digital</div></div>
-      </div>
-      <div class="desc">Menú público con 4 categorías (entradas, fuertes, postres, bebidas). 15 platos colombianos con foto, descripción y precio. Listo para QR.</div>
-      <span class="tag">Público</span>
-      <span class="visit">Ver carta <i class="bi bi-arrow-right"></i></span>
+      <div style="color:#9CA3AF;font-size:18px;">→</div>
     </a>
 
   </div>
 
-  <!-- STACK -->
-  <div class="stack">
-    <h3>Stack técnico</h3>
-    <p style="margin:0;color:var(--charcoal-2);font-size:14px">Sin frameworks pesados. Web nativa que carga en milisegundos y corre en cualquier dispositivo.</p>
-    <div class="stack-pills">
-      <span class="stack-pill">HTML5</span>
-      <span class="stack-pill">CSS3 Vanilla</span>
-      <span class="stack-pill">JavaScript ES6+</span>
-      <span class="stack-pill">Bootstrap 5.3</span>
-      <span class="stack-pill">Bootstrap Icons</span>
-      <span class="stack-pill">Inter + Playfair Display</span>
-      <span class="stack-pill">Supabase (PostgreSQL + Auth + Realtime)</span>
-      <span class="stack-pill">Netlify (CI/CD)</span>
+  <!-- CTA CONTACTO -->
+  <div style="background:#5C1A2B;border-radius:16px;padding:24px;text-align:center;color:white;">
+    <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:bold;margin-bottom:8px;">
+      ¿Le interesa para su restaurante?
+    </div>
+    <div style="font-size:13px;opacity:.8;margin-bottom:20px;line-height:1.6;">
+      Hacemos la implementación completa con sus datos reales.<br>
+      Menú propio · equipo configurado · listo en 48 horas.
+    </div>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+      <a href="https://wa.me/573XXXXXXXXX?text=Hola,%20vi%20Mesaio%20y%20me%20interesa%20para%20mi%20restaurante"
+        style="padding:12px 24px;background:#25D366;color:white;border-radius:8px;text-decoration:none;font-weight:700;font-size:14px;display:inline-flex;align-items:center;gap:8px;">
+        💬 WhatsApp
+      </a>
+      <a href="mailto:contacto@mesaio.co?subject=Quiero%20Mesaio%20para%20mi%20restaurante"
+        style="padding:12px 24px;background:rgba(255,255,255,.15);color:white;border:1px solid rgba(255,255,255,.3);border-radius:8px;text-decoration:none;font-weight:700;font-size:14px;">
+        ✉️ Email
+      </a>
+    </div>
+    <div style="font-size:11px;opacity:.5;margin-top:16px;">
+      Mesaio · Sistema de gestión profesional para restaurantes colombianos
     </div>
   </div>
 
   <div class="footer-mini">
-    <strong>Mesaio</strong> · Hackathon 2026 · Hecho con ❤️ en Colombia<br>
-    Repo: <a href="https://github.com/HernandoSilvaLeal/c8_mesaio" target="_blank" style="color:var(--burgundy)">github.com/HernandoSilvaLeal/c8_mesaio</a>
+    <a href="https://github.com/HernandoSilvaLeal/c8_mesaio" target="_blank">Ver repositorio</a>
   </div>
-</div>
+
+</main>
 </body>
 </html>
