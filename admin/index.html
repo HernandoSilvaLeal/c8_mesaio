@@ -20,6 +20,7 @@
   .live-pill{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:50px;background:rgba(76,175,80,.15);border:1px solid rgba(76,175,80,.4);color:#8DD491;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.08em;margin-right:12px}
   .live-pill .pulse{width:8px;height:8px;border-radius:50%;background:#8DD491;animation:livePulse 1.5s infinite}
   @keyframes livePulse{0%,100%{opacity:1}50%{opacity:.4}}
+  @keyframes alertPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
   .out{background:transparent;border:1px solid rgba(255,255,255,.3);color:white;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;text-decoration:none}
   .wrap{max-width:1280px;margin:0 auto;padding:24px 18px}
   .tabs{display:flex;gap:4px;background:white;border-radius:12px;padding:4px;box-shadow:var(--shadow);margin-bottom:24px;flex-wrap:wrap}
@@ -62,6 +63,10 @@
   </div>
   <div style="display:flex;align-items:center">
     <span class="live-pill"><span class="pulse"></span> Sincronizado</span>
+    <div id="headerAlertaStock" onclick="irAInventario()" style="display:none;align-items:center;gap:6px;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.4);border-radius:20px;padding:5px 12px;cursor:pointer;margin-right:10px;">
+      <span style="width:8px;height:8px;background:#EF4444;border-radius:50%;display:inline-block;animation:alertPulse 1.5s infinite;"></span>
+      <span id="headerAlertaTexto" style="font-size:12px;color:#EF4444;font-weight:600;"></span>
+    </div>
     <a href="../login.html" class="out"><i class="bi bi-box-arrow-right"></i> Salir</a>
   </div>
 </div>
@@ -383,6 +388,10 @@
         <div id="invTrendOrdenes" style="font-size:10px;color:#9CA3AF;margin-top:2px;">-</div>
       </div>
     </div>
+    <div style="background:white;border-radius:12px;padding:20px;margin-bottom:24px;border:1px solid #E5E7EB;">
+      <h5 style="margin:0 0 16px;color:#5C1A2B;font-family:'Playfair Display',serif;">Ingresos diarios</h5>
+      <canvas id="graficoIngresos" width="700" height="200" style="width:100%;height:auto;"></canvas>
+    </div>
     <h5>Hoy vs promedio del período</h5>
     <div style="overflow-x:auto;">
       <table style="width:100%;border-collapse:collapse;font-size:12px;">
@@ -578,13 +587,42 @@ function cargarInventario() {
   }).join('');
 }
 
+let reponerIngredienteId = null;
+
 function refillIngrediente(id) {
-  const qty = parseFloat(prompt('¿Cuánto reponer?', '100'));
-  if (isNaN(qty) || qty <= 0) return;
-  MESAIO.updateStock(id, qty);
-  MESAIO.toast('Stock actualizado', 'ok');
+  const ing = MESAIO.getIngredientes().find(i => i.id === id);
+  if (!ing) return;
+  reponerIngredienteId = id;
+  document.getElementById('reponerNombre').textContent = ing.nombre + ' · ' + ing.unidad;
+  document.getElementById('reponerStockActual').textContent = ing.stock + ' ' + ing.unidad;
+  document.getElementById('reponerStockMinimo').textContent = 'Mín: ' + ing.stock_minimo + ' ' + ing.unidad;
+  const sugerido = Math.max(50, (ing.stock_minimo * 2) - ing.stock);
+  document.getElementById('reponerCantidad').value = sugerido;
+  document.getElementById('modalReponer').style.display = 'flex';
+}
+
+function ajustarCantidadReponer(delta) {
+  const input = document.getElementById('reponerCantidad');
+  input.value = Math.max(1, parseInt(input.value || 0) + delta);
+}
+
+function cerrarModalReponer() {
+  document.getElementById('modalReponer').style.display = 'none';
+  reponerIngredienteId = null;
+}
+
+function confirmarReponer() {
+  if (!reponerIngredienteId) return;
+  const cantidad = parseInt(document.getElementById('reponerCantidad').value);
+  if (!cantidad || cantidad < 1) { MESAIO.toast('Ingresa una cantidad válida', 'err'); return; }
+  MESAIO.updateStock(reponerIngredienteId, cantidad);
+  MESAIO.toast('✓ Stock repuesto exitosamente', 'ok');
+  cerrarModalReponer();
+  actualizarAlertasHeader();
   cargarInventario();
 }
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarModalReponer(); });
 
 // ── V2 CONTABILIDAD ───────────────────────────────────────
 function cargarContabilidad() {
@@ -823,6 +861,9 @@ function cargarInvestors() {
       <td style="text-align:center;">${d.ordenes}</td>
     </tr>`;
   }).join('');
+  // Gráfico siempre últimos 7 días sin importar el período seleccionado
+  const porDia7 = MESAIO.getAnaliticssPorDia(7);
+  dibujarGrafico(porDia7);
 }
 
 function cambiarPeriodoInvestors(dias) {
@@ -832,6 +873,78 @@ function cambiarPeriodoInvestors(dias) {
     b.style.color = b.dataset.dias == dias ? 'white' : '#5C1A2B';
   });
   cargarInvestors();
+}
+
+function actualizarAlertasHeader() {
+  const alertas = MESAIO.getAlertasStock();
+  const badge = document.getElementById('headerAlertaStock');
+  const texto = document.getElementById('headerAlertaTexto');
+  if (!badge) return;
+  if (alertas.length > 0) {
+    badge.style.display = 'flex';
+    texto.textContent = alertas.length + ' ingrediente' + (alertas.length > 1 ? 's' : '') + ' crítico' + (alertas.length > 1 ? 's' : '');
+  } else {
+    badge.style.display = 'none';
+  }
+}
+
+function irAInventario() {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
+  const tabInv = document.querySelector('[data-pane="inventario"]');
+  if (tabInv) { tabInv.classList.add('active'); document.getElementById('pane-inventario').classList.add('active'); cargarInventario(); }
+}
+
+function dibujarGrafico(datos) {
+  const canvas = document.getElementById('graficoIngresos');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const pad = { top:20, right:20, bottom:50, left:70 };
+  ctx.clearRect(0, 0, W, H);
+  if (!datos || datos.length === 0) return;
+  const maxVal = Math.max(...datos.map(d => d.ingresos), 1);
+  const barW = Math.floor((W - pad.left - pad.right) / datos.length) - 10;
+  const chartH = H - pad.top - pad.bottom;
+  ctx.strokeStyle = '#F3F4F6'; ctx.lineWidth = 1;
+  for (let i = 0; i <= 4; i++) {
+    const y = pad.top + (chartH / 4) * i;
+    ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(W - pad.right, y); ctx.stroke();
+    const val = maxVal - (maxVal / 4) * i;
+    ctx.fillStyle = '#9CA3AF'; ctx.font = '11px Inter,sans-serif'; ctx.textAlign = 'right';
+    ctx.fillText('$' + (val >= 1000 ? (val/1000).toFixed(0)+'K' : val.toFixed(0)), pad.left - 8, y + 4);
+  }
+  datos.forEach((d, i) => {
+    const barH = Math.max(2, (d.ingresos / maxVal) * chartH);
+    const x = pad.left + i * (barW + 10);
+    const y = pad.top + chartH - barH;
+    const grad = ctx.createLinearGradient(0, y, 0, y + barH);
+    grad.addColorStop(0, '#7C2A3A'); grad.addColorStop(1, '#5C1A2B');
+    ctx.fillStyle = grad;
+    if (ctx.roundRect) { ctx.beginPath(); ctx.roundRect(x, y, barW, barH, [4,4,0,0]); ctx.fill(); }
+    else { ctx.fillRect(x, y, barW, barH); }
+    if (d.ingresos > 0) {
+      ctx.fillStyle = '#5C1A2B'; ctx.font = 'bold 10px Inter,sans-serif'; ctx.textAlign = 'center';
+      const lbl = d.ingresos >= 1000000 ? '$'+(d.ingresos/1000000).toFixed(1)+'M' : '$'+(d.ingresos/1000).toFixed(0)+'K';
+      ctx.fillText(lbl, x + barW/2, y - 6);
+    }
+    ctx.fillStyle = '#6B7280'; ctx.font = '10px Inter,sans-serif'; ctx.textAlign = 'center';
+    const partes = d.fecha ? d.fecha.split('/') : [d.fecha];
+    ctx.fillText(partes.length >= 2 ? partes[0]+'/'+partes[1] : d.fecha, x + barW/2, H - pad.bottom + 18);
+  });
+  ctx.beginPath(); ctx.strokeStyle = '#C8A951'; ctx.lineWidth = 2; ctx.setLineDash([4,3]);
+  datos.forEach((d, i) => {
+    const ganH = Math.max(0, ((d.ganancia||0) / maxVal) * chartH);
+    const x = pad.left + i * (barW+10) + barW/2;
+    const y = pad.top + chartH - ganH;
+    if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+  });
+  ctx.stroke(); ctx.setLineDash([]);
+  ctx.fillStyle = '#5C1A2B'; ctx.fillRect(W-130, 8, 12, 12);
+  ctx.fillStyle = '#6B7280'; ctx.font = '11px Inter,sans-serif'; ctx.textAlign = 'left'; ctx.fillText('Ingresos', W-114, 19);
+  ctx.strokeStyle = '#C8A951'; ctx.lineWidth = 2; ctx.setLineDash([4,3]);
+  ctx.beginPath(); ctx.moveTo(W-130,30); ctx.lineTo(W-118,30); ctx.stroke(); ctx.setLineDash([]);
+  ctx.fillStyle = '#6B7280'; ctx.fillText('Ganancia', W-114, 34);
 }
 
 function cargarDemo() {
@@ -863,6 +976,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (MESAIO.getFacturas().length === 0) {
     document.getElementById('btnDemoContainer').style.display = 'block';
   }
+  actualizarAlertasHeader();
+  setInterval(actualizarAlertasHeader, 30000);
   await cargarDashboard();
   setInterval(() => {
     const active = document.querySelector('.tab.active')?.dataset.pane || 'dashboard';
@@ -876,5 +991,34 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 });
 </script>
+<!-- MODAL REPOSICIÓN -->
+<div id="modalReponer" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:#FAF6EE;border-radius:16px;padding:28px;width:340px;max-width:94vw;border:2px solid #5C1A2B;box-shadow:0 20px 60px rgba(92,26,43,0.3);">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+      <div style="background:#5C1A2B;border-radius:10px;padding:8px;display:flex;"><svg width="20" height="20" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg></div>
+      <div><h4 style="margin:0;color:#5C1A2B;font-family:'Playfair Display',serif;">Reponer stock</h4><p id="reponerNombre" style="margin:0;font-size:12px;color:#9CA3AF;"></p></div>
+    </div>
+    <div style="background:white;border-radius:10px;padding:14px;margin-bottom:16px;border:1px solid #E5E7EB;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:12px;color:#9CA3AF;">Stock actual</span><span id="reponerStockActual" style="font-size:12px;font-weight:bold;color:#5C1A2B;"></span></div>
+      <div style="display:flex;justify-content:space-between;"><span style="font-size:12px;color:#9CA3AF;">Mínimo</span><span id="reponerStockMinimo" style="font-size:12px;color:#9CA3AF;"></span></div>
+    </div>
+    <label style="font-size:13px;font-weight:600;color:#374151;display:block;margin-bottom:8px;">Cantidad a agregar:</label>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+      <button onclick="ajustarCantidadReponer(-10)" style="width:36px;height:36px;background:#F3F4F6;border:1px solid #ddd;border-radius:8px;cursor:pointer;font-size:16px;font-weight:bold;">−</button>
+      <input type="number" id="reponerCantidad" value="100" min="1" style="flex:1;padding:8px 12px;border:2px solid #C8A951;border-radius:8px;font-size:16px;font-weight:bold;text-align:center;color:#5C1A2B;background:white;outline:none;">
+      <button onclick="ajustarCantidadReponer(10)" style="width:36px;height:36px;background:#F3F4F6;border:1px solid #ddd;border-radius:8px;cursor:pointer;font-size:16px;font-weight:bold;">+</button>
+    </div>
+    <div style="display:flex;gap:6px;margin-bottom:20px;">
+      <button onclick="document.getElementById('reponerCantidad').value=50" style="flex:1;padding:6px;background:white;border:1px solid #ddd;border-radius:6px;cursor:pointer;font-size:12px;color:#6B7280;">+50</button>
+      <button onclick="document.getElementById('reponerCantidad').value=100" style="flex:1;padding:6px;background:white;border:1px solid #ddd;border-radius:6px;cursor:pointer;font-size:12px;color:#6B7280;">+100</button>
+      <button onclick="document.getElementById('reponerCantidad').value=500" style="flex:1;padding:6px;background:white;border:1px solid #ddd;border-radius:6px;cursor:pointer;font-size:12px;color:#6B7280;">+500</button>
+      <button onclick="document.getElementById('reponerCantidad').value=1000" style="flex:1;padding:6px;background:white;border:1px solid #ddd;border-radius:6px;cursor:pointer;font-size:12px;color:#6B7280;">+1000</button>
+    </div>
+    <div style="display:flex;gap:8px;">
+      <button onclick="cerrarModalReponer()" style="flex:1;padding:11px;background:white;border:2px solid #ddd;border-radius:8px;cursor:pointer;font-weight:600;color:#6B7280;">Cancelar</button>
+      <button onclick="confirmarReponer()" style="flex:2;padding:11px;background:#5C1A2B;color:white;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:14px;">✓ Reponer stock</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
