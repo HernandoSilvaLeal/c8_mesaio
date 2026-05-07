@@ -481,6 +481,92 @@ const MESAIO = {
     this.initV2();
   },
 
+  cargarDemoData() {
+    const hoy = new Date();
+    const movimientos = [];
+    const facturas = [];
+    const arqueos = [];
+    const cierres = [];
+    const meseros = ['Carlos M.', 'Diana R.', 'Felipe T.'];
+    const platosDemo = [
+      { nombre:'Bandeja paisa', precio:42000 },
+      { nombre:'Ajiaco santafereño', precio:38000 },
+      { nombre:'Mojarra frita', precio:55000 },
+      { nombre:'Sancocho trifásico', precio:45000 },
+      { nombre:'Limonada de coco', precio:12000 }
+    ];
+    let facturaCounter = 0;
+    let movCounter = 0;
+    for (let dia = 6; dia >= 0; dia--) {
+      const fecha = new Date(hoy);
+      fecha.setDate(fecha.getDate() - dia);
+      const numOrdenes = 8 + Math.floor(Math.random() * 8);
+      let ingresosDelDia = 0;
+      let costosDelDia = 0;
+      for (let i = 0; i < numOrdenes; i++) {
+        const plato = platosDemo[Math.floor(Math.random() * platosDemo.length)];
+        const cantidad = 1 + Math.floor(Math.random() * 3);
+        const extras = platosDemo[Math.floor(Math.random() * platosDemo.length)];
+        const subtotal = (plato.precio * cantidad) + extras.precio;
+        const iva = Math.round(subtotal * 0.19);
+        const total = subtotal + iva;
+        const costo = Math.round(total * 0.22);
+        facturaCounter++;
+        const hora = new Date(fecha);
+        hora.setHours(11 + Math.floor(Math.random() * 9));
+        hora.setMinutes(Math.floor(Math.random() * 60));
+        const mesaId = 1 + Math.floor(Math.random() * 12);
+        facturas.push({
+          id: facturaCounter,
+          numero: facturaCounter,
+          orden_id: facturaCounter,
+          mesa_id: mesaId,
+          mesero_nombre: meseros[Math.floor(Math.random() * meseros.length)],
+          items: [
+            { plato_nombre: plato.nombre, cantidad, precio_unitario: plato.precio, subtotal: plato.precio * cantidad },
+            { plato_nombre: extras.nombre, cantidad: 1, precio_unitario: extras.precio, subtotal: extras.precio }
+          ],
+          subtotal_sin_iva: subtotal,
+          iva,
+          propina: 0,
+          total,
+          metodo_pago: ['efectivo','tarjeta','nequi'][Math.floor(Math.random() * 3)],
+          cufe: String(Math.floor(Math.random() * 1e12)).padStart(12,'0'),
+          cliente_nombre: 'Consumidor Final',
+          created_at: hora.toISOString()
+        });
+        movCounter++;
+        movimientos.push({ id: movCounter, tipo: 'venta', monto: total, descripcion: `Factura #${String(facturaCounter).padStart(6,'0')} · Mesa ${mesaId}`, orden_id: facturaCounter, created_at: hora.toISOString() });
+        movCounter++;
+        movimientos.push({ id: movCounter, tipo: 'gasto', monto: costo, descripcion: `Costo ingredientes Fac #${String(facturaCounter).padStart(6,'0')}`, orden_id: facturaCounter, created_at: hora.toISOString() });
+        ingresosDelDia += total;
+        costosDelDia += costo;
+      }
+      const disc = Math.floor(Math.random() * 5000) - 2000;
+      arqueos.push({ id: arqueos.length + 1, esperado: ingresosDelDia, reportado: ingresosDelDia + disc, discrepancia: disc, created_at: new Date(fecha.setHours(21,0,0)).toISOString() });
+      if (dia > 0) {
+        const neto = ingresosDelDia - costosDelDia;
+        cierres.push({ id: cierres.length + 1, fecha: new Date(fecha).toISOString().slice(0,10), responsable: ['Hernando S.','Diana R.','Carlos M.'][Math.floor(Math.random()*3)], notas: dia === 3 ? 'Alto tráfico, se agotó chicharrón' : '', ingresos: ingresosDelDia, costos: costosDelDia, neto, ordenes_count: numOrdenes, facturas_count: numOrdenes, movimientos_count: numOrdenes * 2, created_at: new Date(fecha.setHours(22,30,0)).toISOString(), cerrado: true });
+      }
+    }
+    // Stock bajo para demo visual
+    const ings = this.getIngredientes();
+    if (ings.length >= 12) {
+      ings[0].stock = 3200;
+      ings[1].stock = 1800;
+      ings[2].stock = 1200;
+      ings[5].stock = 2;
+      ings[8].stock = 12;
+      localStorage.setItem('mesaio_ingredientes', JSON.stringify(ings));
+    }
+    localStorage.setItem('mesaio_facturas', JSON.stringify(facturas));
+    localStorage.setItem('mesaio_factura_counter', String(facturaCounter));
+    localStorage.setItem('mesaio_movimientos', JSON.stringify(movimientos));
+    localStorage.setItem('mesaio_arqueos', JSON.stringify(arqueos));
+    localStorage.setItem('mesaio_cierres', JSON.stringify(cierres));
+    return { facturas: facturas.length, movimientos: movimientos.length, arqueos: arqueos.length, cierres: cierres.length };
+  },
+
   // ══════════════════════════════════════════════════════════
   // V2 — ARQUEO
   // ══════════════════════════════════════════════════════════

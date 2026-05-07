@@ -83,6 +83,11 @@
 
   <!-- DASHBOARD -->
   <div class="pane active" id="pane-dashboard">
+    <div id="btnDemoContainer" style="display:none;text-align:center;padding:20px;background:#FFF9E6;border:2px dashed #C8A951;border-radius:12px;margin-bottom:20px;">
+      <p style="margin:0 0 8px;color:#5C1A2B;font-weight:bold;">🎭 Sin datos de demo</p>
+      <p style="margin:0 0 12px;font-size:13px;color:#9CA3AF;">Carga 7 días de operación simulada para ver el sistema en acción</p>
+      <button onclick="cargarDemo()" style="padding:12px 24px;background:#C8A951;color:white;border:none;border-radius:8px;font-weight:bold;font-size:15px;cursor:pointer;">🚀 Cargar datos de demo (7 días)</button>
+    </div>
     <div class="stats-row">
       <div class="stat-card"><div class="lbl">Ventas hoy</div><div class="v" id="dash-ventas">$0</div><div class="delta"><i class="bi bi-arrow-up-short"></i> Tiempo real</div></div>
       <div class="stat-card"><div class="lbl">Órdenes activas</div><div class="v" id="dash-activas">0</div><div class="delta"><i class="bi bi-clock"></i> En cocina o esperando</div></div>
@@ -784,11 +789,13 @@ function cargarInvestors() {
   const promIngresos = _invPeriodo > 0 ? data.ingresos_total / _invPeriodo : 0;
   const promGanancia = _invPeriodo > 0 ? data.ganancia_total / _invPeriodo : 0;
   const promOrdenes = _invPeriodo > 0 ? (data.ordenes_total || 0) / _invPeriodo : 0;
-  function variacion(hoyVal, promVal) {
-    if (promVal === 0) return '<span style="color:#9CA3AF;">—</span>';
-    const pct = Math.round(((hoyVal - promVal) / promVal) * 100);
+  function calcVariacion(hoy, prom) {
+    if (isNaN(hoy) || hoy === undefined) hoy = 0;
+    if (isNaN(prom) || prom === undefined) prom = 0;
+    if (prom === 0) return hoy > 0 ? '<span style="color:#10B981;font-weight:700;">📈 Nuevo</span>' : '<span style="color:#9CA3AF;">—</span>';
+    const pct = ((hoy - prom) / prom * 100).toFixed(0);
     const color = pct >= 0 ? '#10B981' : '#EF4444';
-    return `<span style="color:${color};font-weight:700;">${pct >= 0 ? '+' : ''}${pct}%</span>`;
+    return `<span style="color:${color};font-weight:700;">${pct > 0 ? '+' : ''}${pct}%</span>`;
   }
   const comparativa = [
     ['Ingresos', hoy.ingresos, promIngresos],
@@ -797,9 +804,9 @@ function cargarInvestors() {
   ];
   document.getElementById('invComparativaGrid').innerHTML = comparativa.map(([label, h, p]) => `<tr>
     <td><strong>${label}</strong></td>
-    <td style="text-align:right;">${typeof h === 'number' && h > 100 ? MESAIO.fmtCOP(h) : h}</td>
-    <td style="text-align:right;">${typeof p === 'number' && p > 100 ? MESAIO.fmtCOP(p) : Math.round(p)}</td>
-    <td style="text-align:center;">${variacion(h, p)}</td>
+    <td style="text-align:right;">${typeof h === 'number' && h >= 100 ? MESAIO.fmtCOP(h) : (h || 0)}</td>
+    <td style="text-align:right;">${typeof p === 'number' && p >= 100 ? MESAIO.fmtCOP(p) : Math.round(p || 0)}</td>
+    <td style="text-align:center;">${calcVariacion(h, p)}</td>
   </tr>`).join('');
 
   const porDia = MESAIO.getAnaliticssPorDia(_invPeriodo);
@@ -827,6 +834,15 @@ function cambiarPeriodoInvestors(dias) {
   cargarInvestors();
 }
 
+function cargarDemo() {
+  const resultado = MESAIO.cargarDemoData();
+  MESAIO.toast(`✓ Demo: ${resultado.facturas} facturas, ${resultado.movimientos} movs, ${resultado.cierres} cierres`, 'ok');
+  document.getElementById('btnDemoContainer').style.display = 'none';
+  const activo = document.querySelector('.tab.active')?.dataset?.pane || 'dashboard';
+  const map = { dashboard: cargarDashboard, platos: cargarPlatos, mesas: cargarMesas, ordenes: cargarOrdenes, reportes: cargarReportes, inventario: cargarInventario, contabilidad: cargarContabilidad, facturacion: cargarFacturacion, arqueo: cargarArqueo, cierre: cargarCierre, investors: cargarInvestors };
+  if (map[activo]) map[activo]();
+}
+
 // Tab switching
 document.querySelectorAll('.tab').forEach(tab => {
   tab.addEventListener('click', function(e) {
@@ -844,6 +860,9 @@ document.querySelectorAll('.tab').forEach(tab => {
 
 document.addEventListener('DOMContentLoaded', async () => {
   await MESAIO.initAppV2();
+  if (MESAIO.getFacturas().length === 0) {
+    document.getElementById('btnDemoContainer').style.display = 'block';
+  }
   await cargarDashboard();
   setInterval(() => {
     const active = document.querySelector('.tab.active')?.dataset.pane || 'dashboard';
