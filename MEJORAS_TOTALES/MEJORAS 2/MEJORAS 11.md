@@ -1,0 +1,1300 @@
+# SPEC v3.0 ÉLITE — LANDING LUXURY MESAIO
+## Instrucción para Claude Code: Reemplazar COMPLETO el body de index.html
+
+---
+
+## STEP 0 — AGREGAR EN <head> (antes de </head>):
+
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════════════ */
+:root {
+  --ink:       #0A0604;
+  --ink-2:     #1A0F0A;
+  --burgundy:  #5C1A2B;
+  --burg-mid:  #7C2A3A;
+  --gold:      #C8A951;
+  --gold-hi:   #E2C46A;
+  --gold-lo:   rgba(200,169,81,0.12);
+  --cream:     #FAF6EE;
+  --cream-2:   #F0E8D8;
+  --muted:     #8A7A6A;
+  --white:     #FFFFFF;
+
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans:  'DM Sans', system-ui, sans-serif;
+
+  --ease-out: cubic-bezier(0.16,1,0.3,1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  background: var(--cream);
+  color: var(--ink);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ═══════════════════════════════════════════════
+   UTILIDADES
+═══════════════════════════════════════════════ */
+.serif { font-family: var(--serif); }
+.overline {
+  font-family: var(--sans); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold);
+}
+.container     { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+.container-sm  { max-width: 760px;  margin: 0 auto; padding: 0 40px; }
+
+/* ═══════════════════════════════════════════════
+   ANIMACIONES
+═══════════════════════════════════════════════ */
+@keyframes fadeUp   { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeIn   { from{opacity:0} to{opacity:1} }
+@keyframes shimmer  { 0%,100%{opacity:.6} 50%{opacity:1} }
+@keyframes tickerL  { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+@keyframes blink    { 0%,100%{opacity:1} 50%{opacity:.3} }
+@keyframes borderGlow {
+  0%,100% { box-shadow: 0 0 0 0 rgba(200,169,81,0); }
+  50%     { box-shadow: 0 0 30px 4px rgba(200,169,81,0.25); }
+}
+.ao { opacity:0; transform:translateY(24px); transition:opacity .7s var(--ease-out),transform .7s var(--ease-out); }
+.ao.visible { opacity:1; transform:none; }
+.ao-d1 { transition-delay:.1s } .ao-d2 { transition-delay:.2s }
+.ao-d3 { transition-delay:.3s } .ao-d4 { transition-delay:.4s }
+
+/* ═══════════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════════ */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: 68px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px;
+  transition: background .4s, border-color .4s;
+  border-bottom: 1px solid transparent;
+}
+.nav.scrolled {
+  background: rgba(250,246,238,0.94);
+  backdrop-filter: blur(16px) saturate(180%);
+  border-color: rgba(92,26,43,0.08);
+}
+.nav-logo {
+  font-family: var(--serif); font-size: 24px; font-weight: 600;
+  color: var(--cream); text-decoration: none; letter-spacing: .04em;
+  transition: color .3s;
+}
+.nav.scrolled .nav-logo { color: var(--burgundy); }
+.nav-links {
+  display: flex; gap: 36px; list-style: none;
+}
+.nav-links a {
+  font-size: 13px; font-weight: 500; letter-spacing: .02em;
+  color: rgba(250,246,238,0.7); text-decoration: none;
+  transition: color .2s;
+}
+.nav.scrolled .nav-links a { color: var(--muted); }
+.nav-links a:hover { color: var(--gold) !important; }
+.nav-cta {
+  background: var(--gold); color: var(--ink);
+  padding: 10px 24px; border-radius: 2px;
+  font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  text-decoration: none; border: none; cursor: pointer;
+  transition: background .2s, transform .2s;
+}
+.nav-cta:hover { background: var(--gold-hi); transform: translateY(-1px); }
+
+/* ═══════════════════════════════════════════════
+   HERO — FULLSCREEN LUXURY
+═══════════════════════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  background: linear-gradient(160deg, #0A0604 0%, #1A0A0F 45%, var(--burgundy) 100%);
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0; align-items: stretch;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(ellipse 60% 50% at 70% 50%, rgba(200,169,81,0.06) 0%, transparent 70%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+.hero-left {
+  padding: 140px 64px 80px 64px;
+  display: flex; flex-direction: column; justify-content: center;
+  position: relative; z-index: 1;
+}
+.hero-pretitle {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 28px;
+}
+.hero-pretitle-line { width: 32px; height: 1px; background: var(--gold); }
+.hero-pretitle-text { font-size: 10px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); }
+.hero h1 {
+  font-family: var(--serif); font-size: clamp(44px, 5.5vw, 72px);
+  font-weight: 300; line-height: 1.08; color: var(--cream);
+  margin-bottom: 28px; letter-spacing: -.01em;
+}
+.hero h1 strong { font-weight: 600; font-style: italic; color: var(--gold); }
+.hero-sub {
+  font-size: 16px; font-weight: 300; line-height: 1.8;
+  color: rgba(250,246,238,0.6); max-width: 440px; margin-bottom: 48px;
+}
+.hero-sub b { color: var(--cream); font-weight: 500; }
+.hero-actions { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+.btn-hero-primary {
+  background: var(--gold); color: var(--ink);
+  padding: 15px 36px; border-radius: 2px;
+  font-family: var(--sans); font-size: 12px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  text-decoration: none; border: none; cursor: pointer;
+  transition: all .25s var(--ease-out);
+  display: inline-flex; align-items: center; gap: 10px;
+}
+.btn-hero-primary:hover { background: var(--gold-hi); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(200,169,81,0.35); }
+.btn-hero-ghost {
+  background: transparent; color: rgba(250,246,238,0.7);
+  padding: 15px 28px; border-radius: 2px;
+  font-family: var(--sans); font-size: 12px; font-weight: 500;
+  letter-spacing: .08em; text-transform: uppercase;
+  text-decoration: none; border: 1px solid rgba(250,246,238,0.2); cursor: pointer;
+  transition: all .25s;
+}
+.btn-hero-ghost:hover { color: var(--gold); border-color: var(--gold); }
+.hero-stats {
+  display: flex; gap: 40px; margin-top: 64px; padding-top: 40px;
+  border-top: 1px solid rgba(250,246,238,0.08);
+}
+.hero-stat-num {
+  font-family: var(--serif); font-size: 36px; font-weight: 600; color: var(--gold);
+  line-height: 1;
+}
+.hero-stat-label { font-size: 11px; color: rgba(250,246,238,0.4); margin-top: 6px; letter-spacing: .04em; }
+
+/* HERO RIGHT — KDS PANEL */
+.hero-right {
+  background: rgba(255,255,255,0.03);
+  border-left: 1px solid rgba(255,255,255,0.06);
+  padding: 140px 48px 80px 48px;
+  display: flex; flex-direction: column; justify-content: center;
+  position: relative; z-index: 1;
+}
+.kds-panel {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(200,169,81,0.2);
+  border-radius: 4px; overflow: hidden;
+}
+.kds-panel-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(200,169,81,0.15);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.kds-panel-title { font-size: 10px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); }
+.kds-live { display: flex; align-items: center; gap: 6px; font-size: 10px; color: rgba(250,246,238,0.4); }
+.kds-live-dot { width: 6px; height: 6px; background: #10B981; border-radius: 50%; animation: blink 2s infinite; }
+.kds-order {
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 12px; align-items: center;
+  transition: background .2s;
+}
+.kds-order:hover { background: rgba(255,255,255,0.02); }
+.kds-order:last-child { border: none; }
+.kds-order-mesa { font-size: 12px; font-weight: 600; color: var(--cream); letter-spacing: .04em; }
+.kds-order-items { font-size: 11px; color: rgba(250,246,238,0.45); margin-top: 3px; }
+.kds-order-time { font-size: 10px; color: rgba(250,246,238,0.3); margin-top: 2px; }
+.badge { padding: 3px 10px; border-radius: 2px; font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+.badge-listo  { background: rgba(16,185,129,0.15); color: #10B981; border: 1px solid rgba(16,185,129,0.3); }
+.badge-prep   { background: rgba(200,169,81,0.12); color: var(--gold); border: 1px solid rgba(200,169,81,0.3); }
+.badge-pend   { background: rgba(255,255,255,0.04); color: rgba(250,246,238,0.35); border: 1px solid rgba(255,255,255,0.08); }
+.badge-urgent { background: rgba(239,68,68,0.15); color: #EF4444; border: 1px solid rgba(239,68,68,0.3); animation: shimmer 1.5s infinite; }
+.kds-footer {
+  padding: 12px 20px; border-top: 1px solid rgba(200,169,81,0.1);
+  display: flex; align-items: center; gap: 8px;
+  font-size: 10px; color: rgba(200,169,81,0.6);
+}
+
+/* ═══════════════════════════════════════════════
+   TICKER
+═══════════════════════════════════════════════ */
+.ticker {
+  background: var(--gold); padding: 12px 0; overflow: hidden;
+  display: flex;
+}
+.ticker-track {
+  display: flex; gap: 0;
+  animation: tickerL 30s linear infinite;
+  width: max-content;
+}
+.ticker-item {
+  display: flex; align-items: center; gap: 24px;
+  padding: 0 32px; font-size: 11px; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink); white-space: nowrap;
+}
+.ticker-sep { color: rgba(0,0,0,0.3); }
+
+/* ═══════════════════════════════════════════════
+   SECCIÓN: EL PROBLEMA
+═══════════════════════════════════════════════ */
+.problema {
+  padding: 120px 0;
+  background: var(--ink);
+  position: relative; overflow: hidden;
+}
+.problema::before {
+  content: '';
+  position: absolute; top: -1px; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.problema-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: start;
+}
+.problema-left h2 {
+  font-family: var(--serif); font-size: clamp(32px, 4vw, 52px);
+  font-weight: 300; color: var(--cream); line-height: 1.15; margin: 16px 0 24px;
+}
+.problema-left h2 em { font-style: italic; color: var(--gold); }
+.problema-left p { font-size: 15px; font-weight: 300; color: rgba(250,246,238,0.55); line-height: 1.85; }
+.problema-right { padding-top: 48px; }
+.cost-stack { display: flex; flex-direction: column; gap: 2px; }
+.cost-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 24px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.05);
+  transition: all .25s;
+  cursor: default;
+}
+.cost-item:hover { background: rgba(255,255,255,0.06); border-color: rgba(200,169,81,0.2); }
+.cost-item-left { display: flex; align-items: center; gap: 16px; }
+.cost-item-icon { font-size: 20px; }
+.cost-item-name { font-size: 14px; font-weight: 500; color: rgba(250,246,238,0.7); }
+.cost-item-note { font-size: 11px; color: rgba(250,246,238,0.25); margin-top: 2px; }
+.cost-item-price { font-family: var(--serif); font-size: 22px; font-weight: 600; color: #EF4444; }
+.cost-total {
+  margin-top: 2px; padding: 20px 24px;
+  background: rgba(239,68,68,0.08);
+  border: 1px solid rgba(239,68,68,0.2);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.cost-total-label { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: rgba(250,246,238,0.5); }
+.cost-total-price {
+  font-family: var(--serif); font-size: 32px; font-weight: 600;
+  color: #EF4444; text-decoration: line-through; opacity: .7;
+}
+.cost-mesaio {
+  margin-top: 16px; padding: 24px;
+  background: var(--gold-lo);
+  border: 1px solid rgba(200,169,81,0.3);
+  display: flex; align-items: center; justify-content: space-between;
+  animation: borderGlow 3s ease-in-out infinite;
+}
+.cost-mesaio-label { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--gold); }
+.cost-mesaio-price {
+  font-family: var(--serif); font-size: 40px; font-weight: 600; color: var(--gold); line-height: 1;
+}
+.cost-mesaio-period { font-size: 12px; color: rgba(200,169,81,0.6); margin-top: 2px; }
+.ahorro-tag {
+  display: inline-block; margin-top: 12px; padding: 6px 14px;
+  background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.25);
+  font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+  color: #10B981;
+}
+
+/* ═══════════════════════════════════════════════
+   SECCIÓN: PLANES
+═══════════════════════════════════════════════ */
+.planes { padding: 120px 0; background: var(--cream); }
+.planes-header { text-align: center; margin-bottom: 64px; }
+.planes-header h2 {
+  font-family: var(--serif); font-size: clamp(32px,4vw,52px);
+  font-weight: 300; color: var(--ink); margin: 12px 0 16px;
+}
+.planes-header p { font-size: 15px; color: var(--muted); max-width: 480px; margin: 0 auto; line-height: 1.7; }
+.planes-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: rgba(92,26,43,0.08);
+  border: 1px solid rgba(92,26,43,0.08);
+}
+.plan-card {
+  background: var(--cream); padding: 48px 36px;
+  position: relative; overflow: hidden;
+  transition: transform .3s var(--ease-out), box-shadow .3s;
+}
+.plan-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(92,26,43,0.12); z-index: 1; }
+.plan-card.featured {
+  background: var(--burgundy);
+  transform: none;
+}
+.plan-card.featured:hover { transform: translateY(-4px); box-shadow: 0 24px 80px rgba(92,26,43,0.4); }
+.plan-badge {
+  display: inline-block; padding: 4px 12px; margin-bottom: 24px;
+  font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+}
+.plan-card:not(.featured) .plan-badge { background: rgba(92,26,43,0.06); color: var(--burgundy); }
+.plan-card.featured .plan-badge { background: var(--gold); color: var(--ink); }
+.plan-name {
+  font-family: var(--serif); font-size: 28px; font-weight: 300;
+  margin-bottom: 4px;
+}
+.plan-card:not(.featured) .plan-name { color: var(--ink); }
+.plan-card.featured .plan-name { color: var(--cream); }
+.plan-tagline { font-size: 13px; color: var(--muted); margin-bottom: 32px; }
+.plan-card.featured .plan-tagline { color: rgba(250,246,238,0.5); }
+.plan-price-block { margin-bottom: 36px; padding-bottom: 32px; position: relative; }
+.plan-price-block::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+  height: 1px; background: rgba(92,26,43,0.08);
+}
+.plan-card.featured .plan-price-block::after { background: rgba(250,246,238,0.1); }
+.plan-price {
+  font-family: var(--serif); font-size: 52px; font-weight: 600; line-height: 1;
+}
+.plan-card:not(.featured) .plan-price { color: var(--burgundy); }
+.plan-card.featured .plan-price { color: var(--gold); }
+.plan-currency { font-size: 20px; font-weight: 300; vertical-align: top; margin-top: 8px; display: inline-block; }
+.plan-period { font-size: 13px; color: var(--muted); margin-top: 8px; }
+.plan-card.featured .plan-period { color: rgba(250,246,238,0.45); }
+.plan-savings {
+  font-size: 11px; font-weight: 600; letter-spacing: .06em;
+  color: #10B981; margin-top: 8px;
+}
+.plan-features { list-style: none; margin-bottom: 36px; }
+.plan-feature {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 11px 0;
+  border-bottom: 1px solid rgba(92,26,43,0.05);
+  font-size: 13px; line-height: 1.5;
+}
+.plan-card.featured .plan-feature { border-color: rgba(250,246,238,0.06); }
+.plan-feature:last-child { border: none; }
+.plan-feature-check { color: var(--gold); font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+.plan-feature-text { color: var(--ink); }
+.plan-card.featured .plan-feature-text { color: rgba(250,246,238,0.8); }
+.plan-feature-note { font-size: 11px; color: var(--muted); }
+.plan-card.featured .plan-feature-note { color: rgba(250,246,238,0.35); }
+.plan-cta {
+  display: block; padding: 14px; text-align: center;
+  font-family: var(--sans); font-size: 11px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  text-decoration: none; border: none; cursor: pointer;
+  transition: all .25s; border-radius: 2px;
+}
+.plan-card:not(.featured) .plan-cta {
+  border: 1px solid rgba(92,26,43,0.2); color: var(--burgundy);
+  background: transparent;
+}
+.plan-card:not(.featured) .plan-cta:hover { background: var(--burgundy); color: var(--cream); }
+.plan-card.featured .plan-cta { background: var(--gold); color: var(--ink); }
+.plan-card.featured .plan-cta:hover { background: var(--gold-hi); }
+
+/* ═══════════════════════════════════════════════
+   COMPARATIVA (tabla bajo planes)
+═══════════════════════════════════════════════ */
+.comparativa { padding: 0 0 80px; background: var(--cream); }
+.comp-toggle {
+  text-align: center; margin-bottom: 32px;
+}
+.comp-toggle button {
+  background: none; border: none; cursor: pointer;
+  font-size: 13px; font-weight: 500; color: var(--muted);
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: 2px;
+  border: 1px solid rgba(92,26,43,0.1);
+  transition: all .2s;
+}
+.comp-toggle button:hover { color: var(--burgundy); border-color: rgba(92,26,43,0.3); }
+.comp-table { width: 100%; border-collapse: collapse; display: none; }
+.comp-table.open { display: table; }
+.comp-table th {
+  padding: 16px 20px; font-size: 11px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  text-align: left; background: var(--ink); color: var(--cream);
+}
+.comp-table th:first-child { width: 40%; }
+.comp-table th.th-featured { background: var(--burgundy); color: var(--gold); }
+.comp-table td {
+  padding: 14px 20px; font-size: 13px;
+  border-bottom: 1px solid rgba(92,26,43,0.06);
+}
+.comp-table tr:hover td { background: rgba(92,26,43,0.02); }
+.comp-table td:first-child { color: var(--muted); }
+.comp-table td.featured-col { background: rgba(92,26,43,0.03); }
+.check-yes { color: #10B981; font-size: 16px; }
+.check-no  { color: rgba(92,26,43,0.2); font-size: 14px; }
+
+/* ═══════════════════════════════════════════════
+   ROI SECTION
+═══════════════════════════════════════════════ */
+.roi { padding: 120px 0; background: var(--ink-2); position: relative; }
+.roi::before {
+  content: '';
+  position: absolute; top: -1px; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(200,169,81,0.4), transparent);
+}
+.roi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.roi-left h2 {
+  font-family: var(--serif); font-size: clamp(32px,4vw,52px);
+  font-weight: 300; color: var(--cream); line-height: 1.15; margin: 12px 0 24px;
+}
+.roi-left h2 em { font-style: italic; color: var(--gold); }
+.roi-left p { font-size: 15px; color: rgba(250,246,238,0.5); line-height: 1.85; margin-bottom: 32px; }
+.roi-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+.roi-metric {
+  padding: 24px; background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.05);
+}
+.roi-metric-num {
+  font-family: var(--serif); font-size: 38px; font-weight: 600; color: var(--gold); line-height: 1;
+}
+.roi-metric-label { font-size: 11px; color: rgba(250,246,238,0.4); margin-top: 6px; letter-spacing: .03em; }
+.roi-right { }
+.roi-point {
+  display: grid; grid-template-columns: 48px 1fr;
+  gap: 20px; padding: 24px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  align-items: start;
+}
+.roi-point:last-child { border: none; }
+.roi-point-num {
+  font-family: var(--serif); font-size: 28px; font-weight: 300;
+  color: var(--gold); opacity: .4; line-height: 1;
+}
+.roi-point-title { font-size: 14px; font-weight: 600; color: var(--cream); margin-bottom: 6px; }
+.roi-point-desc { font-size: 13px; color: rgba(250,246,238,0.45); line-height: 1.7; }
+
+/* ═══════════════════════════════════════════════
+   FEATURES GRID
+═══════════════════════════════════════════════ */
+.features { padding: 120px 0; background: var(--cream-2); }
+.features-header { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-bottom: 64px; align-items: end; }
+.features-header h2 {
+  font-family: var(--serif); font-size: clamp(32px,4vw,52px);
+  font-weight: 300; color: var(--ink); line-height: 1.15;
+}
+.features-header h2 em { font-style: italic; color: var(--burgundy); }
+.features-header p { font-size: 15px; color: var(--muted); line-height: 1.8; }
+.features-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: rgba(92,26,43,0.08);
+  border: 1px solid rgba(92,26,43,0.08);
+}
+.feat-card {
+  background: var(--cream);
+  padding: 36px 32px;
+  position: relative; overflow: hidden;
+  transition: all .3s var(--ease-out);
+}
+.feat-card::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 2px; background: var(--gold);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .35s var(--ease-out);
+}
+.feat-card:hover { background: var(--ink); }
+.feat-card:hover::after { transform: scaleX(1); }
+.feat-icon { font-size: 24px; margin-bottom: 16px; display: block; }
+.feat-title { font-family: var(--serif); font-size: 20px; font-weight: 600; color: var(--ink); margin-bottom: 10px; transition: color .3s; }
+.feat-card:hover .feat-title { color: var(--gold); }
+.feat-desc { font-size: 13px; color: var(--muted); line-height: 1.7; transition: color .3s; }
+.feat-card:hover .feat-desc { color: rgba(250,246,238,0.5); }
+.feat-tag {
+  display: inline-block; margin-top: 16px; padding: 3px 10px;
+  font-size: 9px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--gold); border: 1px solid rgba(200,169,81,0.25);
+}
+
+/* ═══════════════════════════════════════════════
+   ROLES SECTION
+═══════════════════════════════════════════════ */
+.roles { padding: 120px 0; background: var(--cream); }
+.roles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
+.role-card {
+  position: relative; overflow: hidden;
+  text-decoration: none; display: block;
+  padding: 40px 32px;
+  border: 1px solid rgba(92,26,43,0.1);
+  transition: all .35s var(--ease-out);
+}
+.role-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: var(--burgundy); opacity: 0;
+  transition: opacity .35s;
+}
+.role-card:hover { border-color: var(--burgundy); transform: translateY(-4px); box-shadow: 0 20px 60px rgba(92,26,43,0.15); }
+.role-card:hover::before { opacity: 1; }
+.role-inner { position: relative; z-index: 1; }
+.role-icon { font-size: 32px; margin-bottom: 20px; display: block; }
+.role-name { font-family: var(--serif); font-size: 26px; font-weight: 600; color: var(--ink); margin-bottom: 8px; transition: color .3s; }
+.role-card:hover .role-name { color: var(--gold); }
+.role-desc { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 24px; transition: color .3s; }
+.role-card:hover .role-desc { color: rgba(250,246,238,0.5); }
+.role-features { list-style: none; margin-bottom: 28px; }
+.role-features li { font-size: 12px; padding: 6px 0; color: var(--muted); border-bottom: 1px solid rgba(92,26,43,0.05); display: flex; gap: 8px; transition: color .3s; }
+.role-card:hover .role-features li { color: rgba(250,246,238,0.5); border-color: rgba(255,255,255,0.06); }
+.role-link {
+  font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--burgundy); display: flex; align-items: center; gap: 8px; transition: color .3s;
+}
+.role-card:hover .role-link { color: var(--gold); }
+
+/* ═══════════════════════════════════════════════
+   CTA FINAL
+═══════════════════════════════════════════════ */
+.cta-final {
+  padding: 140px 0;
+  background: var(--ink);
+  text-align: center; position: relative; overflow: hidden;
+}
+.cta-final::before {
+  content: '';
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  width: 800px; height: 800px;
+  background: radial-gradient(ellipse, rgba(200,169,81,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.cta-final h2 {
+  font-family: var(--serif); font-size: clamp(36px,5vw,64px);
+  font-weight: 300; color: var(--cream); line-height: 1.1;
+  margin: 12px 0 24px; position: relative; z-index: 1;
+}
+.cta-final h2 em { font-style: italic; color: var(--gold); }
+.cta-final p { font-size: 16px; color: rgba(250,246,238,0.45); max-width: 480px; margin: 0 auto 48px; position: relative; z-index: 1; line-height: 1.7; }
+.cta-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+.cta-trust { margin-top: 40px; display: flex; gap: 32px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+.cta-trust-item { font-size: 12px; color: rgba(250,246,238,0.25); display: flex; align-items: center; gap: 6px; }
+.cta-trust-item::before { content: '✓'; color: var(--gold); }
+
+/* ═══════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════ */
+.footer {
+  background: var(--ink); padding: 40px 0;
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+.footer-inner {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;
+}
+.footer-logo { font-family: var(--serif); font-size: 20px; font-weight: 600; color: rgba(250,246,238,0.3); }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { font-size: 12px; color: rgba(250,246,238,0.2); text-decoration: none; transition: color .2s; }
+.footer-links a:hover { color: var(--gold); }
+.footer-copy { font-size: 11px; color: rgba(250,246,238,0.12); }
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .hero              { grid-template-columns: 1fr; }
+  .hero-right        { display: none; }
+  .hero-left         { padding: 120px 32px 80px; }
+  .nav               { padding: 0 24px; }
+  .nav-links         { display: none; }
+  .problema-grid     { grid-template-columns: 1fr; }
+  .problema-left     { margin-bottom: 40px; }
+  .planes-grid       { grid-template-columns: 1fr; }
+  .roi-grid          { grid-template-columns: 1fr; }
+  .features-header   { grid-template-columns: 1fr; }
+  .features-grid     { grid-template-columns: 1fr; }
+  .roles-grid        { grid-template-columns: 1fr; }
+  .container         { padding: 0 24px; }
+  .container-sm      { padding: 0 24px; }
+  .planes, .problema, .roi, .features, .roles, .cta-final { padding: 80px 0; }
+}
+</style>
+```
+
+---
+
+## BODY COMPLETO — reemplazar todo:
+
+```html
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="mainNav">
+  <a href="/" class="nav-logo">Mesaio</a>
+  <ul class="nav-links">
+    <li><a href="#problema">El problema</a></li>
+    <li><a href="#planes">Planes</a></li>
+    <li><a href="#roi">Retorno</a></li>
+    <li><a href="#modulos">Módulos</a></li>
+    <li><a href="/entregables/">Demo</a></li>
+  </ul>
+  <a href="/login" class="nav-cta">Acceder →</a>
+</nav>
+
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-pretitle ao">
+      <span class="hero-pretitle-line"></span>
+      <span class="hero-pretitle-text">Sistema de gestión · Restaurantes de alto nivel</span>
+    </div>
+    <h1 class="ao ao-d1">
+      La operación que<br>
+      sus competidores<br>
+      <strong>nunca tendrán.</strong>
+    </h1>
+    <p class="hero-sub ao ao-d2">
+      Mesaio integra mesas, cocina, inventario, facturación y contabilidad<br>
+      en un solo sistema. <b>Desde $199.000/mes.</b>
+    </p>
+    <div class="hero-actions ao ao-d3">
+      <a href="/login" class="btn-hero-primary">▶ Ver en vivo ahora</a>
+      <a href="#planes" class="btn-hero-ghost">Ver planes</a>
+    </div>
+    <div class="hero-stats ao ao-d4">
+      <div>
+        <div class="hero-stat-num">24</div>
+        <div class="hero-stat-label">Mesas simultáneas</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">$0</div>
+        <div class="hero-stat-label">Cuadre manual</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">9</div>
+        <div class="hero-stat-label">Módulos integrados</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">48h</div>
+        <div class="hero-stat-label">Implementación</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="kds-panel">
+      <div class="kds-panel-header">
+        <span class="kds-panel-title">Cocina · Órdenes activas</span>
+        <span class="kds-live"><span class="kds-live-dot"></span>En vivo</span>
+      </div>
+      <div class="kds-order">
+        <div>
+          <div class="kds-order-mesa">Mesa 08 · Orden #047</div>
+          <div class="kds-order-items">Lomo al trapo · Posta cartagenera</div>
+          <div class="kds-order-time">Carlos R. · hace 4 min</div>
+        </div>
+        <span class="badge badge-listo">✓ Listo</span>
+      </div>
+      <div class="kds-order">
+        <div>
+          <div class="kds-order-mesa">Mesa 03 · Orden #046</div>
+          <div class="kds-order-items">Bandeja paisa ×2 · Limonada ×2</div>
+          <div class="kds-order-time">Diana M. · hace 11 min</div>
+        </div>
+        <span class="badge badge-prep">⏳ Preparando</span>
+      </div>
+      <div class="kds-order">
+        <div>
+          <div class="kds-order-mesa">Mesa 21 · Orden #045</div>
+          <div class="kds-order-items">Cazuela mariscos ×3 · Mojarra</div>
+          <div class="kds-order-time">Felipe T. · hace 24 min</div>
+        </div>
+        <span class="badge badge-urgent">🔴 Urgente</span>
+      </div>
+      <div class="kds-order">
+        <div>
+          <div class="kds-order-mesa">Mesa 15 · Orden #048</div>
+          <div class="kds-order-items">Ajiaco santafereño · Tres leches</div>
+          <div class="kds-order-time">Ana L. · hace 1 min</div>
+        </div>
+        <span class="badge badge-pend">Pendiente</span>
+      </div>
+      <div class="kds-footer">
+        📦 Inventario se descuenta automáticamente al marcar "Listo"
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ TICKER ═══ -->
+<div class="ticker">
+  <div class="ticker-track" id="tickerTrack">
+    <div class="ticker-item">Facturación electrónica con CUFE<span class="ticker-sep">·</span></div>
+    <div class="ticker-item">Inventario automático<span class="ticker-sep">·</span></div>
+    <div class="ticker-item">Contabilidad en tiempo real<span class="ticker-sep">·</span></div>
+    <div class="ticker-item">Arqueo de caja<span class="ticker-sep">·</span></div>
+    <div class="ticker-item">Cierre de día con acta<span class="ticker-sep">·</span></div>
+    <div class="ticker-item">Dashboard inversores<span class="ticker-sep">·</span></div>
+    <div class="ticker-item">24 mesas simultáneas<span class="ticker-sep">·</span></div>
+    <div class="ticker-item">Roles por persona<span class="ticker-sep">·</span></div>
+    <div class="ticker-item">Facturación electrónica con CUFE<span class="ticker-sep">·</span></div>
+    <div class="ticker-item">Inventario automático<span class="ticker-sep">·</span></div>
+    <div class="ticker-item">Contabilidad en tiempo real<span class="ticker-sep">·</span></div>
+    <div class="ticker-item">Arqueo de caja<span class="ticker-sep">·</span></div>
+    <div class="ticker-item">Cierre de día con acta<span class="ticker-sep">·</span></div>
+    <div class="ticker-item">Dashboard inversores<span class="ticker-sep">·</span></div>
+    <div class="ticker-item">24 mesas simultáneas<span class="ticker-sep">·</span></div>
+    <div class="ticker-item">Roles por persona<span class="ticker-sep">·</span></div>
+  </div>
+</div>
+
+
+<!-- ═══ EL PROBLEMA ═══ -->
+<section class="problema" id="problema">
+  <div class="container">
+    <div class="problema-grid">
+      <div class="problema-left">
+        <span class="overline ao">El problema que nadie resuelve</span>
+        <h2 class="ao ao-d1">
+          Tres sistemas.<br>Tres facturas.<br>
+          <em>Cero integración.</em>
+        </h2>
+        <p class="ao ao-d2">
+          Cada noche, alguien en su restaurante cuadra manualmente lo que el sistema de mesas vendió, 
+          lo que la contabilidad registró y lo que el inventario perdió. Tres verdades distintas. 
+          Un error en cualquiera contamina todo.
+        </p>
+        <p class="ao ao-d3" style="margin-top:16px;">
+          Mesaio termina con eso. Un solo sistema donde cocina, caja e inventario 
+          hablan entre sí — en tiempo real, sin intervención humana.
+        </p>
+      </div>
+      <div class="problema-right ao ao-d2">
+        <div class="cost-stack">
+          <div class="cost-item">
+            <div class="cost-item-left">
+              <span class="cost-item-icon">📊</span>
+              <div>
+                <div class="cost-item-name">Alegra POS · Contabilidad</div>
+                <div class="cost-item-note">Plan Pyme · sin inventario especializado restaurante</div>
+              </div>
+            </div>
+            <div class="cost-item-price">$130k</div>
+          </div>
+          <div class="cost-item">
+            <div class="cost-item-left">
+              <span class="cost-item-icon">🪑</span>
+              <div>
+                <div class="cost-item-name">Sistema de mesas</div>
+                <div class="cost-item-note">No conectado con inventario ni contabilidad</div>
+              </div>
+            </div>
+            <div class="cost-item-price">$80k</div>
+          </div>
+          <div class="cost-item">
+            <div class="cost-item-left">
+              <span class="cost-item-icon">📦</span>
+              <div>
+                <div class="cost-item-name">Control de inventario</div>
+                <div class="cost-item-note">Actualización manual · no habla con cocina</div>
+              </div>
+            </div>
+            <div class="cost-item-price">$80k</div>
+          </div>
+        </div>
+        <div class="cost-total">
+          <span class="cost-total-label">Total mensual actual</span>
+          <span class="cost-total-price">$290.000/mes</span>
+        </div>
+        <div class="cost-mesaio">
+          <div>
+            <div class="cost-mesaio-label">Con Mesaio — todo integrado</div>
+            <div class="cost-mesaio-price">$199.000</div>
+            <div class="cost-mesaio-period">/ mes · implementación incluida</div>
+          </div>
+          <div>
+            <span class="ahorro-tag">✓ Ahorro real: $91.000/mes</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ PLANES ═══ -->
+<section class="planes" id="planes">
+  <div class="container">
+    <div class="planes-header ao">
+      <span class="overline">Suscripción mensual · sin permanencia</span>
+      <h2>Tres planes.<br>Un solo sistema.</h2>
+      <p>Sin instalación. Sin contratos de un año. Cancela cuando quieras. Empiece hoy.</p>
+    </div>
+
+    <div class="planes-grid ao ao-d1">
+
+      <!-- PLAN ESENCIAL -->
+      <div class="plan-card">
+        <span class="plan-badge">Esencial</span>
+        <div class="plan-name">Esencial</div>
+        <div class="plan-tagline">Para restaurantes que arrancan</div>
+        <div class="plan-price-block">
+          <div class="plan-price"><span class="plan-currency">$</span>199.000</div>
+          <div class="plan-period">COP / mes · facturado mensualmente</div>
+          <div class="plan-savings">Ahorra vs sistemas separados: $91.000/mes</div>
+        </div>
+        <ul class="plan-features">
+          <li class="plan-feature">
+            <span class="plan-feature-check">✓</span>
+            <div><div class="plan-feature-text">Hasta 12 mesas</div><div class="plan-feature-note">Salón principal</div></div>
+          </li>
+          <li class="plan-feature">
+            <span class="plan-feature-check">✓</span>
+            <div><div class="plan-feature-text">Cocina KDS</div><div class="plan-feature-note">Pantalla en tiempo real</div></div>
+          </li>
+          <li class="plan-feature">
+            <span class="plan-feature-check">✓</span>
+            <div><div class="plan-feature-text">Facturación electrónica</div><div class="plan-feature-note">CUFE · IVA automático</div></div>
+          </li>
+          <li class="plan-feature">
+            <span class="plan-feature-check">✓</span>
+            <div><div class="plan-feature-text">Inventario automático</div><div class="plan-feature-note">Hasta 25 ingredientes</div></div>
+          </li>
+          <li class="plan-feature">
+            <span class="plan-feature-check">✓</span>
+            <div><div class="plan-feature-text">Contabilidad del día</div><div class="plan-feature-note">Ingresos · costos · margen</div></div>
+          </li>
+          <li class="plan-feature">
+            <span class="plan-feature-check" style="color:rgba(92,26,43,0.2)">—</span>
+            <div><div class="plan-feature-text" style="opacity:.4">Dashboard inversores</div></div>
+          </li>
+          <li class="plan-feature">
+            <span class="plan-feature-check" style="color:rgba(92,26,43,0.2)">—</span>
+            <div><div class="plan-feature-text" style="opacity:.4">Multi-sede</div></div>
+          </li>
+        </ul>
+        <a href="/login" class="plan-cta">Comenzar →</a>
+      </div>
+
+      <!-- PLAN PROFESIONAL (FEATURED) -->
+      <div class="plan-card featured">
+        <span class="plan-badge">⭐ Más elegido</span>
+        <div class="plan-name">Profesional</div>
+        <div class="plan-tagline">El equilibrio perfecto</div>
+        <div class="plan-price-block">
+          <div class="plan-price"><span class="plan-currency">$</span>349.000</div>
+          <div class="plan-period">COP / mes · facturado mensualmente</div>
+          <div class="plan-savings">Ahorra vs sistemas premium: $170.000/mes</div>
+        </div>
+        <ul class="plan-features">
+          <li class="plan-feature">
+            <span class="plan-feature-check">✓</span>
+            <div><div class="plan-feature-text">Hasta 24 mesas · 4 zonas</div><div class="plan-feature-note">Salón · Terraza · Barra · Privado</div></div>
+          </li>
+          <li class="plan-feature">
+            <span class="plan-feature-check">✓</span>
+            <div><div class="plan-feature-text">Cocina KDS + cronómetro urgencia</div><div class="plan-feature-note">Alerta roja a los 20 minutos</div></div>
+          </li>
+          <li class="plan-feature">
+            <span class="plan-feature-check">✓</span>
+            <div><div class="plan-feature-text">Facturación + arqueo + cierre</div><div class="plan-feature-note">Acta formal firmada por responsable</div></div>
+          </li>
+          <li class="plan-feature">
+            <span class="plan-feature-check">✓</span>
+            <div><div class="plan-feature-text">Inventario ilimitado</div><div class="plan-feature-note">Ingredientes · recetas · alertas</div></div>
+          </li>
+          <li class="plan-feature">
+            <span class="plan-feature-check">✓</span>
+            <div><div class="plan-feature-text">Dashboard de inversores</div><div class="plan-feature-note">KPIs 7/30/90 días · gráficos</div></div>
+          </li>
+          <li class="plan-feature">
+            <span class="plan-feature-check">✓</span>
+            <div><div class="plan-feature-text">Roles por persona</div><div class="plan-feature-note">Meseros · cocineros · admin identificados</div></div>
+          </li>
+          <li class="plan-feature">
+            <span class="plan-feature-check" style="color:rgba(200,169,81,0.3)">—</span>
+            <div><div class="plan-feature-text" style="opacity:.5">Multi-sede</div></div>
+          </li>
+        </ul>
+        <a href="/login" class="plan-cta">Comenzar →</a>
+      </div>
+
+      <!-- PLAN ÉLITE -->
+      <div class="plan-card">
+        <span class="plan-badge">Élite</span>
+        <div class="plan-name">Élite</div>
+        <div class="plan-tagline">Para cadenas y grupos</div>
+        <div class="plan-price-block">
+          <div class="plan-price"><span class="plan-currency">$</span>599.000</div>
+          <div class="plan-period">COP / mes · por sede · facturado mensualmente</div>
+          <div class="plan-savings">ROI positivo desde el segundo mes</div>
+        </div>
+        <ul class="plan-features">
+          <li class="plan-feature">
+            <span class="plan-feature-check">✓</span>
+            <div><div class="plan-feature-text">Todo del plan Profesional</div><div class="plan-feature-note">Sin restricciones</div></div>
+          </li>
+          <li class="plan-feature">
+            <span class="plan-feature-check">✓</span>
+            <div><div class="plan-feature-text">Multi-sede integrada</div><div class="plan-feature-note">Dashboard consolidado por grupo</div></div>
+          </li>
+          <li class="plan-feature">
+            <span class="plan-feature-check">✓</span>
+            <div><div class="plan-feature-text">Onboarding personalizado</div><div class="plan-feature-note">Con su menú y equipo reales</div></div>
+          </li>
+          <li class="plan-feature">
+            <span class="plan-feature-check">✓</span>
+            <div><div class="plan-feature-text">Soporte WhatsApp directo</div><div class="plan-feature-note">Respuesta en menos de 2 horas</div></div>
+          </li>
+          <li class="plan-feature">
+            <span class="plan-feature-check">✓</span>
+            <div><div class="plan-feature-text">Capacitación del equipo</div><div class="plan-feature-note">Sesión virtual incluida</div></div>
+          </li>
+          <li class="plan-feature">
+            <span class="plan-feature-check">✓</span>
+            <div><div class="plan-feature-text">Reportes avanzados</div><div class="plan-feature-note">Exportación CSV · integraciones</div></div>
+          </li>
+          <li class="plan-feature">
+            <span class="plan-feature-check">✓</span>
+            <div><div class="plan-feature-text">SLA de disponibilidad 99.9%</div><div class="plan-feature-note">Infraestructura prioritaria</div></div>
+          </li>
+        </ul>
+        <a href="https://wa.me/573TUNUMERO?text=Quiero%20el%20plan%20Elite%20de%20Mesaio" class="plan-cta">Hablar con nosotros →</a>
+      </div>
+
+    </div><!-- /planes-grid -->
+
+    <!-- COMPARATIVA EXPANDIBLE -->
+    <div class="comparativa">
+      <div class="comp-toggle">
+        <button onclick="toggleComparativa(this)">
+          <span>↓</span> Ver comparativa completa de funciones
+        </button>
+      </div>
+      <table class="comp-table" id="compTable">
+        <thead>
+          <tr>
+            <th>Funcionalidad</th>
+            <th>Esencial<br><small style="font-weight:300;letter-spacing:0">$199k/mes</small></th>
+            <th class="th-featured">Profesional ⭐<br><small style="font-weight:300;letter-spacing:0">$349k/mes</small></th>
+            <th>Élite<br><small style="font-weight:300;letter-spacing:0">$599k/mes</small></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Mesas simultáneas</td><td>Hasta 12</td><td class="featured-col">24 · 4 zonas</td><td>Ilimitadas</td></tr>
+          <tr><td>Cocina KDS</td><td><span class="check-yes">✓</span></td><td class="featured-col"><span class="check-yes">✓</span> + urgencia</td><td><span class="check-yes">✓</span></td></tr>
+          <tr><td>Facturación electrónica (CUFE)</td><td><span class="check-yes">✓</span></td><td class="featured-col"><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td></tr>
+          <tr><td>IVA automático</td><td><span class="check-yes">✓</span></td><td class="featured-col"><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td></tr>
+          <tr><td>Inventario automático</td><td>25 ingredientes</td><td class="featured-col">Ilimitado</td><td>Ilimitado</td></tr>
+          <tr><td>Contabilidad del día</td><td><span class="check-yes">✓</span></td><td class="featured-col"><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td></tr>
+          <tr><td>Arqueo de caja</td><td><span class="check-yes">✓</span></td><td class="featured-col"><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td></tr>
+          <tr><td>Cierre de día con acta</td><td><span class="check-no">—</span></td><td class="featured-col"><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td></tr>
+          <tr><td>Dashboard inversores (KPIs)</td><td><span class="check-no">—</span></td><td class="featured-col"><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td></tr>
+          <tr><td>Roles por persona</td><td><span class="check-no">—</span></td><td class="featured-col"><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td></tr>
+          <tr><td>Multi-sede</td><td><span class="check-no">—</span></td><td class="featured-col"><span class="check-no">—</span></td><td><span class="check-yes">✓</span></td></tr>
+          <tr><td>Soporte</td><td>Email</td><td class="featured-col">Email + WhatsApp</td><td>WhatsApp directo + SLA</td></tr>
+          <tr><td>Onboarding</td><td>Self-service</td><td class="featured-col">Self-service</td><td>Personalizado + capacitación</td></tr>
+          <tr><td>Carta digital QR</td><td><span class="check-yes">✓</span></td><td class="featured-col"><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══ ROI ═══ -->
+<section class="roi" id="roi">
+  <div class="container">
+    <div class="roi-grid">
+      <div class="roi-left">
+        <span class="overline ao">Retorno de inversión</span>
+        <h2 class="ao ao-d1">
+          El sistema se paga<br>
+          <em>desde el primer mes.</em>
+        </h2>
+        <p class="ao ao-d2">
+          Con el plan Profesional a $349.000/mes, un restaurante que hoy paga $519.000/mes 
+          en sistemas separados ahorra $170.000 el primer mes. En un año: $2.040.000 recuperados 
+          — más el tiempo que ya no dedica al cuadre manual.
+        </p>
+        <div class="roi-metrics ao ao-d3">
+          <div class="roi-metric">
+            <div class="roi-metric-num">$170k</div>
+            <div class="roi-metric-label">ahorro mensual (plan Pro vs separados)</div>
+          </div>
+          <div class="roi-metric">
+            <div class="roi-metric-num">$2M</div>
+            <div class="roi-metric-label">ahorro acumulado en 12 meses</div>
+          </div>
+          <div class="roi-metric">
+            <div class="roi-metric-num">3h</div>
+            <div class="roi-metric-label">recuperadas por día en cuadre manual</div>
+          </div>
+          <div class="roi-metric">
+            <div class="roi-metric-num">48h</div>
+            <div class="roi-metric-label">de implementación con datos reales</div>
+          </div>
+        </div>
+      </div>
+      <div class="roi-right">
+        <div class="roi-point ao">
+          <div class="roi-point-num">01</div>
+          <div>
+            <div class="roi-point-title">Inventario sin costo de personal</div>
+            <div class="roi-point-desc">Cuando cocina marca "Listo", los ingredientes se descuentan automáticamente. Sin bodeguero adicional, sin conteo de cierre, sin hoja de Excel.</div>
+          </div>
+        </div>
+        <div class="roi-point ao ao-d1">
+          <div class="roi-point-num">02</div>
+          <div>
+            <div class="roi-point-title">Factura en el mismo acto del cobro</div>
+            <div class="roi-point-desc">El mesero cobra, elige el método de pago, y la factura electrónica con CUFE se genera inmediatamente. El movimiento queda en contabilidad sin digitación adicional.</div>
+          </div>
+        </div>
+        <div class="roi-point ao ao-d2">
+          <div class="roi-point-num">03</div>
+          <div>
+            <div class="roi-point-title">Cierre de día en 4 minutos</div>
+            <div class="roi-point-desc">El administrador ingresa el efectivo contado, el sistema compara con lo esperado, detecta discrepancias y genera el acta con firma. Lo que antes tomaba 40 minutos.</div>
+          </div>
+        </div>
+        <div class="roi-point ao ao-d3">
+          <div class="roi-point-num">04</div>
+          <div>
+            <div class="roi-point-title">Dashboard que convence a cualquier inversor</div>
+            <div class="roi-point-desc">KPIs históricos 7, 30 y 90 días. Ingresos, costos de ingredientes, margen bruto y ticket promedio. Los datos que su contador tardaba días en armar, disponibles en segundos.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ MÓDULOS ═══ -->
+<section class="features" id="modulos">
+  <div class="container">
+    <div class="features-header">
+      <div>
+        <span class="overline ao">9 módulos · 1 precio</span>
+        <h2 class="ao ao-d1">Todo lo que<br>necesita para<br><em>operar bien.</em></h2>
+      </div>
+      <p class="ao ao-d2">Cada módulo habla con los demás. Lo que ocurre en cocina llega a inventario, a contabilidad y al cierre de día — sin intervención humana.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feat-card ao">
+        <span class="feat-icon">🪑</span>
+        <div class="feat-title">Mapa de mesas</div>
+        <div class="feat-desc">24 mesas en tiempo real. Libre, ocupada, cuenta solicitada — sincronizado entre todos los dispositivos.</div>
+        <span class="feat-tag">Operación</span>
+      </div>
+      <div class="feat-card ao ao-d1">
+        <span class="feat-icon">👨‍🍳</span>
+        <div class="feat-title">Cocina KDS</div>
+        <div class="feat-desc">Pantalla de cocina estilo profesional con cronómetro de urgencia. Alerta roja automática pasados 20 minutos.</div>
+        <span class="feat-tag">Producción</span>
+      </div>
+      <div class="feat-card ao ao-d2">
+        <span class="feat-icon">📦</span>
+        <div class="feat-title">Inventario automático</div>
+        <div class="feat-desc">Recetas programadas. Al marcar listo en cocina, los ingredientes se descuentan solos. Alertas de stock bajo visibles en el header.</div>
+        <span class="feat-tag">Inteligencia</span>
+      </div>
+      <div class="feat-card ao">
+        <span class="feat-icon">🧾</span>
+        <div class="feat-title">Facturación electrónica</div>
+        <div class="feat-desc">CUFE, resolución DIAN, IVA 19% automático. Efectivo, tarjeta o Nequi. Imprimible en formato recibo POS.</div>
+        <span class="feat-tag">Legal</span>
+      </div>
+      <div class="feat-card ao ao-d1">
+        <span class="feat-icon">💰</span>
+        <div class="feat-title">Contabilidad del día</div>
+        <div class="feat-desc">Ingresos, costos de ingredientes y margen calculados automáticamente en cada venta. Sin doble digitación.</div>
+        <span class="feat-tag">Finanzas</span>
+      </div>
+      <div class="feat-card ao ao-d2">
+        <span class="feat-icon">🔐</span>
+        <div class="feat-title">Arqueo y cierre</div>
+        <div class="feat-desc">Reconciliación efectivo esperado vs contado. Acta de cierre con firma del responsable. Histórico auditable.</div>
+        <span class="feat-tag">Control</span>
+      </div>
+      <div class="feat-card ao">
+        <span class="feat-icon">📈</span>
+        <div class="feat-title">Dashboard inversores</div>
+        <div class="feat-desc">KPIs históricos a 7, 30 y 90 días. Gráfico de barras de ingresos diarios. Ticket promedio y tendencias de margen.</div>
+        <span class="feat-tag">Estrategia</span>
+      </div>
+      <div class="feat-card ao ao-d1">
+        <span class="feat-icon">🍽️</span>
+        <div class="feat-title">Carta digital QR</div>
+        <div class="feat-desc">Menú público con 4 categorías, precios actualizados en tiempo real y descripción por plato. Lista para imprimir el QR.</div>
+        <span class="feat-tag">Experiencia</span>
+      </div>
+      <div class="feat-card ao ao-d2">
+        <span class="feat-icon">👥</span>
+        <div class="feat-title">Roles por persona</div>
+        <div class="feat-desc">Cada mesero, cocinero y administrador entra con su nombre. Las órdenes quedan registradas con quién las tomó.</div>
+        <span class="feat-tag">Equipo</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ ROLES ═══ -->
+<section class="roles">
+  <div class="container">
+    <div style="max-width:600px;">
+      <span class="overline ao">3 roles · 3 vistas</span>
+      <h2 class="serif ao ao-d1" style="font-size:clamp(32px,4vw,48px); font-weight:300; color:var(--ink); margin:12px 0 16px; line-height:1.15;">
+        Cada persona ve<br>solo lo que necesita.
+      </h2>
+      <p class="ao ao-d2" style="font-size:15px; color:var(--muted); line-height:1.8;">
+        Sin botones de más. Sin pasos perdidos. Sin capacitaciones de 2 horas.
+      </p>
+    </div>
+    <div class="roles-grid">
+      <a href="/mesero/" class="role-card ao">
+        <div class="role-inner">
+          <span class="role-icon">🧑‍🍽️</span>
+          <div class="role-name">Mesero</div>
+          <div class="role-desc">Opera desde el celular junto a la mesa. Toma la orden, la envía a cocina, cobra y genera la factura electrónica.</div>
+          <ul class="role-features">
+            <li>→ Mapa de 24 mesas en tiempo real</li>
+            <li>→ Modal de orden por categorías</li>
+            <li>→ Cobro con IVA y CUFE automático</li>
+            <li>→ Su nombre registrado en cada orden</li>
+          </ul>
+          <span class="role-link">Entrar como mesero <span>→</span></span>
+        </div>
+      </a>
+      <a href="/cocina/" class="role-card ao ao-d1">
+        <div class="role-inner">
+          <span class="role-icon">👨‍🍳</span>
+          <div class="role-name">Cocina</div>
+          <div class="role-desc">Pantalla KDS dedicada. Las órdenes llegan, se preparan, se entregan. El inventario se descuenta solo al marcar listo.</div>
+          <ul class="role-features">
+            <li>→ Cola: Pendiente → Preparando → Listo</li>
+            <li>→ Cronómetro con alerta de urgencia</li>
+            <li>→ Inventario automático al marcar listo</li>
+            <li>→ Refresh cada 3 segundos</li>
+          </ul>
+          <span class="role-link">Entrar como cocina <span>→</span></span>
+        </div>
+      </a>
+      <a href="/admin/" class="role-card ao ao-d2">
+        <div class="role-inner">
+          <span class="role-icon">👔</span>
+          <div class="role-name">Dueño</div>
+          <div class="role-desc">Control total del negocio. Inventario, facturas, contabilidad, arqueo, cierre de día y dashboard para inversores.</div>
+          <ul class="role-features">
+            <li>→ 9 módulos integrados en 1 pantalla</li>
+            <li>→ KPIs históricos 7 / 30 / 90 días</li>
+            <li>→ Acta de cierre con firma responsable</li>
+            <li>→ Dashboard listo para mostrar inversores</li>
+          </ul>
+          <span class="role-link">Entrar como admin <span>→</span></span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ CTA FINAL ═══ -->
+<section class="cta-final">
+  <div class="container-sm">
+    <span class="overline ao">¿Listo para el cambio?</span>
+    <h2 class="ao ao-d1">
+      Empiece hoy.<br>
+      <em>Sin contratos.</em>
+    </h2>
+    <p class="ao ao-d2">
+      Implementación en 48 horas con su menú, su equipo y sus datos reales. 
+      Cancele cuando quiera. El sistema se paga solo desde el primer mes.
+    </p>
+    <div class="cta-buttons ao ao-d3">
+      <a href="/login" class="btn-hero-primary">▶ Probar el sistema ahora</a>
+      <a href="https://wa.me/573TUNUMERO?text=Hola%2C%20vi%20Mesaio%20y%20quiero%20información%20para%20mi%20restaurante"
+        class="btn-hero-ghost">💬 Hablar por WhatsApp</a>
+    </div>
+    <div class="cta-trust ao ao-d4">
+      <span class="cta-trust-item">Sin contrato de permanencia</span>
+      <span class="cta-trust-item">Implementación incluida en Élite</span>
+      <span class="cta-trust-item">Soporte directo con el equipo</span>
+      <span class="cta-trust-item">Cancela cuando quieras</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <span class="footer-logo">Mesaio</span>
+      <div class="footer-links">
+        <a href="/login">Demo</a>
+        <a href="/menu">Carta</a>
+        <a href="/entregables/">Módulos</a>
+        <a href="https://github.com/HernandoSilvaLeal/c8_mesaio">GitHub</a>
+      </div>
+      <span class="footer-copy">Sistema de gestión profesional para restaurantes</span>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ═══ JS ═══ -->
+<script>
+// NAV scroll
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+// Animate on scroll
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+document.querySelectorAll('.ao').forEach(el => obs.observe(el));
+
+// Hero animaciones iniciales
+document.querySelectorAll('.hero .ao').forEach((el, i) => {
+  setTimeout(() => el.classList.add('visible'), 100 + i * 150);
+});
+
+// Comparativa toggle
+function toggleComparativa(btn) {
+  const table = document.getElementById('compTable');
+  const open = table.classList.toggle('open');
+  btn.innerHTML = open
+    ? '<span>↑</span> Ocultar comparativa'
+    : '<span>↓</span> Ver comparativa completa de funciones';
+}
+</script>
+
+</body>
+```
+
+---
+
+## GIT COMMIT
+
+```bash
+git add index.html
+git commit -m "design: Landing luxury v3.0 — Cormorant, dark hero, planes suscripción, comparativa, ROI"
+git push origin main
+```
+
+---
+
+## NOTAS PARA CLAUDE CODE
+
+1. Reemplazar `573TUNUMERO` por el número real de WhatsApp en los 2 CTAs
+2. El `<head>` existente se mantiene — solo agregar los `<link>` de Google Fonts y el bloque `<style>` completo de este spec
+3. El `<body>` se reemplaza completamente
+4. NO tocar ningún otro archivo en este commit
