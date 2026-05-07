@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acceder · Mesaio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<style>
+  :root {
+    --burgundy:#5C1A2B; --burgundy-dk:#3D0F1C; --burgundy-lt:#8B3A4E;
+    --gold:#C8A951; --gold-lt:#E2C87A; --gold-dk:#9a7a1e;
+    --cream:#FAF6EE; --charcoal:#1F1318; --charcoal-2:#5A4A4F;
+    --border:#E8DDD0;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Inter',sans-serif;color:var(--charcoal);min-height:100vh;display:flex;align-items:center;justify-content:center;
+       background:linear-gradient(135deg,rgba(61,15,28,.92),rgba(92,26,43,.85)),url('https://images.pexels.com/photos/1581384/pexels-photo-1581384.jpeg?auto=compress&cs=tinysrgb&w=1600') center/cover;
+       padding:24px}
+  .login-wrap{background:var(--cream);border-radius:24px;padding:48px 44px;max-width:460px;width:100%;box-shadow:0 30px 80px rgba(0,0,0,.4)}
+  .brand{text-align:center;margin-bottom:32px}
+  .brand-name{font-family:'Playfair Display',serif;font-size:36px;font-weight:900;color:var(--burgundy);letter-spacing:-.03em;margin:0}
+  .brand-name span{color:var(--gold-dk)}
+  .brand-sub{color:var(--charcoal-2);font-size:13px;margin-top:6px}
+  h2{font-family:'Playfair Display',serif;font-size:24px;color:var(--burgundy);text-align:center;margin:0 0 8px}
+  .lead-l{text-align:center;color:var(--charcoal-2);font-size:14px;margin-bottom:28px}
+  .role-pick{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:24px}
+  .role-btn{display:flex;align-items:center;gap:14px;padding:16px 18px;background:white;border:2px solid var(--border);border-radius:14px;cursor:pointer;text-decoration:none;color:var(--charcoal);transition:all .25s;font-family:inherit;font-size:14px;text-align:left;width:100%}
+  .role-btn:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 10px 28px rgba(92,26,43,.12)}
+  .role-btn .ic{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--burgundy),var(--burgundy-lt));display:flex;align-items:center;justify-content:center;color:var(--gold-lt);font-size:20px;flex-shrink:0}
+  .role-btn .tit{font-weight:700;color:var(--burgundy);font-size:15px;display:block}
+  .role-btn .sub{font-size:12px;color:var(--charcoal-2);margin-top:2px}
+  .role-btn .arr{margin-left:auto;color:var(--gold-dk);font-size:18px}
+  .demo-hint{font-size:11px;text-align:center;color:var(--charcoal-2);background:rgba(200,169,81,.14);border:1px solid rgba(200,169,81,.32);padding:10px 14px;border-radius:10px;margin-top:8px}
+  .back{display:block;text-align:center;margin-top:18px;color:var(--burgundy);font-size:13px;text-decoration:none;font-weight:600}
+  .back:hover{color:var(--gold-dk)}
+</style>
+</head>
+<body>
+  <div class="login-wrap">
+    <div class="brand">
+      <h1 class="brand-name">Mes<span>aio</span></h1>
+      <div class="brand-sub">Sistema integral de gestión</div>
+    </div>
+    <h2>Selecciona tu rol</h2>
+    <p class="lead-l">Modo demo: acceso directo sin contraseña. En producción, login con email + password (Supabase Auth).</p>
+    <div class="role-pick">
+      <a href="mesero/" class="role-btn">
+        <div class="ic"><i class="bi bi-person-badge"></i></div>
+        <div><span class="tit">Soy mesero</span><div class="sub">Tomar órdenes y gestionar mesas</div></div>
+        <i class="bi bi-arrow-right-short arr"></i>
+      </a>
+      <a href="cocina/" class="role-btn">
+        <div class="ic"><i class="bi bi-fire"></i></div>
+        <div><span class="tit">Soy cocinero</span><div class="sub">Pantalla KDS — preparar pedidos</div></div>
+        <i class="bi bi-arrow-right-short arr"></i>
+      </a>
+      <a href="admin/" class="role-btn">
+        <div class="ic"><i class="bi bi-graph-up-arrow"></i></div>
+        <div><span class="tit">Soy administrador</span><div class="sub">Menú, mesas, usuarios y reportes</div></div>
+        <i class="bi bi-arrow-right-short arr"></i>
+      </a>
+    </div>
+    <div class="demo-hint"><i class="bi bi-info-circle"></i> Demo Hackathon · datos en memoria local</div>
+    <a href="/" class="back"><i class="bi bi-arrow-left"></i> Volver al sitio</a>
+  </div>
+</body>
+</html>

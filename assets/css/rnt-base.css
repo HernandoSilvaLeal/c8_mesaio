@@ -1,0 +1,116 @@
+/**
+ * rnt-base.css — Sistema de botones + utilidades de sección + responsive base
+ * RNT Design System · AppCors S.A.S. × Red Nacional de Transportes
+ */
+
+/* ═══════════════════════════════════════════════════════
+   BUTTON SYSTEM — 3 variantes premium
+   ═══════════════════════════════════════════════════════ */
+
+.btn-primary-rnt {
+  background: linear-gradient(135deg, var(--accent-dark, #9a7a1e) 0%, var(--accent-color, #C8A951) 100%);
+  color: var(--navy-deep, #0B1D3A);
+  border: none;
+  padding: 10px 26px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: var(--font-sm, 0.8125rem);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: all var(--transition-base, 0.3s cubic-bezier(0.4,0,0.2,1));
+  box-shadow: 0 3px 14px rgba(200,169,81,0.32);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.btn-primary-rnt:hover,
+.btn-primary-rnt:focus {
+  background: linear-gradient(135deg, var(--accent-color, #C8A951) 0%, var(--accent-dark, #9a7a1e) 100%);
+  color: var(--navy-deep, #0B1D3A);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(200,169,81,0.45);
+}
+
+.btn-secondary-rnt {
+  background: transparent;
+  color: var(--navy-deep, #0B1D3A);
+  border: 2px solid var(--navy-mid, #1B3A6B);
+  padding: 11px 26px;
+  border-radius: var(--radius-md, 14px);
+  font-weight: 600;
+  font-size: var(--font-sm, 0.8125rem);
+  letter-spacing: 0.04em;
+  transition: all var(--transition-base, 0.3s cubic-bezier(0.4,0,0.2,1));
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn-secondary-rnt:hover {
+  background: var(--navy-deep, #0B1D3A);
+  color: white;
+  border-color: var(--navy-deep, #0B1D3A);
+}
+
+.btn-ghost-rnt {
+  background: rgba(255,255,255,0.1);
+  color: white;
+  border: 1.5px solid rgba(255,255,255,0.3);
+  padding: 11px 26px;
+  border-radius: var(--radius-md, 14px);
+  font-weight: 600;
+  font-size: var(--font-sm, 0.8125rem);
+  transition: all var(--transition-base, 0.3s cubic-bezier(0.4,0,0.2,1));
+  backdrop-filter: blur(8px);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn-ghost-rnt:hover {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.6);
+  color: white;
+}
+
+/* ═══════════════════════════════════════════════════════
+   SECTION COLOR UTILITIES — ritmo visual entre secciones
+   ═══════════════════════════════════════════════════════ */
+
+/* Azul navy muy suave — sensación premium fría */
+.section-tinted {
+  background-color: #EEF2F8 !important;
+}
+
+/* Beige cálido — cierra secciones con calidez */
+.section-warm {
+  background-color: #FAF8F4 !important;
+}
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE BASE — Silver components
+   ═══════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .dif-card { padding: 28px 20px; }
+  .testi-card { padding: 24px; }
+  .paso-card { padding: 28px 20px; }
+  .cta-actions { justify-content: center; }
+  .hero-lead { max-width: 100%; }
+}
+
+@media (max-width: 576px) {
+  .trust-inner { gap: 14px; }
+  .btn-primary-rnt,
+  .btn-ghost-rnt,
+  .btn-secondary-rnt { width: 100%; justify-content: center; }
+  .cta-actions { flex-direction: column; }
+}

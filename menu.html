@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carta · Mesaio</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700;900&display=swap" rel="stylesheet">
+<link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<style>
+  :root{--burgundy:#5C1A2B;--burgundy-dk:#3D0F1C;--burgundy-lt:#8B3A4E;--gold:#C8A951;--gold-lt:#E2C87A;--gold-dk:#9a7a1e;
+        --cream:#FAF6EE;--cream-2:#F2EBDC;--charcoal:#1F1318;--charcoal-2:#5A4A4F;--border:#E8DDD0}
+  *{box-sizing:border-box} body{margin:0;font-family:'Inter',sans-serif;background:var(--cream);color:var(--charcoal)}
+  h1,h2,h3,h4{font-family:'Playfair Display',serif;margin:0}
+  .nav-mini{background:var(--burgundy);color:white;padding:14px 0;position:sticky;top:0;z-index:50}
+  .nav-inner{max-width:1280px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between}
+  .brand-mini{font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:white;text-decoration:none}
+  .brand-mini span{color:var(--gold-lt)}
+  .nav-back{color:rgba(255,255,255,.85);text-decoration:none;font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:6px}
+  .nav-back:hover{color:var(--gold-lt)}
+  .menu-hero{background:linear-gradient(135deg,rgba(61,15,28,.88),rgba(92,26,43,.78)),url('https://images.pexels.com/photos/1581384/pexels-photo-1581384.jpeg?auto=compress&cs=tinysrgb&w=1600') center/cover;color:white;padding:80px 28px 60px;text-align:center}
+  .menu-hero .lbl{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-lt);background:rgba(200,169,81,.14);border:1px solid rgba(200,169,81,.32);padding:7px 16px;border-radius:50px;margin-bottom:18px}
+  .menu-hero h1{font-size:clamp(2.2rem,5vw,3.6rem);margin-bottom:14px}
+  .menu-hero p{font-size:1.05rem;opacity:.85;max-width:600px;margin:0 auto}
+  .wrap{max-width:1280px;margin:0 auto;padding:60px 28px}
+  .cat-tabs{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:50px}
+  .cat-tab{padding:10px 22px;border-radius:50px;background:white;border:1.5px solid var(--border);color:var(--charcoal-2);font-size:13px;font-weight:600;cursor:pointer;transition:all .25s;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+  .cat-tab:hover,.cat-tab.active{background:var(--burgundy);color:white;border-color:var(--burgundy)}
+  .cat-block{margin-bottom:60px}
+  .cat-h{display:flex;align-items:center;gap:14px;margin-bottom:26px;padding-bottom:14px;border-bottom:2px solid var(--gold)}
+  .cat-h h2{font-size:1.8rem;color:var(--burgundy)}
+  .cat-h .ic{width:42px;height:42px;border-radius:50%;background:rgba(200,169,81,.18);display:flex;align-items:center;justify-content:center;color:var(--gold-dk);font-size:20px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px}
+  .item{background:white;border-radius:16px;overflow:hidden;border:1px solid var(--border);box-shadow:0 4px 14px rgba(92,26,43,.08);transition:all .3s;display:flex;flex-direction:column}
+  .item:hover{transform:translateY(-4px);box-shadow:0 14px 36px rgba(92,26,43,.18)}
+  .item-img{height:180px;background-size:cover;background-position:center;position:relative}
+  .item-tag{position:absolute;top:12px;right:12px;background:rgba(200,169,81,.95);color:var(--burgundy-dk);font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:50px}
+  .item-body{padding:20px;flex:1;display:flex;flex-direction:column}
+  .item h4{font-size:1.2rem;color:var(--burgundy);margin-bottom:6px}
+  .item p{font-size:.86rem;color:var(--charcoal-2);line-height:1.5;margin-bottom:14px;flex:1}
+  .item-foot{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);padding-top:12px;margin-top:auto}
+  .item-price{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--burgundy);font-weight:800}
+  .item-price small{font-size:.65rem;color:var(--charcoal-2);font-weight:400;margin-left:3px}
+</style>
+</head>
+<body>
+<nav class="nav-mini">
+  <div class="nav-inner">
+    <a href="/" class="brand-mini">Mes<span>aio</span></a>
+    <a href="/" class="nav-back"><i class="bi bi-arrow-left"></i> Volver</a>
+  </div>
+</nav>
+<section class="menu-hero">
+  <span class="lbl">Carta digital</span>
+  <h1>Sabores que cuentan historia</h1>
+  <p>Cocina colombiana contemporánea. Productos frescos, recetas tradicionales con técnica moderna.</p>
+</section>
+<div class="wrap">
+  <div class="cat-tabs">
+    <a class="cat-tab active" href="#entradas"><i class="bi bi-cup-hot"></i> Entradas</a>
+    <a class="cat-tab" href="#fuertes"><i class="bi bi-egg-fried"></i> Platos fuertes</a>
+    <a class="cat-tab" href="#postres"><i class="bi bi-cup-straw"></i> Postres</a>
+    <a class="cat-tab" href="#bebidas"><i class="bi bi-cup"></i> Bebidas</a>
+  </div>
+
+  <div class="cat-block" id="entradas">
+    <div class="cat-h"><div class="ic"><i class="bi bi-cup-hot"></i></div><h2>Entradas</h2></div>
+    <div class="grid">
+      <div class="item"><div class="item-img" style="background-image:url('https://images.pexels.com/photos/3338497/pexels-photo-3338497.jpeg?auto=compress&cs=tinysrgb&w=600')"><span class="item-tag">Tradicional</span></div><div class="item-body"><h4>Empanadas vallunas</h4><p>4 empanadas de papa, carne y hogao casero, ají de aguacate.</p><div class="item-foot"><span class="item-price">$18.000<small>COP</small></span><i class="bi bi-plus-circle" style="color:var(--gold-dk);font-size:24px;cursor:pointer"></i></div></div></div>
+      <div class="item"><div class="item-img" style="background-image:url('https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=600')"><span class="item-tag">Recomendado</span></div><div class="item-body"><h4>Ajiaco santafereño</h4><p>Sopa bogotana de tres papas, pollo, mazorca, alcaparras y crema.</p><div class="item-foot"><span class="item-price">$36.000<small>COP</small></span><i class="bi bi-plus-circle" style="color:var(--gold-dk);font-size:24px;cursor:pointer"></i></div></div></div>
+      <div class="item"><div class="item-img" style="background-image:url('https://images.pexels.com/photos/539451/pexels-photo-539451.jpeg?auto=compress&cs=tinysrgb&w=600')"></div><div class="item-body"><h4>Sancocho trifásico</h4><p>Caldo robusto con res, cerdo y gallina. Yuca, plátano y mazorca.</p><div class="item-foot"><span class="item-price">$32.000<small>COP</small></span><i class="bi bi-plus-circle" style="color:var(--gold-dk);font-size:24px;cursor:pointer"></i></div></div></div>
+    </div>
+  </div>
+
+  <div class="cat-block" id="fuertes">
+    <div class="cat-h"><div class="ic"><i class="bi bi-egg-fried"></i></div><h2>Platos fuertes</h2></div>
+    <div class="grid">
+      <div class="item"><div class="item-img" style="background-image:url('https://images.pexels.com/photos/1580466/pexels-photo-1580466.jpeg?auto=compress&cs=tinysrgb&w=600')"><span class="item-tag">Especialidad</span></div><div class="item-body"><h4>Lomo al trapo</h4><p>Lomo fino envuelto en sal y trapo, asado a las brasas. Papa criolla.</p><div class="item-foot"><span class="item-price">$58.000<small>COP</small></span><i class="bi bi-plus-circle" style="color:var(--gold-dk);font-size:24px;cursor:pointer"></i></div></div></div>
+      <div class="item"><div class="item-img" style="background-image:url('https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg?auto=compress&cs=tinysrgb&w=600')"><span class="item-tag">Tradicional</span></div><div class="item-body"><h4>Bandeja paisa</h4><p>Frijoles, arroz, carne, chicharrón, huevo, plátano, aguacate y arepa.</p><div class="item-foot"><span class="item-price">$42.000<small>COP</small></span><i class="bi bi-plus-circle" style="color:var(--gold-dk);font-size:24px;cursor:pointer"></i></div></div></div>
+      <div class="item"><div class="item-img" style="background-image:url('https://images.pexels.com/photos/3535383/pexels-photo-3535383.jpeg?auto=compress&cs=tinysrgb&w=600')"></div><div class="item-body"><h4>Posta cartagenera</h4><p>Carne en salsa dulce con coca-cola, panela y especias. Arroz con coco.</p><div class="item-foot"><span class="item-price">$48.000<small>COP</small></span><i class="bi bi-plus-circle" style="color:var(--gold-dk);font-size:24px;cursor:pointer"></i></div></div></div>
+      <div class="item"><div class="item-img" style="background-image:url('https://images.pexels.com/photos/3296434/pexels-photo-3296434.jpeg?auto=compress&cs=tinysrgb&w=600')"></div><div class="item-body"><h4>Mojarra frita</h4><p>Mojarra fresca frita entera, patacón, ensalada y arroz blanco.</p><div class="item-foot"><span class="item-price">$45.000<small>COP</small></span><i class="bi bi-plus-circle" style="color:var(--gold-dk);font-size:24px;cursor:pointer"></i></div></div></div>
+      <div class="item"><div class="item-img" style="background-image:url('https://images.pexels.com/photos/3296280/pexels-photo-3296280.jpeg?auto=compress&cs=tinysrgb&w=600')"></div><div class="item-body"><h4>Cazuela de mariscos</h4><p>Camarón, calamar, pescado, langostino en leche de coco y especias.</p><div class="item-foot"><span class="item-price">$62.000<small>COP</small></span><i class="bi bi-plus-circle" style="color:var(--gold-dk);font-size:24px;cursor:pointer"></i></div></div></div>
+      <div class="item"><div class="item-img" style="background-image:url('https://images.pexels.com/photos/2641886/pexels-photo-2641886.jpeg?auto=compress&cs=tinysrgb&w=600')"></div><div class="item-body"><h4>Lechona tolimense</h4><p>Cerdo relleno de arroz, arveja y especias. Insulso y arepa.</p><div class="item-foot"><span class="item-price">$38.000<small>COP</small></span><i class="bi bi-plus-circle" style="color:var(--gold-dk);font-size:24px;cursor:pointer"></i></div></div></div>
+    </div>
+  </div>
+
+  <div class="cat-block" id="postres">
+    <div class="cat-h"><div class="ic"><i class="bi bi-cup-straw"></i></div><h2>Postres</h2></div>
+    <div class="grid">
+      <div class="item"><div class="item-img" style="background-image:url('https://images.pexels.com/photos/1099680/pexels-photo-1099680.jpeg?auto=compress&cs=tinysrgb&w=600')"></div><div class="item-body"><h4>Tres leches casero</h4><p>Bizcocho esponjoso bañado en tres leches y merengue tostado.</p><div class="item-foot"><span class="item-price">$14.000<small>COP</small></span><i class="bi bi-plus-circle" style="color:var(--gold-dk);font-size:24px;cursor:pointer"></i></div></div></div>
+      <div class="item"><div class="item-img" style="background-image:url('https://images.pexels.com/photos/3026808/pexels-photo-3026808.jpeg?auto=compress&cs=tinysrgb&w=600')"></div><div class="item-body"><h4>Arroz con leche</h4><p>Arroz cremoso con canela, leche condensada y pasas.</p><div class="item-foot"><span class="item-price">$10.000<small>COP</small></span><i class="bi bi-plus-circle" style="color:var(--gold-dk);font-size:24px;cursor:pointer"></i></div></div></div>
+      <div class="item"><div class="item-img" style="background-image:url('https://images.pexels.com/photos/1854652/pexels-photo-1854652.jpeg?auto=compress&cs=tinysrgb&w=600')"></div><div class="item-body"><h4>Brownie con helado</h4><p>Brownie tibio de chocolate amargo con helado de vainilla bourbon.</p><div class="item-foot"><span class="item-price">$15.000<small>COP</small></span><i class="bi bi-plus-circle" style="color:var(--gold-dk);font-size:24px;cursor:pointer"></i></div></div></div>
+    </div>
+  </div>
+
+  <div class="cat-block" id="bebidas">
+    <div class="cat-h"><div class="ic"><i class="bi bi-cup"></i></div><h2>Bebidas</h2></div>
+    <div class="grid">
+      <div class="item"><div class="item-img" style="background-image:url('https://images.pexels.com/photos/1346155/pexels-photo-1346155.jpeg?auto=compress&cs=tinysrgb&w=600')"></div><div class="item-body"><h4>Limonada de coco</h4><p>Limón, leche de coco y hielo. Fresca y cremosa.</p><div class="item-foot"><span class="item-price">$12.000<small>COP</small></span><i class="bi bi-plus-circle" style="color:var(--gold-dk);font-size:24px;cursor:pointer"></i></div></div></div>
+      <div class="item"><div class="item-img" style="background-image:url('https://images.pexels.com/photos/1283219/pexels-photo-1283219.jpeg?auto=compress&cs=tinysrgb&w=600')"></div><div class="item-body"><h4>Jugo natural</h4><p>Mora, lulo, maracuyá o guanábana. En agua o leche.</p><div class="item-foot"><span class="item-price">$8.000<small>COP</small></span><i class="bi bi-plus-circle" style="color:var(--gold-dk);font-size:24px;cursor:pointer"></i></div></div></div>
+      <div class="item"><div class="item-img" style="background-image:url('https://images.pexels.com/photos/377903/pexels-photo-377903.jpeg?auto=compress&cs=tinysrgb&w=600')"></div><div class="item-body"><h4>Vino tinto · copa</h4><p>Tannat uruguayo o Malbec mendocino. Servicio en copa.</p><div class="item-foot"><span class="item-price">$22.000<small>COP</small></span><i class="bi bi-plus-circle" style="color:var(--gold-dk);font-size:24px;cursor:pointer"></i></div></div></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

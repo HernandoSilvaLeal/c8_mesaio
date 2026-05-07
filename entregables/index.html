@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entregables · Mesaio</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<style>
+  :root{--burgundy:#5C1A2B;--burgundy-dk:#3D0F1C;--burgundy-lt:#8B3A4E;--gold:#C8A951;--gold-lt:#E2C87A;--gold-dk:#9a7a1e;--cream:#FAF6EE;--cream-2:#F2EBDC;--charcoal:#1F1318;--charcoal-2:#5A4A4F;--border:#E8DDD0}
+  *{box-sizing:border-box}body{margin:0;font-family:'Inter',sans-serif;background:var(--cream);color:var(--charcoal)}
+  .topbar{background:linear-gradient(135deg,var(--burgundy),var(--burgundy-dk));padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;color:white}
+  .brand{font-family:'Playfair Display',serif;font-size:22px;font-weight:900}
+  .brand span{color:var(--gold-lt)}
+  .nav-back{color:rgba(255,255,255,.85);font-size:13px;text-decoration:none;font-weight:600}
+  .nav-back:hover{color:var(--gold-lt)}
+  .hero{background:linear-gradient(135deg,rgba(61,15,28,.92),rgba(92,26,43,.85)),url('https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg?auto=compress&cs=tinysrgb&w=1600') center/cover;color:white;padding:80px 28px 60px;text-align:center}
+  .hero .lbl{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-lt);background:rgba(200,169,81,.14);border:1px solid rgba(200,169,81,.32);padding:7px 16px;border-radius:50px;margin-bottom:16px}
+  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,4.5vw,3.2rem);margin:0 0 14px;font-weight:900}
+  .hero p{font-size:1.05rem;opacity:.85;max-width:620px;margin:0 auto}
+  .wrap{max-width:1080px;margin:0 auto;padding:50px 20px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:20px}
+  .card{background:white;border-radius:16px;padding:26px;box-shadow:0 4px 20px rgba(92,26,43,.08);border-left:4px solid var(--gold);text-decoration:none;color:inherit;transition:all .25s;display:flex;flex-direction:column;gap:14px}
+  .card:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(92,26,43,.18);border-left-color:var(--burgundy)}
+  .card-h{display:flex;align-items:center;gap:14px}
+  .icon{width:52px;height:52px;border-radius:13px;background:linear-gradient(135deg,var(--burgundy),var(--burgundy-lt));display:flex;align-items:center;justify-content:center;color:var(--gold-lt);font-size:22px;flex-shrink:0;box-shadow:0 6px 18px rgba(92,26,43,.25)}
+  .tit{font-family:'Playfair Display',serif;font-weight:800;color:var(--burgundy);font-size:18px;line-height:1.2}
+  .desc{font-size:13px;color:var(--charcoal-2);line-height:1.55}
+  .tag{display:inline-block;font-size:9px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:50px;background:rgba(200,169,81,.16);color:var(--gold-dk);align-self:flex-start}
+  .tag.priv{background:rgba(92,26,43,.12);color:var(--burgundy)}
+  .visit{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--burgundy);text-transform:uppercase;letter-spacing:.06em;border-bottom:2px solid var(--gold);padding-bottom:2px;align-self:flex-start;transition:all .2s}
+  .card:hover .visit{gap:10px;color:var(--gold-dk)}
+  .stack{margin-top:50px;background:white;border-radius:16px;padding:28px;text-align:center;border:1px solid var(--border)}
+  .stack h3{font-family:'Playfair Display',serif;color:var(--burgundy);margin:0 0 12px;font-size:20px}
+  .stack-pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:14px}
+  .stack-pill{background:var(--cream-2);padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;color:var(--charcoal);border:1px solid var(--border)}
+  .footer-mini{text-align:center;font-size:12px;color:var(--charcoal-2);margin-top:30px}
+  .footer-mini strong{color:var(--burgundy)}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="brand">Mes<span>aio</span></div>
+  <a href="/" class="nav-back"><i class="bi bi-arrow-left"></i> Volver al sitio</a>
+</div>
+
+<section class="hero">
+  <span class="lbl">Hackathon 2026 · Premio $2.000.000</span>
+  <h1>Entregables del MVP</h1>
+  <p>Sistema integral de gestión para restaurantes — 3 roles sincronizados en tiempo real, demo completa lista para evaluar.</p>
+</section>
+
+<div class="wrap">
+  <div class="grid">
+
+    <a href="/" class="card">
+      <div class="card-h">
+        <div class="icon"><i class="bi bi-globe"></i></div>
+        <div><div class="tit">Landing comercial</div></div>
+      </div>
+      <div class="desc">Página principal del producto. Hero burgundy+gold premium · narrativa 5 actos · stats en vivo · mockup de KDS · CTA a demo.</div>
+      <span class="tag">Público</span>
+      <span class="visit">Visitar <i class="bi bi-arrow-right"></i></span>
+    </a>
+
+    <a href="/login" class="card">
+      <div class="card-h">
+        <div class="icon"><i class="bi bi-box-arrow-in-right"></i></div>
+        <div><div class="tit">Login · Selector de rol</div></div>
+      </div>
+      <div class="desc">Acceso directo sin contraseña (modo demo). Tres puertas de entrada: Mesero · Cocinero · Administrador.</div>
+      <span class="tag">Autenticación</span>
+      <span class="visit">Ingresar <i class="bi bi-arrow-right"></i></span>
+    </a>
+
+    <a href="/mesero" class="card">
+      <div class="card-h">
+        <div class="icon"><i class="bi bi-person-badge"></i></div>
+        <div><div class="tit">Panel del Mesero</div></div>
+      </div>
+      <div class="desc">Mapa visual de 12 mesas color-coded · modal de toma de orden con 4 categorías · carrito con totales · envío directo a cocina · gestión de cuenta.</div>
+      <span class="tag priv">Rol mesero</span>
+      <span class="visit">Operar <i class="bi bi-arrow-right"></i></span>
+    </a>
+
+    <a href="/cocina" class="card">
+      <div class="card-h">
+        <div class="icon"><i class="bi bi-fire"></i></div>
+        <div><div class="tit">Kitchen Display System</div></div>
+      </div>
+      <div class="desc">KDS de 3 columnas estilo Toast/Square: Pendientes → Preparando → Listos. Cards con cronómetro, alerta visual roja a los 10 min, refresh cada 3s.</div>
+      <span class="tag priv">Rol cocinero</span>
+      <span class="visit">Operar <i class="bi bi-arrow-right"></i></span>
+    </a>
+
+    <a href="/admin" class="card">
+      <div class="card-h">
+        <div class="icon"><i class="bi bi-graph-up-arrow"></i></div>
+        <div><div class="tit">Dashboard Admin</div></div>
+      </div>
+      <div class="desc">5 secciones: Dashboard live · Platos (CRUD) · Mesas · Órdenes histórico · Reportes con top 5 platos. Export CSV con BOM UTF-8.</div>
+      <span class="tag priv">Rol admin</span>
+      <span class="visit">Gestionar <i class="bi bi-arrow-right"></i></span>
+    </a>
+
+    <a href="/menu" class="card">
+      <div class="card-h">
+        <div class="icon"><i class="bi bi-journal-richtext"></i></div>
+        <div><div class="tit">Carta Digital</div></div>
+      </div>
+      <div class="desc">Menú público con 4 categorías (entradas, fuertes, postres, bebidas). 15 platos colombianos con foto, descripción y precio. Listo para QR.</div>
+      <span class="tag">Público</span>
+      <span class="visit">Ver carta <i class="bi bi-arrow-right"></i></span>
+    </a>
+
+  </div>
+
+  <div class="stack">
+    <h3>Stack técnico</h3>
+    <p style="margin:0;color:var(--charcoal-2);font-size:14px">Sin frameworks pesados. Web nativa que carga en milisegundos y corre en cualquier dispositivo.</p>
+    <div class="stack-pills">
+      <span class="stack-pill">HTML5</span>
+      <span class="stack-pill">CSS3 Vanilla</span>
+      <span class="stack-pill">JavaScript ES6+</span>
+      <span class="stack-pill">Bootstrap 5.3</span>
+      <span class="stack-pill">Bootstrap Icons</span>
+      <span class="stack-pill">Inter + Playfair Display</span>
+      <span class="stack-pill">Supabase (PostgreSQL + Auth + Realtime)</span>
+      <span class="stack-pill">Netlify (CI/CD)</span>
+    </div>
+  </div>
+
+  <div class="footer-mini">
+    <strong>Mesaio</strong> · Hackathon 2026 · Hecho con ❤️ en Colombia<br>
+    Repo: <a href="https://github.com/HernandoSilvaLeal/c8_mesaio" target="_blank" style="color:var(--burgundy)">github.com/HernandoSilvaLeal/c8_mesaio</a>
+  </div>
+</div>
+</body>
+</html>

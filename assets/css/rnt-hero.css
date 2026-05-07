@@ -1,0 +1,263 @@
+/**
+ * rnt-hero.css — Hero section + Trust strip + CTA
+ * RNT Design System · AppCors S.A.S. × Red Nacional de Transportes
+ */
+
+/* ═══════════════════════════════════════════════════════
+   HERO EYEBROW + ACCENT
+   ═══════════════════════════════════════════════════════ */
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--font-xs, 0.6875rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-light, #E2C87A);
+  background: rgba(200,169,81,0.15);
+  border: 1px solid rgba(200,169,81,0.3);
+  padding: 6px 14px;
+  border-radius: 50px;
+  margin-bottom: 20px;
+}
+
+.hero-accent {
+  color: var(--gold-light, #E2C87A);
+}
+
+.hero-lead {
+  font-size: var(--font-lead, clamp(1rem, 1.8vw, 1.2rem));
+  line-height: 1.7;
+  color: rgba(255,255,255,0.82);
+  max-width: 480px;
+}
+
+/* ── Hero search box ── */
+.hero-search-box {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: var(--radius-lg, 20px);
+  padding: 20px 24px;
+  backdrop-filter: blur(12px);
+  max-width: 520px;
+}
+
+.search-label {
+  font-size: var(--font-xs, 0.6875rem);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold-light, #E2C87A);
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.search-input-wrap {
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255,255,255,0.5);
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: var(--radius-sm, 8px);
+  padding: 13px 16px 13px 40px;
+  color: white;
+  font-size: var(--font-body, 0.9375rem);
+  font-family: inherit;
+}
+
+.search-input::placeholder {
+  color: rgba(255,255,255,0.45);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--gold, #C8A951);
+  box-shadow: 0 0 0 3px var(--gold-muted, rgba(200,169,81,0.15));
+}
+
+.btn-search {
+  background: linear-gradient(135deg, var(--accent-dark, #9a7a1e), var(--gold, #C8A951));
+  color: var(--navy-deep, #0B1D3A);
+  border: none;
+  padding: 13px 22px;
+  border-radius: var(--radius-sm, 8px);
+  font-weight: 700;
+  font-size: var(--font-sm, 0.8125rem);
+  white-space: nowrap;
+  transition: all var(--transition-base, 0.3s cubic-bezier(0.4,0,0.2,1));
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.btn-search:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-gold, 0 8px 32px rgba(200,169,81,0.25));
+}
+
+/* ── Stat number gradient ── */
+.stat-number-gold {
+  background: linear-gradient(135deg, var(--gold, #C8A951), var(--gold-light, #E2C87A));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+
+/* ── Fix: hero background uniforme + padding para que el eyebrow respire ── */
+.hero {
+  background: var(--navy-deep, #0B1D3A) !important;
+  padding-top: 165px !important;
+}
+
+/* ═══════════════════════════════════════════════════════
+   HERO STATS STRIP — strip horizontal sin cajas
+   ═══════════════════════════════════════════════════════ */
+
+.hero-stats-strip {
+  display: flex;
+  align-items: center;
+  padding: 28px 0 0;
+  max-width: 520px;
+}
+
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-right: 28px;
+  flex: 1;
+}
+
+.hs-number {
+  font-size: clamp(1.5rem, 2.8vw, 2.1rem);
+  font-weight: 900;
+  color: var(--gold, #C8A951);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.hs-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.58);
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  margin-top: 7px;
+  line-height: 1.5;
+}
+
+.hs-divider {
+  width: 1px;
+  height: 44px;
+  background: rgba(255,255,255,0.15);
+  flex-shrink: 0;
+  margin-right: 28px;
+}
+
+@media (max-width: 576px) {
+  .hero-stats-strip {
+    flex-wrap: wrap;
+    gap: 22px 0;
+    max-width: 100%;
+    padding-top: 20px;
+  }
+  .hero-stat {
+    flex: 0 0 50%;
+    padding-right: 0;
+    align-items: flex-start;
+  }
+  .hs-divider { display: none; }
+  .hs-number { font-size: 1.5rem; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   TRUST STRIP
+   ═══════════════════════════════════════════════════════ */
+
+.trust-strip {
+  background: var(--navy-deep, #0B1D3A);
+  border-top: 1px solid rgba(200,169,81,0.2);
+  border-bottom: 1px solid rgba(200,169,81,0.2);
+  padding: 16px 0;
+  overflow: hidden;
+}
+
+.trust-inner {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.trust-label {
+  font-size: var(--font-xs, 0.6875rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold, #C8A951);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255,255,255,0.75);
+  font-size: var(--font-sm, 0.8125rem);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.trust-item i {
+  color: var(--gold, #C8A951);
+  font-size: 14px;
+}
+
+.trust-divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(255,255,255,0.15);
+  flex-shrink: 0;
+}
+
+@media (max-width: 576px) {
+  .trust-strip { padding: 12px 0; }
+  .trust-inner { gap: 16px; }
+  .trust-divider { display: none; }
+  .trust-label { width: 100%; text-align: center; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   CTA SILVER — copy fuerte
+   ═══════════════════════════════════════════════════════ */
+
+.cta-eyebrow {
+  display: inline-block;
+  font-size: var(--font-xs, 0.6875rem);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-light, #E2C87A);
+  margin-bottom: 16px;
+}
+
+.cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  margin-top: 28px;
+}

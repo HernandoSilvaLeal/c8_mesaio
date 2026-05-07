@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mesero · Mesaio</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<style>
+  :root{--burgundy:#5C1A2B;--burgundy-dk:#3D0F1C;--burgundy-lt:#8B3A4E;--gold:#C8A951;--gold-lt:#E2C87A;--gold-dk:#9a7a1e;
+        --cream:#FAF6EE;--cream-2:#F2EBDC;--charcoal:#1F1318;--charcoal-2:#5A4A4F;--border:#E8DDD0;
+        --st-libre:#4CAF50;--st-ocup:#FFC107;--st-cobro:#F44336}
+  *{box-sizing:border-box} body{margin:0;font-family:'Inter',sans-serif;background:var(--cream);color:var(--charcoal);min-height:100vh}
+  .topbar{background:linear-gradient(135deg,var(--burgundy),var(--burgundy-dk));color:white;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:0 2px 16px rgba(61,15,28,.3)}
+  .brand-mini{font-family:'Playfair Display',serif;font-size:22px;font-weight:900}
+  .brand-mini span{color:var(--gold-lt)}
+  .role-pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);padding:5px 14px;border-radius:50px;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:6px}
+  .role-pill i{color:var(--gold-lt)}
+  .out{background:transparent;border:1px solid rgba(255,255,255,.3);color:white;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;text-decoration:none;transition:all .2s}
+  .out:hover{background:rgba(255,255,255,.12)}
+  .wrap{max-width:1280px;margin:0 auto;padding:28px 24px}
+  h2.page-h{font-family:'Playfair Display',serif;font-size:30px;color:var(--burgundy);margin:0 0 6px}
+  .page-sub{color:var(--charcoal-2);font-size:14px;margin-bottom:24px}
+  .leyenda{display:flex;gap:20px;flex-wrap:wrap;font-size:12px;color:var(--charcoal-2);margin-bottom:24px;align-items:center}
+  .leyenda span{display:inline-flex;align-items:center;gap:6px}
+  .dot{width:10px;height:10px;border-radius:50%}
+  .dot.l{background:var(--st-libre)} .dot.o{background:#1565C0} .dot.c{background:var(--st-cobro)}
+  .live-pill{margin-left:auto;background:rgba(76,175,80,.15);border:1px solid rgba(76,175,80,.4);padding:4px 12px;border-radius:50px;color:#2E7D32;font-weight:700;display:inline-flex;align-items:center;gap:6px;font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+  .live-pill .pulse{width:8px;height:8px;border-radius:50%;background:#2E7D32;animation:livePulse 1.5s infinite}
+  @keyframes livePulse{0%,100%{opacity:1}50%{opacity:.4}}
+  #mesasGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:18px;margin-bottom:30px}
+  .mesa-card{background:white;border-radius:16px;padding:22px 18px;text-align:center;border:2px solid var(--border);cursor:pointer;transition:all .25s;box-shadow:0 4px 14px rgba(92,26,43,.08);position:relative;min-height:170px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+  .mesa-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(92,26,43,.16)}
+  .mesa-card.libre{border-color:rgba(76,175,80,.4);background:linear-gradient(180deg,#f3faf3,white)}
+  .mesa-card.ocupada{border-color:rgba(21,101,192,.4);background:linear-gradient(180deg,#f0f6fd,white)}
+  .mesa-card.cobro{border-color:rgba(244,67,54,.4);background:linear-gradient(180deg,#fff5f5,white);animation:cobroPulse 2s infinite}
+  @keyframes cobroPulse{0%,100%{box-shadow:0 4px 14px rgba(244,67,54,.18)}50%{box-shadow:0 4px 22px rgba(244,67,54,.36)}}
+  .mesa-emoji{font-size:32px;line-height:1}
+  .mesa-num{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;line-height:1}
+  .mesa-info{font-size:10px;color:var(--charcoal-2);text-transform:uppercase;letter-spacing:.1em;font-weight:600}
+  .mesa-st{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;padding:4px 10px;border-radius:50px;letter-spacing:.06em;text-transform:uppercase}
+  .mesa-monto{font-size:11px;color:var(--burgundy);font-weight:700;margin-top:2px}
+  .tap-hint{font-size:9px;color:var(--gold-dk);font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-top:4px}
+  .demo-note{background:rgba(200,169,81,.12);border:1px solid rgba(200,169,81,.32);border-radius:10px;padding:14px 18px;font-size:13px;color:var(--charcoal-2)}
+  .demo-note strong{color:var(--burgundy)}
+  /* Modal */
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(31,19,24,0.65);backdrop-filter:blur(4px);z-index:2000;align-items:center;justify-content:center;padding:16px;animation:fadeIn .2s ease}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .modal-box{background:#FAF6EE;border-radius:20px;width:100%;max-width:600px;max-height:88vh;overflow:hidden;box-shadow:0 20px 60px rgba(92,26,43,.25);display:flex;flex-direction:column}
+  .modal-head{padding:20px 24px;border-bottom:2px solid #E8DDD0;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+  .modal-head .lbl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#C8A951}
+  .modal-head h3{font-family:'Playfair Display',serif;font-size:22px;color:#5C1A2B;margin:4px 0 0}
+  .modal-x{background:#F2EBDC;border:none;border-radius:8px;width:36px;height:36px;cursor:pointer;font-size:18px;color:#5A4A4F}
+  .modal-body{padding:16px 24px;overflow-y:auto;flex:1}
+  .cat-tab{flex:1;padding:8px;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;background:transparent;color:#5A4A4F;transition:all .2s}
+  .cat-tab.active{background:#5C1A2B;color:white}
+  .plato-row{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-bottom:1px solid #E8DDD0;cursor:pointer;transition:background .15s;border-radius:8px;margin-bottom:2px}
+  .plato-row:hover{background:rgba(200,169,81,.1)}
+  .plato-add{background:#C8A951;color:#3D0F1C;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;border:none;cursor:pointer}
+  .carrito-item{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #F2EBDC}
+  .qty-minus{background:#FCE8E8;border:none;border-radius:50%;width:22px;height:22px;cursor:pointer;color:#721C24;font-weight:900;font-size:12px}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;gap:18px">
+    <div class="brand-mini">Mes<span>aio</span></div>
+    <div class="role-pill"><i class="bi bi-person-badge"></i> Mesero · Carlos R.</div>
+  </div>
+  <a href="../login.html" class="out"><i class="bi bi-box-arrow-right"></i> Salir</a>
+</div>
+
+<div class="wrap">
+  <h2 class="page-h">Mapa de mesas</h2>
+  <p class="page-sub">Toca una mesa para tomar pedido o gestionar.</p>
+  <div class="leyenda">
+    <span><span class="dot l"></span> Libre</span>
+    <span><span class="dot o"></span> Ocupada</span>
+    <span><span class="dot c"></span> Solicitando cuenta</span>
+    <span class="live-pill"><span class="pulse"></span> Sincronizado en vivo</span>
+  </div>
+  <div id="mesasGrid">
+    <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--charcoal-2)"><i class="bi bi-arrow-clockwise" style="font-size:24px;animation:spin 1s linear infinite;display:inline-block"></i><br><br>Cargando mesas...</div>
+  </div>
+  <style>@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}</style>
+  <div class="demo-note"><strong>Tip · </strong>Las mesas con cuenta solicitada parpadean. Toca cualquiera para ver detalle, marcar entregado o cerrar cuenta. Sincronización con cocina cada 5 segundos.</div>
+</div>
+
+<!-- MODAL ORDEN -->
+<div class="modal-overlay" id="modalOrden">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div>
+        <div class="lbl">Nueva orden</div>
+        <h3 id="modalMesaTitle">Mesa 1</h3>
+      </div>
+      <button class="modal-x" onclick="cerrarModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modalContent">
+      <!-- contenido inyectado por JS -->
+    </div>
+  </div>
+</div>
+
+<!-- Supabase + Mesaio Core -->
+<!-- MODAL COBRO V2 -->
+<div id="modalCobro" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:white;border-radius:16px;padding:28px;width:360px;max-width:94vw;max-height:90vh;overflow-y:auto;">
+    <h3 style="margin:0 0 4px;color:#5C1A2B;font-family:'Playfair Display',serif;">Cobrar <span id="cobroMesa">—</span></h3>
+    <p style="margin:0 0 16px;font-size:12px;color:#9CA3AF;">Confirmar pago y generar factura electrónica</p>
+    <div id="cobroItems" style="margin-bottom:12px;"></div>
+    <div style="background:#FAF6EE;border-radius:10px;padding:14px;margin-bottom:16px;font-size:13px;">
+      <div style="display:flex;justify-content:space-between;padding:4px 0;"><span>Subtotal (sin IVA):</span><span id="cobroSubtotal">$0</span></div>
+      <div style="display:flex;justify-content:space-between;padding:4px 0;"><span>IVA 19%:</span><span id="cobroIVA">$0</span></div>
+      <div style="display:flex;justify-content:space-between;padding:6px 0;border-top:2px solid #E8DDD0;margin-top:4px;font-weight:800;font-size:16px;color:#5C1A2B;"><span>TOTAL:</span><span id="cobroTotal">$0</span></div>
+    </div>
+    <p style="font-size:12px;font-weight:700;margin:0 0 8px;">Método de pago:</p>
+    <div style="display:flex;gap:8px;margin-bottom:16px;">
+      <button id="btn-metodo-efectivo" onclick="seleccionarMetodo('efectivo')" style="flex:1;padding:10px 6px;border-radius:8px;cursor:pointer;font-weight:600;font-size:12px;font-family:inherit;transition:all .2s;">💵 Efectivo</button>
+      <button id="btn-metodo-tarjeta" onclick="seleccionarMetodo('tarjeta')" style="flex:1;padding:10px 6px;border-radius:8px;cursor:pointer;font-weight:600;font-size:12px;font-family:inherit;transition:all .2s;">💳 Tarjeta</button>
+      <button id="btn-metodo-nequi" onclick="seleccionarMetodo('nequi')" style="flex:1;padding:10px 6px;border-radius:8px;cursor:pointer;font-weight:600;font-size:12px;font-family:inherit;transition:all .2s;">📱 Nequi</button>
+    </div>
+    <button onclick="confirmarCobro()" style="width:100%;padding:14px;background:linear-gradient(135deg,#9a7a1e,#C8A951);border:none;border-radius:10px;color:#3D0F1C;font-weight:800;cursor:pointer;font-family:inherit;font-size:14px;letter-spacing:.04em;text-transform:uppercase;">🧾 Generar factura y cobrar</button>
+    <button onclick="document.getElementById('modalCobro').style.display='none'" style="width:100%;padding:10px;margin-top:8px;background:transparent;border:1.5px solid #E8DDD0;border-radius:10px;color:#5A4A4F;cursor:pointer;font-family:inherit;font-size:12px;">Cancelar</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.104.1" crossorigin="anonymous"></script>
+<script src="../assets/js/mesaio-core.js"></script>
+
+<script>
+let mesaSeleccionada = null;
+let carrito = [];
+let modoModal = 'nueva'; // 'nueva' | 'detalle'
+
+async function cargarMesas() {
+  const mesas = await MESAIO.getMesas();
+  const ordenes = await MESAIO.getOrdenesActivas();
+  const grid = document.getElementById('mesasGrid');
+
+  if (!mesas.length) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--charcoal-2)">No hay mesas configuradas. Ejecuta sql/schema.sql en Supabase.</div>';
+    return;
+  }
+
+  let html = '';
+  mesas.forEach(m => {
+    const ordenMesa = ordenes.find(o => o.mesa_id === m.id && o.estado !== 'cobrado');
+    let emoji, badge;
+    if (m.estado === 'libre') { emoji = '🪑'; badge = '<span class="mesa-st" style="background:rgba(76,175,80,.18);color:#2E7D32"><i class="bi bi-check-circle"></i> Libre</span>'; }
+    else if (m.estado === 'cobro') { emoji = '💰'; badge = '<span class="mesa-st" style="background:rgba(244,67,54,.18);color:#C62828"><i class="bi bi-cash-coin"></i> Cuenta</span>'; }
+    else { emoji = '🍽️'; badge = '<span class="mesa-st" style="background:rgba(21,101,192,.18);color:#1565C0"><i class="bi bi-people-fill"></i> Ocupada</span>'; }
+
+    const colorNum = m.estado === 'libre' ? '#2E7D32' : m.estado === 'cobro' ? '#C62828' : '#1565C0';
+    const onclickFn = m.estado === 'libre' ? `abrirNuevaOrden(${m.id}, ${m.numero})` : (ordenMesa ? `verDetalleMesa(${ordenMesa.id})` : `abrirNuevaOrden(${m.id}, ${m.numero})`);
+
+    html += `
+    <div class="mesa-card ${m.estado}" onclick="${onclickFn}">
+      <div class="mesa-emoji">${emoji}</div>
+      <div class="mesa-num" style="color:${colorNum}">M-${String(m.numero).padStart(2,'0')}</div>
+      <div class="mesa-info">${m.capacidad} puestos · ${m.ubicacion || ''}</div>
+      ${badge}
+      ${ordenMesa ? `<div class="mesa-monto">${MESAIO.fmtCOP(ordenMesa.total)} · ${MESAIO.tiempoTranscurrido(ordenMesa.created_at)}</div>` : ''}
+      ${m.estado === 'libre' ? '<div class="tap-hint">Tap para ordenar</div>' : ''}
+      ${ordenMesa && ordenMesa.estado === 'listo' ? '<div class="tap-hint" style="color:#2E7D32">¡Listo p/entregar!</div>' : ''}
+    </div>`;
+  });
+
+  grid.innerHTML = html;
+}
+
+function abrirNuevaOrden(mesaId, mesaNum) {
+  mesaSeleccionada = mesaId;
+  modoModal = 'nueva';
+  carrito = [];
+  document.getElementById('modalMesaTitle').textContent = 'Mesa ' + String(mesaNum).padStart(2,'0');
+  document.querySelector('#modalOrden .lbl').textContent = 'Nueva orden';
+  document.getElementById('modalContent').innerHTML = `
+    <div style="display:flex;gap:4px;background:white;border-radius:10px;padding:3px;margin-bottom:16px">
+      <button class="cat-tab active" onclick="filtrarCat('entrada',this)">Entradas</button>
+      <button class="cat-tab" onclick="filtrarCat('fuerte',this)">Fuertes</button>
+      <button class="cat-tab" onclick="filtrarCat('postre',this)">Postres</button>
+      <button class="cat-tab" onclick="filtrarCat('bebida',this)">Bebidas</button>
+    </div>
+    <div id="listaPlatos" style="max-height:240px;overflow-y:auto;margin-bottom:14px"></div>
+    <div style="margin-top:14px;border-top:2px solid #E8DDD0;padding-top:12px">
+      <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#5C1A2B;margin-bottom:8px"><i class="bi bi-cart3"></i> Pedido actual</div>
+      <div id="carritoLista" style="min-height:40px"></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:10px;border-top:1px solid #E8DDD0">
+        <span style="font-size:14px;font-weight:800;color:#5C1A2B">Total</span>
+        <span style="font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:#5C1A2B" id="carritoTotal">$0</span>
+      </div>
+    </div>
+    <textarea id="notasOrden" placeholder="Notas especiales (alergias, sin sal, etc.)" style="width:100%;border:2px solid #E8DDD0;border-radius:10px;padding:10px;font-family:inherit;font-size:13px;margin-top:12px;resize:none;height:54px"></textarea>
+    <button onclick="enviarOrden()" id="btnEnviar" style="width:100%;margin-top:12px;padding:14px;background:linear-gradient(135deg,#9a7a1e,#C8A951);border:none;border-radius:10px;font-size:14px;font-weight:800;color:#3D0F1C;cursor:pointer;font-family:inherit;letter-spacing:.04em;text-transform:uppercase;box-shadow:0 4px 16px rgba(200,169,81,0.35)">
+      <i class="bi bi-send"></i> Enviar a cocina
+    </button>
+  `;
+  document.getElementById('modalOrden').style.display = 'flex';
+  filtrarCat('entrada', document.querySelector('.cat-tab'));
+  renderCarrito();
+}
+
+function cerrarModal() {
+  document.getElementById('modalOrden').style.display = 'none';
+  mesaSeleccionada = null;
+  carrito = [];
+}
+
+async function filtrarCat(cat, btn) {
+  document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+
+  const platos = await MESAIO.getPlatos(cat);
+  const lista = document.getElementById('listaPlatos');
+  if (!lista) return;
+  if (!platos.length) {
+    lista.innerHTML = '<div style="text-align:center;padding:14px;color:#5A4A4F;font-size:12px">Sin platos disponibles en esta categoría</div>';
+    return;
+  }
+  lista.innerHTML = platos.map(p => `
+    <div class="plato-row" onclick="agregarAlCarrito(${p.id},'${p.nombre.replace(/'/g,"\\'")}',${p.precio})">
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#1F1318">${p.nombre}</div>
+        <div style="font-size:11px;color:#5A4A4F">${p.descripcion || cat}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-weight:800;color:#5C1A2B;font-size:14px">${MESAIO.fmtCOP(p.precio)}</span>
+        <span class="plato-add">+</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function agregarAlCarrito(id, nombre, precio) {
+  const ex = carrito.find(x => x.plato_id === id);
+  if (ex) { ex.cantidad++; ex.subtotal = ex.cantidad * ex.precio_unitario; }
+  else carrito.push({ plato_id: id, plato_nombre: nombre, precio_unitario: precio, cantidad: 1, subtotal: precio });
+  renderCarrito();
+  MESAIO.toast('+ ' + nombre, 'ok');
+}
+
+function quitarDelCarrito(id) {
+  const idx = carrito.findIndex(x => x.plato_id === id);
+  if (idx === -1) return;
+  if (carrito[idx].cantidad > 1) { carrito[idx].cantidad--; carrito[idx].subtotal = carrito[idx].cantidad * carrito[idx].precio_unitario; }
+  else carrito.splice(idx, 1);
+  renderCarrito();
+}
+
+function renderCarrito() {
+  const el = document.getElementById('carritoLista');
+  if (!el) return;
+  if (carrito.length === 0) {
+    el.innerHTML = '<div style="color:#5A4A4F;font-size:12px;text-align:center;padding:8px;font-style:italic">Selecciona platos del menú</div>';
+    document.getElementById('carritoTotal').textContent = '$0';
+    return;
+  }
+  el.innerHTML = carrito.map(c => `
+    <div class="carrito-item">
+      <div style="display:flex;align-items:center;gap:8px">
+        <button class="qty-minus" onclick="quitarDelCarrito(${c.plato_id})">−</button>
+        <span style="font-size:13px;font-weight:600;color:#1F1318">${c.plato_nombre}</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="background:#5C1A2B;color:white;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:800">×${c.cantidad}</span>
+        <span style="font-weight:700;font-size:13px;color:#5C1A2B">${MESAIO.fmtCOP(c.subtotal)}</span>
+      </div>
+    </div>
+  `).join('');
+  const total = carrito.reduce((s, c) => s + c.subtotal, 0);
+  document.getElementById('carritoTotal').textContent = MESAIO.fmtCOP(total);
+}
+
+async function enviarOrden() {
+  if (carrito.length === 0) { MESAIO.toast('Agrega platos al pedido', 'err'); return; }
+  const btn = document.getElementById('btnEnviar');
+  btn.disabled = true; btn.innerHTML = '<i class="bi bi-arrow-clockwise"></i> Enviando...';
+  try {
+    const notas = document.getElementById('notasOrden').value;
+    await MESAIO.crearOrden(mesaSeleccionada, carrito, 'Carlos R.', notas);
+    MESAIO.toast('✅ Orden enviada a cocina', 'ok');
+    cerrarModal();
+    cargarMesas();
+  } catch (e) {
+    MESAIO.toast('Error: ' + (e.message || e), 'err');
+    btn.disabled = false;
+    btn.innerHTML = '<i class="bi bi-send"></i> Enviar a cocina';
+  }
+}
+
+async function verDetalleMesa(ordenId) {
+  const ordenes = await MESAIO.getOrdenesActivas();
+  const o = ordenes.find(x => x.id === ordenId);
+  if (!o) { MESAIO.toast('Orden no encontrada', 'err'); return; }
+
+  modoModal = 'detalle';
+  const items = (o.items || []).map(i =>
+    `<div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px;border-bottom:1px solid #F2EBDC">
+       <span>×${i.cantidad} ${i.plato_nombre}</span>
+       <span style="font-weight:700">${MESAIO.fmtCOP(i.subtotal)}</span>
+     </div>`).join('');
+
+  let acciones = '';
+  if (o.estado === 'pendiente' || o.estado === 'preparando') {
+    acciones = `<div style="background:rgba(33,150,243,.1);border:1px solid rgba(33,150,243,.3);padding:14px;border-radius:10px;margin-top:14px;font-size:13px;color:#1565C0;text-align:center">
+      <i class="bi bi-fire"></i> En cocina · esperando preparación</div>`;
+  } else if (o.estado === 'listo') {
+    acciones = `<button onclick="marcarEntregado(${o.id})" style="width:100%;margin-top:14px;padding:14px;background:#2E7D32;border:none;border-radius:10px;color:white;font-weight:700;cursor:pointer;font-family:inherit;font-size:14px;letter-spacing:.04em;text-transform:uppercase">
+      <i class="bi bi-check2-circle"></i> Marcar entregado al cliente</button>`;
+  } else if (o.estado === 'entregado') {
+    acciones = `<button onclick="abrirCobro(${o.id})" style="width:100%;margin-top:14px;padding:14px;background:linear-gradient(135deg,#9a7a1e,#C8A951);border:none;border-radius:10px;color:#3D0F1C;font-weight:800;cursor:pointer;font-family:inherit;font-size:14px;letter-spacing:.04em;text-transform:uppercase">
+      <i class="bi bi-cash-coin"></i> Cerrar cuenta y liberar mesa</button>
+      <button onclick="abrirNuevaOrden(${o.mesa_id}, ${o.mesa_id})" style="width:100%;margin-top:8px;padding:10px;background:transparent;border:1.5px solid #E8DDD0;border-radius:10px;color:#5C1A2B;font-weight:600;cursor:pointer;font-family:inherit;font-size:12px">
+      <i class="bi bi-plus-circle"></i> Agregar más platos</button>`;
+  }
+
+  document.getElementById('modalMesaTitle').textContent = 'Mesa ' + String(o.mesa_id).padStart(2,'0') + ' · Orden #' + String(o.id).padStart(3,'0');
+  document.querySelector('#modalOrden .lbl').textContent = 'Detalle de orden';
+  document.getElementById('modalContent').innerHTML = `
+    <div style="margin-bottom:14px">${MESAIO.badgeEstado(o.estado)} <span style="font-size:11px;color:#5A4A4F;margin-left:8px">${MESAIO.tiempoTranscurrido(o.created_at)} · ${MESAIO.fmtHora(o.created_at)}</span></div>
+    <div style="background:white;border-radius:10px;padding:14px">${items || '<em>Sin items</em>'}</div>
+    <div style="display:flex;justify-content:space-between;padding-top:14px;margin-top:10px;border-top:2px solid #E8DDD0">
+      <span style="font-weight:800;color:#5C1A2B">Total cuenta</span>
+      <span style="font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:#5C1A2B">${MESAIO.fmtCOP(o.total)}</span>
+    </div>
+    ${o.notas ? `<div style="background:rgba(200,169,81,.1);border:1px solid rgba(200,169,81,.3);padding:10px 12px;border-radius:8px;margin-top:10px;font-size:12px;color:#5C1A2B"><i class="bi bi-sticky"></i> ${o.notas}</div>` : ''}
+    ${acciones}`;
+  document.getElementById('modalOrden').style.display = 'flex';
+}
+
+async function marcarEntregado(id) {
+  await MESAIO.actualizarEstadoOrden(id, 'entregado');
+  MESAIO.toast('✅ Orden entregada al cliente', 'ok');
+  cerrarModal();
+  cargarMesas();
+}
+
+let cobroOrdenId = null;
+let cobroMetodo = 'efectivo';
+
+function abrirCobro(id) {
+  cobroOrdenId = id;
+  cobroMetodo = 'efectivo';
+  const ordenes = JSON.parse(localStorage.getItem('mesaio_ordenes') || '[]');
+  const o = ordenes.find(x => x.id === id);
+  if (!o) return;
+  const items = (o.items || []).map(i =>
+    `<div style="display:flex;justify-content:space-between;font-size:13px;padding:5px 0;border-bottom:1px solid #F2EBDC;">
+       <span>×${i.cantidad} ${i.plato_nombre}</span>
+       <span style="font-weight:700;">${MESAIO.fmtCOP(i.subtotal)}</span>
+     </div>`).join('');
+  const subtotal = Math.round(o.total / 1.19);
+  const iva = o.total - subtotal;
+  document.getElementById('cobroItems').innerHTML = items;
+  document.getElementById('cobroSubtotal').textContent = MESAIO.fmtCOP(subtotal);
+  document.getElementById('cobroIVA').textContent = MESAIO.fmtCOP(iva);
+  document.getElementById('cobroTotal').textContent = MESAIO.fmtCOP(o.total);
+  document.getElementById('cobroMesa').textContent = 'M-' + String(o.mesa_id).padStart(2,'0');
+  seleccionarMetodo('efectivo');
+  document.getElementById('modalCobro').style.display = 'flex';
+  cerrarModal();
+}
+
+function seleccionarMetodo(metodo) {
+  cobroMetodo = metodo;
+  ['efectivo','tarjeta','nequi'].forEach(m => {
+    const btn = document.getElementById('btn-metodo-' + m);
+    if (!btn) return;
+    btn.style.background = m === metodo ? '#5C1A2B' : 'white';
+    btn.style.color = m === metodo ? 'white' : '#5C1A2B';
+    btn.style.border = '2px solid ' + (m === metodo ? '#5C1A2B' : '#E8DDD0');
+  });
+}
+
+async function confirmarCobro() {
+  if (!cobroOrdenId) return;
+  const factura = MESAIO.generarFactura(cobroOrdenId, cobroMetodo, false);
+  MESAIO.registrarMovimiento('venta', factura.total, `Mesa ${factura.mesa_id || '?'} · Factura #${String(factura.numero).padStart(6,'0')}`);
+  await MESAIO.actualizarEstadoOrden(cobroOrdenId, 'cobrado');
+  document.getElementById('modalCobro').style.display = 'none';
+  MESAIO.toast('🧾 Factura #' + String(factura.numero).padStart(6,'0') + ' generada', 'ok');
+  cobroOrdenId = null;
+  cargarMesas();
+}
+
+// Cerrar modal al click en overlay
+document.getElementById('modalOrden').addEventListener('click', e => {
+  if (e.target.id === 'modalOrden') cerrarModal();
+});
+document.getElementById('modalCobro').addEventListener('click', e => {
+  if (e.target.id === 'modalCobro') document.getElementById('modalCobro').style.display = 'none';
+});
+
+// Init + polling
+document.addEventListener('DOMContentLoaded', async () => {
+  await MESAIO.initAppV2();
+  await cargarMesas();
+  // Polling fallback
+  setInterval(cargarMesas, 5000);
+  // Realtime si Supabase está activo
+  MESAIO.suscribirOrdenes(() => cargarMesas());
+});
+</script>
+</body>
+</html>

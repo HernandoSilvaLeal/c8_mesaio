@@ -1,0 +1,73 @@
+﻿/**
+ * pdf-styles.css â€” Estilos de impresiÃ³n y estados de carga PDF
+ * Red Nacional de Transportes Â· 19-Abr-2026
+ */
+
+/* Ocultar interfaz del admin al imprimir (Ctrl+P) */
+@media print {
+  .navbar, .sidebar, .btn, nav, header,
+  .tab-content > .tab-pane:not(.active),
+  .alert, .modal, .offcanvas { display: none !important; }
+  body { font-family: Arial, Helvetica, sans-serif; font-size: 9pt; }
+  .card { border: 1px solid #ccc !important; box-shadow: none !important; }
+}
+
+/* Spinner de carga para botones de PDF */
+.rnt-pdf-loading {
+  display: inline-block;
+  width: 14px; height: 14px;
+  border: 2px solid rgba(0,0,0,0.1);
+  border-top-color: #CC9900;
+  border-radius: 50%;
+  animation: rnt-pdf-spin 0.7s linear infinite;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+@keyframes rnt-pdf-spin { to { transform: rotate(360deg); } }
+
+/* Toast de confirmaciÃ³n cuando el PDF se descargÃ³ */
+.rnt-pdf-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #0B1D33;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 9999;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transform: translateY(80px);
+  opacity: 0;
+  transition: transform 300ms ease, opacity 300ms ease;
+}
+
+.rnt-pdf-toast.visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.rnt-pdf-toast .toast-icon { font-size: 1.2rem; }
+
+/* Dropdown de impresiÃ³n â€” estilos refinados */
+.dropdown-menu .dropdown-header {
+  font-size: 11px;
+  letter-spacing: 0.03em;
+  padding: 8px 12px 4px;
+}
+
+.dropdown-menu .dropdown-item {
+  font-size: 13px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin: 1px 4px;
+  transition: background 150ms ease;
+}
+
+.dropdown-menu .dropdown-item:hover { background: #F9F7F4; }
+.dropdown-menu .dropdown-item.text-success:hover { background: #f0fdf4; }

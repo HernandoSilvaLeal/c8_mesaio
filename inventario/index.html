@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inventario · Mesaio</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<style>
+  :root{--burgundy:#5C1A2B;--burgundy-dk:#3D0F1C;--burgundy-lt:#8B3A4E;--gold:#C8A951;--gold-lt:#E2C87A;--gold-dk:#9a7a1e;
+        --cream:#FAF6EE;--cream-2:#F2EBDC;--charcoal:#1F1318;--charcoal-2:#5A4A4F;--border:#E8DDD0;--surface:#F4EFE6}
+  *{box-sizing:border-box} body{margin:0;font-family:'Inter',sans-serif;background:var(--surface);color:var(--charcoal);min-height:100vh}
+  .topbar{background:linear-gradient(135deg,var(--burgundy),var(--burgundy-dk));color:white;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:0 2px 16px rgba(61,15,28,.3)}
+  .brand-mini{font-family:'Playfair Display',serif;font-size:22px;font-weight:900}
+  .brand-mini span{color:var(--gold-lt)}
+  .role-pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);padding:5px 14px;border-radius:50px;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:6px}
+  .role-pill i{color:var(--gold-lt)}
+  .out{background:transparent;border:1px solid rgba(255,255,255,.3);color:white;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;text-decoration:none;transition:all .2s}
+  .out:hover{background:rgba(255,255,255,.12)}
+  .wrap{max-width:1280px;margin:0 auto;padding:60px 24px;text-align:center}
+  .module-icon{font-size:64px;color:var(--gold);margin-bottom:24px;display:block}
+  h2{font-family:'Playfair Display',serif;font-size:36px;color:var(--burgundy);margin:0 0 12px}
+  p{color:var(--charcoal-2);font-size:16px;max-width:480px;margin:0 auto 32px;line-height:1.7}
+  .badge-v2{display:inline-flex;align-items:center;gap:8px;background:rgba(200,169,81,.15);border:1px solid rgba(200,169,81,.4);color:var(--gold-dk);padding:8px 20px;border-radius:50px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+  .features{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-top:40px}
+  .feat{background:white;border:1px solid var(--border);border-radius:12px;padding:18px 22px;font-size:13px;color:var(--charcoal-2);display:flex;align-items:center;gap:10px;font-weight:500}
+  .feat i{color:var(--burgundy);font-size:18px}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;gap:18px">
+    <div class="brand-mini">Mes<span>aio</span></div>
+    <div class="role-pill"><i class="bi bi-boxes"></i> Inventario</div>
+  </div>
+  <a href="../login.html" class="out"><i class="bi bi-box-arrow-right"></i> Salir</a>
+</div>
+<div class="wrap">
+  <i class="bi bi-boxes module-icon"></i>
+  <h2>Gestión de Inventario</h2>
+  <p>Control de ingredientes, recetas y descuento automático al preparar platos. Módulo V2 en construcción.</p>
+  <div class="badge-v2"><i class="bi bi-clock-history"></i> Módulo V2 — En construcción</div>
+  <div class="features">
+    <div class="feat"><i class="bi bi-bag-check"></i> Ingredientes con stock en vivo</div>
+    <div class="feat"><i class="bi bi-card-checklist"></i> Recetas por plato</div>
+    <div class="feat"><i class="bi bi-arrow-down-circle"></i> Descuento automático al cocinar</div>
+    <div class="feat"><i class="bi bi-exclamation-triangle"></i> Alertas de stock mínimo</div>
+    <div class="feat"><i class="bi bi-graph-down"></i> Historial de consumo</div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.104.1"></script>
+<script src="../assets/js/mesaio-core.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    await MESAIO.init();
+  });
+</script>
+</body>
+</html>

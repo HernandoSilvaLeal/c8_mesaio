@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Mesaio — Sistema de Gestión de Restaurantes</title>
+  <meta name="description" content="Mesaio: sistema integral para restaurantes. Mesero, cocina y administración en una sola plataforma. Hackathon MVP.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@600;700;900&display=swap" rel="stylesheet">
+
+  <!-- Vendor -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+
+  <!-- Mesaio Brand CSS — burgundy + gold (reutiliza estructura RNT) -->
+  <style>
+    :root {
+      --burgundy:    #5C1A2B;   /* primario — vino premium */
+      --burgundy-dk: #3D0F1C;   /* hover oscuro */
+      --burgundy-lt: #8B3A4E;   /* acento claro */
+      --gold:        #C8A951;   /* dorado RNT reutilizado */
+      --gold-lt:     #E2C87A;
+      --gold-dk:     #9a7a1e;
+      --cream:       #FAF6EE;   /* warm off-white */
+      --cream-2:     #F2EBDC;   /* warm beige */
+      --charcoal:    #1F1318;   /* texto principal */
+      --charcoal-2:  #5A4A4F;   /* texto secundario */
+      --border:      #E8DDD0;
+      --shadow-sm:   0 4px 14px rgba(92,26,43,0.10);
+      --shadow-md:   0 10px 32px rgba(92,26,43,0.16);
+      --shadow-lg:   0 20px 60px rgba(92,26,43,0.22);
+      --radius:      14px;
+      --radius-lg:   22px;
+      --transition:  all .3s cubic-bezier(.4,0,.2,1);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, sans-serif;
+      color: var(--charcoal);
+      background: var(--cream);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4 { font-family: 'Playfair Display', serif; letter-spacing: -0.01em; margin: 0; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── Header ── */
+    .nav-mesaio {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(250,246,238,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(200,169,81,0.2);
+      padding: 14px 0;
+      transition: var(--transition);
+    }
+    .nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 28px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .logo-mesaio {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px; font-weight: 900;
+      color: var(--burgundy); letter-spacing: -0.03em;
+    }
+    .logo-mesaio span { color: var(--gold-dk); }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a { color: var(--charcoal-2); font-size: 14px; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--burgundy); }
+    .btn-mesaio {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, var(--gold-dk), var(--gold));
+      color: var(--charcoal); font-weight: 700; font-size: 13px;
+      padding: 11px 24px; border-radius: 50px; border: none;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      box-shadow: 0 4px 14px rgba(200,169,81,0.32);
+      transition: var(--transition); cursor: pointer;
+    }
+    .btn-mesaio:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(200,169,81,0.45); }
+    .btn-ghost-bg {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: white; font-weight: 600; font-size: 13px;
+      padding: 11px 24px; border-radius: 50px;
+      border: 1.5px solid rgba(255,255,255,0.4); transition: var(--transition); cursor: pointer;
+    }
+    .btn-ghost-bg:hover { background: rgba(255,255,255,0.12); border-color: var(--gold-lt); }
+    @media (max-width: 768px) { .nav-links { display: none; } }
+
+    /* ── Hero ── */
+    .hero-mesaio {
+      min-height: 92vh;
+      background: linear-gradient(135deg, rgba(61,15,28,.92), rgba(92,26,43,.85)),
+                  url('https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg?auto=compress&cs=tinysrgb&w=1600') center/cover no-repeat;
+      display: flex; align-items: center;
+      padding: 140px 0 80px; position: relative; overflow: hidden;
+    }
+    .hero-inner { max-width: 1280px; margin: 0 auto; padding: 0 28px; display: grid; grid-template-columns: 1.05fr .95fr; gap: 72px; align-items: center; }
+    @media (max-width: 992px) { .hero-inner { grid-template-columns: 1fr; gap: 40px; text-align: center; } }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--gold-lt);
+      background: rgba(200,169,81,0.14); border: 1px solid rgba(200,169,81,0.32);
+      padding: 7px 16px; border-radius: 50px; margin-bottom: 22px;
+    }
+    .hero-mesaio h1 { font-size: clamp(2.5rem, 5.5vw, 4.4rem); line-height: 1.05; color: white; margin-bottom: 22px; font-weight: 800; }
+    .hero-mesaio h1 em { font-style: italic; color: var(--gold-lt); }
+    .hero-mesaio .lead { font-size: clamp(1rem, 1.6vw, 1.18rem); line-height: 1.7; color: rgba(255,255,255,0.82); margin-bottom: 36px; max-width: 520px; }
+    @media (max-width: 992px) { .hero-mesaio .lead { margin-left: auto; margin-right: auto; } }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    @media (max-width: 992px) { .hero-actions { justify-content: center; } }
+
+    /* ── Hero card mockup ── */
+    .hero-mockup {
+      background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.14); border-radius: var(--radius-lg);
+      padding: 32px; backdrop-filter: blur(12px);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+    }
+    .mock-title { color: var(--gold-lt); font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
+    .mock-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: rgba(255,255,255,0.06); border-radius: 10px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.08); }
+    .mock-row:last-child { margin-bottom: 0; }
+    .mock-label { color: white; font-size: 14px; font-weight: 600; }
+    .mock-meta { color: rgba(255,255,255,0.55); font-size: 12px; margin-top: 2px; }
+    .mock-status { font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 50px; letter-spacing: 0.06em; text-transform: uppercase; }
+    .st-listo { background: rgba(76,175,80,0.18); color: #8DD491; border: 1px solid rgba(76,175,80,0.4); }
+    .st-prep  { background: rgba(255,193,7,0.16);  color: #FFD370; border: 1px solid rgba(255,193,7,0.4); }
+    .st-pend  { background: rgba(200,169,81,0.16); color: var(--gold-lt); border: 1px solid rgba(200,169,81,0.4); }
+
+    /* ── Hero stats strip ── */
+    .stats-strip { display: flex; gap: 0; padding-top: 36px; border-top: 1px solid rgba(255,255,255,0.14); margin-top: 36px; }
+    .stat-x { flex: 1; padding-right: 24px; }
+    .stat-x:not(:last-child) { border-right: 1px solid rgba(255,255,255,0.14); margin-right: 24px; }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 2.6vw, 2rem); font-weight: 900; color: var(--gold-lt); line-height: 1; }
+    .stat-lbl { font-size: 10px; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 6px; font-weight: 600; }
+
+    /* ── Section base ── */
+    section.block { padding: clamp(70px, 9vw, 120px) 0; }
+    .container-mesaio { max-width: 1280px; margin: 0 auto; padding: 0 28px; }
+    .section-title-mesaio { text-align: center; max-width: 680px; margin: 0 auto 60px; }
+    .section-title-mesaio .lbl { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-dk); margin-bottom: 14px; }
+    .section-title-mesaio h2 { font-size: clamp(2rem, 4vw, 3rem); color: var(--burgundy); margin-bottom: 18px; }
+    .section-title-mesaio p { font-size: 1.05rem; color: var(--charcoal-2); line-height: 1.6; margin: 0; }
+
+    /* ── Roles cards ── */
+    .roles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    @media (max-width: 992px) { .roles-grid { grid-template-columns: 1fr; } }
+    .role-card {
+      background: white; border: 1px solid var(--border); border-radius: var(--radius-lg);
+      padding: 44px 36px; text-align: center; box-shadow: var(--shadow-sm);
+      border-top: 4px solid var(--gold); transition: var(--transition); position: relative; overflow: hidden;
+    }
+    .role-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-top-color: var(--burgundy); }
+    .role-icon-wrap {
+      width: 76px; height: 76px; border-radius: 50%; margin: 0 auto 22px;
+      background: linear-gradient(135deg, var(--burgundy), var(--burgundy-lt));
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 22px rgba(92,26,43,0.32);
+    }
+    .role-icon-wrap i { font-size: 32px; color: var(--gold-lt); }
+    .role-card h3 { font-size: 1.5rem; color: var(--burgundy); margin-bottom: 10px; }
+    .role-card p { color: var(--charcoal-2); font-size: 0.94rem; line-height: 1.65; margin-bottom: 24px; }
+    .role-card ul { list-style: none; padding: 0; margin: 0 0 28px; text-align: left; }
+    .role-card li { font-size: 0.88rem; color: var(--charcoal-2); padding: 6px 0 6px 24px; position: relative; }
+    .role-card li::before { content: '✓'; position: absolute; left: 0; color: var(--gold-dk); font-weight: 800; }
+    .role-cta {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--burgundy); font-weight: 700; font-size: 13px;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      border-bottom: 2px solid var(--gold); padding-bottom: 4px; transition: var(--transition);
+    }
+    .role-cta:hover { color: var(--gold-dk); border-color: var(--burgundy); gap: 10px; }
+
+    /* ── Features (alt) ── */
+    .features-bg { background: var(--cream-2); }
+    .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    @media (max-width: 992px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 576px) { .features-grid { grid-template-columns: 1fr; } }
+    .feat-card { background: white; border-radius: var(--radius); padding: 28px 24px; box-shadow: var(--shadow-sm); transition: var(--transition); border: 1px solid var(--border); }
+    .feat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .feat-icon { width: 48px; height: 48px; border-radius: 12px; background: rgba(200,169,81,0.16); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+    .feat-icon i { font-size: 22px; color: var(--gold-dk); }
+    .feat-card h4 { font-family: 'Inter', sans-serif; font-size: 1.05rem; color: var(--burgundy); margin-bottom: 8px; font-weight: 700; }
+    .feat-card p { font-size: 0.87rem; color: var(--charcoal-2); line-height: 1.6; margin: 0; }
+
+    /* ── Menu showcase ── */
+    .menu-showcase { background: var(--burgundy); color: white; }
+    .menu-showcase .section-title-mesaio .lbl { color: var(--gold-lt); }
+    .menu-showcase .section-title-mesaio h2 { color: white; }
+    .menu-showcase .section-title-mesaio p { color: rgba(255,255,255,0.75); }
+    .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+    @media (max-width: 992px) { .menu-grid { grid-template-columns: 1fr; } }
+    .menu-card {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius); overflow: hidden; transition: var(--transition);
+    }
+    .menu-card:hover { transform: translateY(-6px); border-color: rgba(200,169,81,0.5); }
+    .menu-img { height: 220px; background-size: cover; background-position: center; position: relative; }
+    .menu-tag { position: absolute; top: 14px; left: 14px; background: rgba(200,169,81,0.95); color: var(--burgundy-dk); font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 12px; border-radius: 50px; }
+    .menu-body { padding: 22px 24px; }
+    .menu-body h4 { font-size: 1.3rem; color: white; margin-bottom: 6px; }
+    .menu-desc { color: rgba(255,255,255,0.65); font-size: 0.86rem; line-height: 1.5; margin-bottom: 14px; min-height: 38px; }
+    .menu-foot { display: flex; align-items: center; justify-content: space-between; }
+    .menu-price { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold-lt); font-weight: 700; }
+    .menu-price small { font-size: 0.7rem; color: rgba(255,255,255,0.5); font-weight: 400; margin-left: 4px; }
+
+    /* ── CTA final ── */
+    .cta-final {
+      background: linear-gradient(135deg, var(--gold-dk), var(--gold));
+      color: var(--burgundy-dk); text-align: center;
+      padding: clamp(60px, 8vw, 100px) 28px;
+    }
+    .cta-final h2 { font-size: clamp(1.7rem, 3.5vw, 2.6rem); margin-bottom: 14px; max-width: 720px; margin-left: auto; margin-right: auto; }
+    .cta-final p { font-size: 1.05rem; opacity: 0.85; margin-bottom: 28px; }
+    .btn-burgundy { display: inline-flex; align-items: center; gap: 8px; background: var(--burgundy); color: white; padding: 14px 32px; border-radius: 50px; font-weight: 700; font-size: 14px; letter-spacing: 0.05em; text-transform: uppercase; box-shadow: 0 8px 24px rgba(61,15,28,0.4); transition: var(--transition); }
+    .btn-burgundy:hover { background: var(--burgundy-dk); transform: translateY(-2px); box-shadow: 0 14px 32px rgba(61,15,28,0.5); color: white; }
+
+    /* ── Footer ── */
+    footer.foot {
+      background: var(--burgundy-dk); color: rgba(255,255,255,0.7);
+      padding: 50px 0 28px; text-align: center; font-size: 13px;
+    }
+    footer.foot .brand-foot { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 800; color: white; margin-bottom: 8px; }
+    footer.foot .brand-foot span { color: var(--gold-lt); }
+    footer.foot .copy { font-size: 12px; opacity: 0.55; margin-top: 14px; }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav class="nav-mesaio">
+    <div class="nav-inner">
+      <a href="/" class="logo-mesaio">Mes<span>aio</span></a>
+      <div class="nav-links">
+        <a href="#roles">Roles</a>
+        <a href="#features">Funcionalidades</a>
+        <a href="menu.html">Menú demo</a>
+        <a href="entregables/">Entregables</a>
+      </div>
+      <a href="login.html" class="btn-mesaio"><i class="bi bi-box-arrow-in-right"></i> Acceder al sistema</a>
+    </div>
+  </nav>
+
+  <!-- ── ① HERO ── -->
+  <section class="hero-mesaio">
+    <div class="hero-inner">
+      <div data-aos="fade-up">
+        <span class="eyebrow"><i class="bi bi-stars"></i> Hackathon MVP · Sistema 360°</span>
+        <h1>El restaurante moderno <em>vive en una pantalla.</em></h1>
+        <p class="lead">Mesaio orquesta meseros, cocina y administración en tiempo real. Toma de orden a entrega: una sola plataforma, cero fricción.</p>
+        <div class="hero-actions">
+          <a href="login.html" class="btn-mesaio"><i class="bi bi-play-fill"></i> Probar la demo</a>
+          <a href="#roles" class="btn-ghost-bg"><i class="bi bi-arrow-down"></i> Ver cómo funciona</a>
+        </div>
+        <div class="stats-strip">
+          <div class="stat-x"><div class="stat-num">3</div><div class="stat-lbl">Roles<br>integrados</div></div>
+          <div class="stat-x"><div class="stat-num">&lt;30s</div><div class="stat-lbl">Toma<br>de orden</div></div>
+          <div class="stat-x"><div class="stat-num">100%</div><div class="stat-lbl">Tiempo<br>real</div></div>
+        </div>
+      </div>
+      <div class="hero-mockup" data-aos="fade-left" data-aos-delay="200">
+        <div class="mock-title"><i class="bi bi-broadcast"></i> Cocina en vivo</div>
+        <div class="mock-row">
+          <div>
+            <div class="mock-label">Mesa 12 · 2 platos</div>
+            <div class="mock-meta">Lomo al trapo · Posta cartagenera</div>
+          </div>
+          <span class="mock-status st-listo">Listo</span>
+        </div>
+        <div class="mock-row">
+          <div>
+            <div class="mock-label">Mesa 4 · 3 platos</div>
+            <div class="mock-meta">Bandeja paisa ×2 · Sancocho</div>
+          </div>
+          <span class="mock-status st-prep">Preparando</span>
+        </div>
+        <div class="mock-row">
+          <div>
+            <div class="mock-label">Mesa 8 · 1 plato</div>
+            <div class="mock-meta">Ajiaco santafereño</div>
+          </div>
+          <span class="mock-status st-pend">Pendiente</span>
+        </div>
+        <div class="mock-row">
+          <div>
+            <div class="mock-label">Mesa 1 · 4 platos</div>
+            <div class="mock-meta">Cazuela ×2 · Mojarra ×2</div>
+          </div>
+          <span class="mock-status st-prep">Preparando</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ② ROLES ── -->
+  <section class="block" id="roles">
+    <div class="container-mesaio">
+      <div class="section-title-mesaio" data-aos="fade-up">
+        <span class="lbl">Tres roles, un solo sistema</span>
+        <h2>Cada uno ve lo que necesita ver</h2>
+        <p>Mesero, cocinero y administrador. Tres interfaces diseñadas para sus tareas reales — sin botones de más, sin pasos perdidos.</p>
+      </div>
+      <div class="roles-grid">
+        <div class="role-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="role-icon-wrap"><i class="bi bi-person-badge"></i></div>
+          <h3>Mesero</h3>
+          <p>Toma órdenes desde el celular junto a la mesa. Sin cuadernos, sin errores.</p>
+          <ul>
+            <li>Mapa visual de mesas en tiempo real</li>
+            <li>Catálogo con fotos y modificadores</li>
+            <li>Estado de la cocina al instante</li>
+          </ul>
+          <a href="mesero/" class="role-cta">Entrar como mesero <i class="bi bi-arrow-right-short"></i></a>
+        </div>
+        <div class="role-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="role-icon-wrap"><i class="bi bi-fire"></i></div>
+          <h3>Cocinero</h3>
+          <p>Pantalla KDS estilo profesional. Las órdenes llegan, se preparan, se entregan.</p>
+          <ul>
+            <li>Cola de pedidos por estado</li>
+            <li>Cronómetro de tiempo de preparación</li>
+            <li>Marcado rápido: preparando / listo</li>
+          </ul>
+          <a href="cocina/" class="role-cta">Entrar como cocina <i class="bi bi-arrow-right-short"></i></a>
+        </div>
+        <div class="role-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="role-icon-wrap"><i class="bi bi-graph-up-arrow"></i></div>
+          <h3>Administrador</h3>
+          <p>Control total: platos, mesas, usuarios, ingresos. La cabina de mando completa.</p>
+          <ul>
+            <li>CRUD de menú, mesas y empleados</li>
+            <li>Reporte de ventas y platos top</li>
+            <li>Exportar CSV para contabilidad</li>
+          </ul>
+          <a href="admin/" class="role-cta">Entrar como admin <i class="bi bi-arrow-right-short"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ③ FEATURES ── -->
+  <section class="block features-bg" id="features">
+    <div class="container-mesaio">
+      <div class="section-title-mesaio" data-aos="fade-up">
+        <span class="lbl">Funcionalidades</span>
+        <h2>Todo lo que un restaurante moderno necesita</h2>
+        <p>Pensado para servir más rápido, vender más y entender mejor tu operación.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feat-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="feat-icon"><i class="bi bi-grid-3x3-gap"></i></div>
+          <h4>Mapa de mesas</h4>
+          <p>Distribución visual con estado en vivo: libre, ocupada, en cobro.</p>
+        </div>
+        <div class="feat-card" data-aos="fade-up" data-aos-delay="150">
+          <div class="feat-icon"><i class="bi bi-card-list"></i></div>
+          <h4>Catálogo de platos</h4>
+          <p>Categorías, fotos, precios y disponibilidad. Edición en segundos.</p>
+        </div>
+        <div class="feat-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="feat-icon"><i class="bi bi-clock-history"></i></div>
+          <h4>Estado en tiempo real</h4>
+          <p>Pendiente → preparando → listo → entregado. Sin llamadas a cocina.</p>
+        </div>
+        <div class="feat-card" data-aos="fade-up" data-aos-delay="250">
+          <div class="feat-icon"><i class="bi bi-receipt"></i></div>
+          <h4>Cuenta por mesa</h4>
+          <p>Ítems agrupados, propina sugerida y división de cuenta automática.</p>
+        </div>
+        <div class="feat-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="feat-icon"><i class="bi bi-people"></i></div>
+          <h4>Roles y permisos</h4>
+          <p>Cada usuario solo ve lo que su rol necesita. Auth con Supabase.</p>
+        </div>
+        <div class="feat-card" data-aos="fade-up" data-aos-delay="150">
+          <div class="feat-icon"><i class="bi bi-bar-chart"></i></div>
+          <h4>Reportes</h4>
+          <p>Ventas del día, platos top, mesa más rentable. Exportable a CSV.</p>
+        </div>
+        <div class="feat-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="feat-icon"><i class="bi bi-phone"></i></div>
+          <h4>Mobile-first</h4>
+          <p>El mesero opera desde el celular. Cocina y admin desde tablet o desktop.</p>
+        </div>
+        <div class="feat-card" data-aos="fade-up" data-aos-delay="250">
+          <div class="feat-icon"><i class="bi bi-shield-check"></i></div>
+          <h4>Cero instalación</h4>
+          <p>Web app responsive. Solo navegador y conexión. Listo en minutos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ④ MENU SHOWCASE ── -->
+  <section class="block menu-showcase">
+    <div class="container-mesaio">
+      <div class="section-title-mesaio" data-aos="fade-up">
+        <span class="lbl">Menú demo</span>
+        <h2>La carta digital que se vende sola</h2>
+        <p>Fotografía de calidad, descripción precisa y precio claro. Como debe ser una carta.</p>
+      </div>
+      <div class="menu-grid">
+        <div class="menu-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="menu-img" style="background-image:url('https://images.pexels.com/photos/1580466/pexels-photo-1580466.jpeg?auto=compress&cs=tinysrgb&w=800')">
+            <span class="menu-tag">Especialidad</span>
+          </div>
+          <div class="menu-body">
+            <h4>Lomo al trapo</h4>
+            <p class="menu-desc">Lomo fino envuelto en sal y trapo, asado a las brasas. Servido con papa criolla.</p>
+            <div class="menu-foot">
+              <span class="menu-price">$58.000<small>COP</small></span>
+              <i class="bi bi-heart" style="color:var(--gold-lt);font-size:18px"></i>
+            </div>
+          </div>
+        </div>
+        <div class="menu-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="menu-img" style="background-image:url('https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg?auto=compress&cs=tinysrgb&w=800')">
+            <span class="menu-tag">Tradicional</span>
+          </div>
+          <div class="menu-body">
+            <h4>Bandeja paisa</h4>
+            <p class="menu-desc">Frijoles, arroz, carne molida, chicharrón, huevo, plátano, aguacate y arepa.</p>
+            <div class="menu-foot">
+              <span class="menu-price">$42.000<small>COP</small></span>
+              <i class="bi bi-heart" style="color:var(--gold-lt);font-size:18px"></i>
+            </div>
+          </div>
+        </div>
+        <div class="menu-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="menu-img" style="background-image:url('https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=800')">
+            <span class="menu-tag">Recomendado</span>
+          </div>
+          <div class="menu-body">
+            <h4>Ajiaco santafereño</h4>
+            <p class="menu-desc">Sopa bogotana de tres papas, pollo, mazorca, alcaparras y crema de leche.</p>
+            <div class="menu-foot">
+              <span class="menu-price">$36.000<small>COP</small></span>
+              <i class="bi bi-heart" style="color:var(--gold-lt);font-size:18px"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:48px">
+        <a href="menu.html" class="btn-ghost-bg" style="border-color:rgba(200,169,81,.45);color:var(--gold-lt)">Ver carta completa <i class="bi bi-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ⑤ CTA ── -->
+  <section class="cta-final">
+    <div data-aos="zoom-in">
+      <h2>Tu restaurante merece operar como uno del 2026.</h2>
+      <p>Probá la demo en vivo. Sin registro. Sin tarjeta. Sin compromiso.</p>
+      <a href="login.html" class="btn-burgundy"><i class="bi bi-rocket-takeoff"></i> Entrar a la demo ahora</a>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="foot">
+    <div class="brand-foot">Mes<span>aio</span></div>
+    <div>Sistema integral de gestión para restaurantes — Hackathon 2026</div>
+    <div class="copy">© 2026 Mesaio. Construido con velocidad y precisión.</div>
+  </footer>
+
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script>
+    AOS.init({ duration: 800, once: true, offset: 80 });
+  </script>
+</body>
+</html>

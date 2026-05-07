@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" width="60" height="60">
+  <!-- Small version for P2 Services -->
+  <defs>
+    <linearGradient id="grad-sm" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1B3A6B;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#C8A951;stop-opacity:0.8" />
+    </linearGradient>
+  </defs>
+  
+  <circle cx="30" cy="30" r="27" fill="url(#grad-sm)" stroke="#0B1D3A" stroke-width="1" opacity="0.15"/>
+  <rect x="12" y="22" width="25" height="13" rx="2" fill="#1B3A6B"/>
+  <circle cx="17" cy="25" r="3" fill="#0B1D3A"/>
+  <circle cx="15" cy="37" r="2.5" fill="#0B1D3A"/>
+  <circle cx="32" cy="37" r="2.5" fill="#0B1D3A"/>
+  <line x1="5" y1="27" x2="10" y2="27" stroke="#C8A951" stroke-width="1" stroke-linecap="round"/>
+  <path d="M 38 17 L 44 25 L 40 25 L 46 35 L 35 27 L 39 27 Z" fill="#C8A951" opacity="0.9"/>
+</svg>

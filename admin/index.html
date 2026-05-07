@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin · Mesaio</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<style>
+  :root{--burgundy:#5C1A2B;--burgundy-dk:#3D0F1C;--burgundy-lt:#8B3A4E;--gold:#C8A951;--gold-lt:#E2C87A;--gold-dk:#9a7a1e;
+        --cream:#FAF6EE;--cream-2:#F2EBDC;--charcoal:#1F1318;--charcoal-2:#5A4A4F;--border:#E8DDD0;
+        --surface:#F4EFE6;--white:#fff;--shadow:0 4px 20px rgba(92,26,43,.10)}
+  *{box-sizing:border-box} body{margin:0;font-family:'Inter',sans-serif;background:var(--surface);color:var(--charcoal);font-size:14px}
+  .topbar{background:linear-gradient(135deg,var(--burgundy),var(--burgundy-dk));color:white;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:0 2px 16px rgba(61,15,28,.3)}
+  .brand-mini{font-family:'Playfair Display',serif;font-size:22px;font-weight:900}
+  .brand-mini span{color:var(--gold-lt)}
+  .role-pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);padding:5px 14px;border-radius:50px;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:6px}
+  .role-pill i{color:var(--gold-lt)}
+  .live-pill{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:50px;background:rgba(76,175,80,.15);border:1px solid rgba(76,175,80,.4);color:#8DD491;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.08em;margin-right:12px}
+  .live-pill .pulse{width:8px;height:8px;border-radius:50%;background:#8DD491;animation:livePulse 1.5s infinite}
+  @keyframes livePulse{0%,100%{opacity:1}50%{opacity:.4}}
+  .out{background:transparent;border:1px solid rgba(255,255,255,.3);color:white;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;text-decoration:none}
+  .wrap{max-width:1280px;margin:0 auto;padding:24px 18px}
+  .tabs{display:flex;gap:4px;background:white;border-radius:12px;padding:4px;box-shadow:var(--shadow);margin-bottom:24px;flex-wrap:wrap}
+  .tab{flex:1;min-width:130px;padding:10px 14px;border-radius:9px;border:none;background:transparent;font-family:inherit;font-size:13px;font-weight:600;color:var(--charcoal-2);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;transition:all .2s}
+  .tab.active{background:var(--burgundy);color:white;box-shadow:0 2px 8px rgba(92,26,43,.3)}
+  .tab:hover:not(.active){background:var(--cream-2);color:var(--burgundy)}
+  .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;margin-bottom:24px}
+  .stat-card{background:white;border-radius:14px;padding:22px;box-shadow:var(--shadow);border-top:3px solid var(--gold);transition:all .25s}
+  .stat-card:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(92,26,43,.16)}
+  .stat-card .lbl{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--charcoal-2);margin-bottom:8px}
+  .stat-card .v{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:var(--burgundy);line-height:1}
+  .stat-card .delta{font-size:12px;color:#2E7D32;font-weight:600;margin-top:6px;display:inline-flex;align-items:center;gap:4px}
+  .panel{background:white;border-radius:14px;padding:24px;box-shadow:var(--shadow);margin-bottom:24px}
+  .panel-h{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--burgundy);margin:0 0 18px;padding-bottom:12px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:8px;justify-content:space-between}
+  .btn-add{background:linear-gradient(135deg,var(--gold-dk),var(--gold));color:var(--burgundy-dk);border:none;padding:8px 18px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-family:inherit;letter-spacing:.04em;text-transform:uppercase;transition:all .2s}
+  .btn-add:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(200,169,81,.4)}
+  .btn-add.navy{background:var(--burgundy);color:white}
+  table{width:100%;border-collapse:collapse}
+  th{background:var(--burgundy);color:rgba(255,255,255,.92);font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:10px 12px;text-align:left;font-weight:700}
+  td{padding:11px 12px;font-size:13px;border-bottom:1px solid var(--border)}
+  tr:hover{background:var(--cream)}
+  .badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:3px 10px;border-radius:50px}
+  .b-disp{background:rgba(76,175,80,.15);color:#2E7D32}
+  .b-ago{background:rgba(244,67,54,.15);color:#C62828}
+  .acts{display:flex;gap:6px}
+  .ic-btn{width:30px;height:30px;border-radius:6px;border:1px solid var(--border);background:white;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;color:var(--charcoal-2);transition:all .15s}
+  .ic-btn:hover{background:var(--burgundy);color:white;border-color:var(--burgundy)}
+  .pane{display:none}
+  .pane.active{display:block}
+  .demo-note{background:rgba(200,169,81,.12);border:1px solid rgba(200,169,81,.32);border-radius:10px;padding:14px 18px;font-size:13px;color:var(--charcoal-2);margin-bottom:24px}
+  .demo-note strong{color:var(--burgundy)}
+  .empty-row{text-align:center;padding:30px;color:var(--charcoal-2);font-style:italic}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;gap:18px">
+    <div class="brand-mini">Mes<span>aio</span></div>
+    <div class="role-pill"><i class="bi bi-graph-up-arrow"></i> Administrador · Chef</div>
+  </div>
+  <div style="display:flex;align-items:center">
+    <span class="live-pill"><span class="pulse"></span> Sincronizado</span>
+    <a href="../login.html" class="out"><i class="bi bi-box-arrow-right"></i> Salir</a>
+  </div>
+</div>
+<div class="wrap">
+
+  <div class="tabs">
+    <a href="#" class="tab active" data-pane="dashboard"><i class="bi bi-speedometer2"></i> Dashboard</a>
+    <a href="#" class="tab" data-pane="platos"><i class="bi bi-egg-fried"></i> Platos</a>
+    <a href="#" class="tab" data-pane="mesas"><i class="bi bi-grid-3x3-gap"></i> Mesas</a>
+    <a href="#" class="tab" data-pane="ordenes"><i class="bi bi-receipt"></i> Órdenes</a>
+    <a href="#" class="tab" data-pane="reportes"><i class="bi bi-bar-chart"></i> Reportes</a>
+    <a href="#" class="tab" data-pane="inventario"><i class="bi bi-boxes"></i> Inventario</a>
+    <a href="#" class="tab" data-pane="contabilidad"><i class="bi bi-cash-stack"></i> Contabilidad</a>
+    <a href="#" class="tab" data-pane="facturacion"><i class="bi bi-receipt-cutoff"></i> Facturación</a>
+    <a href="#" class="tab" data-pane="arqueo"><i class="bi bi-clipboard-check"></i> Arqueo</a>
+    <a href="#" class="tab" data-pane="cierre"><i class="bi bi-lock"></i> Cierre</a>
+    <a href="#" class="tab" data-pane="investors"><i class="bi bi-graph-up"></i> Investors</a>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="pane active" id="pane-dashboard">
+    <div class="stats-row">
+      <div class="stat-card"><div class="lbl">Ventas hoy</div><div class="v" id="dash-ventas">$0</div><div class="delta"><i class="bi bi-arrow-up-short"></i> Tiempo real</div></div>
+      <div class="stat-card"><div class="lbl">Órdenes activas</div><div class="v" id="dash-activas">0</div><div class="delta"><i class="bi bi-clock"></i> En cocina o esperando</div></div>
+      <div class="stat-card"><div class="lbl">Mesas ocupadas</div><div class="v" id="dash-ocupadas">0/12</div><div class="delta"><i class="bi bi-arrow-up-short"></i> Ocupación actual</div></div>
+      <div class="stat-card"><div class="lbl">Plato top hoy</div><div class="v" id="dash-platotop" style="font-size:18px;line-height:1.2">—</div><div class="delta" id="dash-platotop-cnt">0 unidades</div></div>
+    </div>
+
+    <div class="panel">
+      <h6 class="panel-h"><span><i class="bi bi-activity"></i> Órdenes activas en tiempo real</span><span style="font-size:10px;color:var(--charcoal-2);text-transform:none;letter-spacing:0;font-weight:500">Auto-refresh cada 5s</span></h6>
+      <table>
+        <thead><tr><th>#</th><th>Mesa</th><th>Mesero</th><th>Items</th><th>Total</th><th>Estado</th><th>Hora</th></tr></thead>
+        <tbody id="tabActivasBody"><tr><td colspan="7" class="empty-row">Cargando...</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- PLATOS -->
+  <div class="pane" id="pane-platos">
+    <div class="panel">
+      <h6 class="panel-h"><span><i class="bi bi-egg-fried"></i> Platos del menú</span><button class="btn-add" onclick="MESAIO.toast('Pendiente: form de nuevo plato', 'info')"><i class="bi bi-plus-lg"></i> Nuevo plato</button></h6>
+      <table>
+        <thead><tr><th>Nombre</th><th>Categoría</th><th>Precio</th><th>Disponible</th><th>Acciones</th></tr></thead>
+        <tbody id="tabPlatosBody"><tr><td colspan="5" class="empty-row">Cargando...</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- MESAS -->
+  <div class="pane" id="pane-mesas">
+    <div class="panel">
+      <h6 class="panel-h"><span><i class="bi bi-grid-3x3-gap"></i> Mesas configuradas</span><span style="font-size:10px;color:var(--charcoal-2);text-transform:none;letter-spacing:0;font-weight:500">12 mesas activas</span></h6>
+      <table>
+        <thead><tr><th>#</th><th>Capacidad</th><th>Ubicación</th><th>Estado</th></tr></thead>
+        <tbody id="tabMesasBody"><tr><td colspan="4" class="empty-row">Cargando...</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ORDENES -->
+  <div class="pane" id="pane-ordenes">
+    <div class="panel">
+      <h6 class="panel-h"><span><i class="bi bi-receipt"></i> Histórico de órdenes</span><button class="btn-add navy" onclick="exportarCSV()"><i class="bi bi-download"></i> Exportar CSV</button></h6>
+      <table>
+        <thead><tr><th>#</th><th>Mesa</th><th>Mesero</th><th>Items</th><th>Total</th><th>Estado</th><th>Hora</th></tr></thead>
+        <tbody id="tabOrdenesBody"><tr><td colspan="7" class="empty-row">Cargando...</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- REPORTES -->
+  <div class="pane" id="pane-reportes">
+    <div class="panel">
+      <h6 class="panel-h"><span><i class="bi bi-bar-chart"></i> Reporte del día</span></h6>
+      <div id="reporteBody" style="padding:20px;color:var(--charcoal-2)">Cargando reportes...</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- PANE: INVENTARIO                          -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="pane" id="pane-inventario">
+    <h3 style="color:var(--burgundy);margin-bottom:16px;font-family:'Playfair Display',serif;"><i class="bi bi-boxes"></i> Inventario en tiempo real</h3>
+    <div id="alertStockBajo" style="display:none;background:#FFFBEB;border-left:4px solid #F59E0B;padding:12px 16px;border-radius:8px;margin-bottom:16px;">
+      <strong>⚠️ Stock bajo:</strong> <span id="alertStockCount">0</span> ingredientes bajo mínimo
+    </div>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;">
+        <thead><tr style="background:#5C1A2B;color:white;">
+          <th style="padding:10px 12px;text-align:left;">Ingrediente</th>
+          <th style="padding:10px 12px;text-align:center;">Stock</th>
+          <th style="padding:10px 12px;text-align:center;">Mínimo</th>
+          <th style="padding:10px 12px;text-align:center;">Estado</th>
+          <th style="padding:10px 12px;text-align:right;">Valor stock</th>
+          <th style="padding:10px 12px;text-align:center;">Acción</th>
+        </tr></thead>
+        <tbody id="inventarioGrid"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- PANE: CONTABILIDAD                        -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="pane" id="pane-contabilidad">
+    <h3 style="color:var(--burgundy);margin-bottom:16px;font-family:'Playfair Display',serif;"><i class="bi bi-cash-stack"></i> Contabilidad del día</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:24px;">
+      <div style="background:#ECFDF5;border-radius:12px;padding:16px;text-align:center;">
+        <div style="font-size:12px;color:#6B7280;">Ingresos hoy</div>
+        <div id="kpiIngresos" style="font-size:24px;font-weight:bold;color:#10B981;">$0</div>
+      </div>
+      <div style="background:#FFFBEB;border-radius:12px;padding:16px;text-align:center;">
+        <div style="font-size:12px;color:#6B7280;">Costo ingredientes</div>
+        <div id="kpiEgresos" style="font-size:24px;font-weight:bold;color:#F59E0B;">$0</div>
+      </div>
+      <div style="background:#EFF6FF;border-radius:12px;padding:16px;text-align:center;">
+        <div style="font-size:12px;color:#6B7280;">Ganancia neta</div>
+        <div id="kpiNeto" style="font-size:24px;font-weight:bold;color:#3B82F6;">$0</div>
+      </div>
+      <div style="background:#FAF6EE;border:2px solid #C8A951;border-radius:12px;padding:16px;text-align:center;">
+        <div style="font-size:12px;color:#6B7280;">Margen</div>
+        <div id="kpiMargen" style="font-size:24px;font-weight:bold;color:#5C1A2B;">0%</div>
+      </div>
+    </div>
+    <h5 style="color:var(--burgundy);">Movimientos hoy</h5>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;">
+        <thead><tr style="background:#5C1A2B;color:white;">
+          <th style="padding:8px 10px;">Hora</th><th style="padding:8px 10px;">Tipo</th>
+          <th style="padding:8px 10px;">Concepto</th><th style="padding:8px 10px;text-align:right;">Monto</th>
+        </tr></thead>
+        <tbody id="movimientosGrid"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- PANE: FACTURACIÓN                         -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="pane" id="pane-facturacion">
+    <h3 style="color:var(--burgundy);margin-bottom:16px;font-family:'Playfair Display',serif;"><i class="bi bi-receipt-cutoff"></i> Facturación electrónica</h3>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;">
+        <thead><tr style="background:#5C1A2B;color:white;">
+          <th style="padding:8px 10px;">#</th><th style="padding:8px 10px;">Mesa</th>
+          <th style="padding:8px 10px;">Hora</th><th style="padding:8px 10px;text-align:right;">Total</th>
+          <th style="padding:8px 10px;">Método</th><th style="padding:8px 10px;">CUFE</th>
+          <th style="padding:8px 10px;">Acción</th>
+        </tr></thead>
+        <tbody id="facturasGrid"></tbody>
+      </table>
+    </div>
+    <div id="modalFacturaPreview" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:9999;overflow-y:auto;">
+      <div style="max-width:400px;margin:40px auto;background:white;border-radius:12px;overflow:hidden;">
+        <div id="facturaHTML" style="padding:24px;font-family:'Courier New',monospace;font-size:12px;"></div>
+        <div style="padding:12px;border-top:1px solid #ddd;display:flex;gap:8px;justify-content:flex-end;">
+          <button onclick="window.print()" style="padding:8px 16px;background:#5C1A2B;color:white;border:none;border-radius:6px;cursor:pointer;">🖨️ Imprimir</button>
+          <button onclick="document.getElementById('modalFacturaPreview').style.display='none'" style="padding:8px 16px;background:#6B7280;color:white;border:none;border-radius:6px;cursor:pointer;">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- PANE: ARQUEO DE CAJA                      -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="pane" id="pane-arqueo">
+    <h3 style="color:var(--burgundy);margin-bottom:16px;font-family:'Playfair Display',serif;"><i class="bi bi-clipboard-check"></i> Arqueo de caja</h3>
+    <div style="max-width:500px;">
+      <div style="background:#ECFDF5;border-radius:12px;padding:16px;margin-bottom:16px;">
+        <h5 style="margin-top:0;">Reconciliación de efectivo</h5>
+        <div style="margin:12px 0;">
+          <label style="font-size:13px;font-weight:bold;">Efectivo ESPERADO (según sistema):</label>
+          <div id="ariqueoEsperado" style="font-size:24px;font-weight:bold;color:#10B981;margin-top:4px;">$0</div>
+          <small style="color:#9CA3AF;">Suma de todas las ventas hoy</small>
+        </div>
+        <hr style="border:none;border-top:1px dashed #ddd;">
+        <div style="margin:12px 0;">
+          <label style="font-size:13px;font-weight:bold;">Efectivo REPORTADO (conteo físico):</label>
+          <input type="number" id="arqueoReportado" placeholder="Ingresa cantidad física" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;font-size:14px;margin-top:6px;">
+        </div>
+        <hr style="border:none;border-top:1px dashed #ddd;">
+        <div style="margin:12px 0;">
+          <label style="font-size:13px;font-weight:bold;">DISCREPANCIA:</label>
+          <div id="arqueoDiscrepancia" style="font-size:20px;font-weight:bold;color:#EF4444;margin-top:4px;">$0</div>
+          <small id="arqueoEstado" style="color:#9CA3AF;">Ingresa monto reportado arriba</small>
+        </div>
+        <button onclick="calcularArqueo()" style="width:100%;padding:12px;margin-top:16px;background:#10B981;color:white;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">🔍 Calcular discrepancia</button>
+      </div>
+      <h5>Histórico de arqueos</h5>
+      <div style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;font-size:12px;">
+          <thead><tr style="background:#5C1A2B;color:white;">
+            <th style="padding:8px;">Fecha</th><th style="padding:8px;text-align:right;">Esperado</th>
+            <th style="padding:8px;text-align:right;">Reportado</th><th style="padding:8px;text-align:right;">Diferencia</th>
+            <th style="padding:8px;text-align:center;">Estado</th>
+          </tr></thead>
+          <tbody id="arqueoGrid"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- PANE: CIERRE DE DÍA                       -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="pane" id="pane-cierre">
+    <h3 style="color:var(--burgundy);margin-bottom:16px;font-family:'Playfair Display',serif;"><i class="bi bi-lock"></i> Cierre de día</h3>
+    <div id="seccionCierreForms" style="max-width:500px;">
+      <div style="background:#FAF6EE;border:1px solid #C8A951;border-radius:12px;padding:16px;margin-bottom:16px;">
+        <h5 style="margin-top:0;">Datos del cierre</h5>
+        <div style="margin:12px 0;">
+          <label style="font-size:13px;font-weight:bold;">Fecha de cierre:</label>
+          <div id="cierreFecha" style="padding:8px;background:white;border-radius:6px;border:1px solid #ddd;margin-top:4px;"></div>
+        </div>
+        <div style="margin:12px 0;">
+          <label style="font-size:13px;font-weight:bold;">Nombre quien cierra:</label>
+          <input type="text" id="cierreResponsable" placeholder="Tu nombre" style="width:100%;padding:8px;border:1px solid #ddd;border-radius:6px;margin-top:4px;">
+        </div>
+        <div style="margin:12px 0;">
+          <label style="font-size:13px;font-weight:bold;">Notas (opcional):</label>
+          <textarea id="cierreNotas" placeholder="Ej: Faltó pagar proveedor..." style="width:100%;padding:8px;border:1px solid #ddd;border-radius:6px;font-size:12px;height:60px;margin-top:4px;"></textarea>
+        </div>
+        <button onclick="generarCierre()" style="width:100%;padding:12px;margin-top:16px;background:#5C1A2B;color:white;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">🔐 Cerrar día y generar acta</button>
+        <button id="btnReabrir" onclick="reabrirDia()" style="display:none;width:100%;padding:12px;margin-top:8px;background:#F59E0B;color:white;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">🔓 Reabrir día (solo admin)</button>
+      </div>
+    </div>
+    <div id="seccionActaCierre" style="display:none;max-width:500px;">
+      <div style="background:white;border:2px solid #5C1A2B;border-radius:12px;padding:20px;">
+        <div style="text-align:center;margin-bottom:16px;">
+          <h4 style="color:#5C1A2B;margin:0;">📋 ACTA DE CIERRE</h4>
+          <p style="font-size:11px;color:#9CA3AF;margin:4px 0;">Mesaio Sistema de Gestión</p>
+        </div>
+        <div style="border-top:2px solid #5C1A2B;border-bottom:2px solid #5C1A2B;padding:12px 0;margin:12px 0;font-size:12px;">
+          <p style="margin:4px 0;"><strong>Fecha:</strong> <span id="actaFecha"></span></p>
+          <p style="margin:4px 0;"><strong>Responsable:</strong> <span id="actaResponsable"></span></p>
+          <p style="margin:4px 0;"><strong>Hora cierre:</strong> <span id="actaHora"></span></p>
+        </div>
+        <div style="margin:12px 0;font-size:12px;background:#ECFDF5;padding:10px;border-radius:6px;">
+          <p style="margin:2px 0;"><strong>Ingresos:</strong> <span id="actaIngresos"></span></p>
+          <p style="margin:2px 0;"><strong>Costos:</strong> <span id="actaCostos"></span></p>
+          <p style="margin:2px 0;"><strong>Ganancia neta:</strong> <span id="actaGanancia"></span></p>
+          <p style="margin:2px 0;"><strong>Margen:</strong> <span id="actaMargen"></span></p>
+        </div>
+        <div style="margin:12px 0;font-size:12px;background:#FEF2F2;padding:10px;border-radius:6px;">
+          <p style="margin:2px 0;"><strong>Órdenes procesadas:</strong> <span id="actaOrdenes"></span></p>
+          <p style="margin:2px 0;"><strong>Facturas emitidas:</strong> <span id="actaFacturas"></span></p>
+          <p style="margin:2px 0;"><strong>Transacciones:</strong> <span id="actaTransacciones"></span></p>
+        </div>
+        <div id="actaNotas" style="margin:12px 0;font-size:11px;background:#FFFBEB;padding:10px;border-radius:6px;"></div>
+        <div style="text-align:center;margin-top:16px;padding-top:12px;border-top:1px dashed #ddd;">
+          <p style="font-size:10px;margin:4px 0;" id="actaCUFE"></p>
+          <button onclick="window.print()" style="padding:8px 16px;background:#5C1A2B;color:white;border:none;border-radius:6px;cursor:pointer;font-size:12px;">🖨️ Imprimir acta</button>
+        </div>
+      </div>
+    </div>
+    <div id="seccionHistoricoCierres" style="margin-top:24px;">
+      <h5>Histórico de cierres</h5>
+      <div style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;font-size:11px;">
+          <thead><tr style="background:#5C1A2B;color:white;">
+            <th style="padding:6px;">Fecha</th><th style="padding:6px;text-align:right;">Ingresos</th>
+            <th style="padding:6px;text-align:right;">Ganancia</th><th style="padding:6px;text-align:center;">Órdenes</th>
+            <th style="padding:6px;">Responsable</th>
+          </tr></thead>
+          <tbody id="cierresGrid"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- PANE: INVESTORS DASHBOARD                 -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="pane" id="pane-investors">
+    <h3 style="color:var(--burgundy);margin-bottom:16px;font-family:'Playfair Display',serif;"><i class="bi bi-graph-up"></i> Dashboard de inversores</h3>
+    <div style="margin-bottom:16px;">
+      <label style="font-size:12px;font-weight:bold;">Período:</label>
+      <div style="display:flex;gap:8px;margin-top:8px;">
+        <button onclick="cambiarPeriodoInvestors('7')" class="btn-periodo" data-dias="7" style="padding:6px 12px;background:#C8A951;color:white;border:none;border-radius:6px;cursor:pointer;font-size:12px;">Últimos 7 días</button>
+        <button onclick="cambiarPeriodoInvestors('30')" class="btn-periodo" data-dias="30" style="padding:6px 12px;background:white;color:#5C1A2B;border:2px solid #5C1A2B;border-radius:6px;cursor:pointer;font-size:12px;">Últimos 30 días</button>
+        <button onclick="cambiarPeriodoInvestors('90')" class="btn-periodo" data-dias="90" style="padding:6px 12px;background:white;color:#5C1A2B;border:2px solid #5C1A2B;border-radius:6px;cursor:pointer;font-size:12px;">Últimos 90 días</button>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:24px;">
+      <div style="background:#ECFDF5;border-radius:12px;padding:14px;text-align:center;border-left:4px solid #10B981;">
+        <div style="font-size:11px;color:#6B7280;">Ingresos totales</div>
+        <div id="invKpiIngresos" style="font-size:20px;font-weight:bold;color:#10B981;margin-top:4px;">$0</div>
+        <div id="invTrendIngresos" style="font-size:10px;color:#9CA3AF;margin-top:2px;">-</div>
+      </div>
+      <div style="background:#FEF2F2;border-radius:12px;padding:14px;text-align:center;border-left:4px solid #EF4444;">
+        <div style="font-size:11px;color:#6B7280;">Costos ingredientes</div>
+        <div id="invKpiCostos" style="font-size:20px;font-weight:bold;color:#EF4444;margin-top:4px;">$0</div>
+        <div id="invTrendCostos" style="font-size:10px;color:#9CA3AF;margin-top:2px;">-</div>
+      </div>
+      <div style="background:#EFF6FF;border-radius:12px;padding:14px;text-align:center;border-left:4px solid #3B82F6;">
+        <div style="font-size:11px;color:#6B7280;">Ganancia neta</div>
+        <div id="invKpiGanancia" style="font-size:20px;font-weight:bold;color:#3B82F6;margin-top:4px;">$0</div>
+        <div id="invTrendGanancia" style="font-size:10px;color:#9CA3AF;margin-top:2px;">-</div>
+      </div>
+      <div style="background:#FAF6EE;border-radius:12px;padding:14px;text-align:center;border-left:4px solid #C8A951;">
+        <div style="font-size:11px;color:#6B7280;">Margen promedio</div>
+        <div id="invKpiMargen" style="font-size:20px;font-weight:bold;color:#C8A951;margin-top:4px;">0%</div>
+        <div id="invTrendMargen" style="font-size:10px;color:#9CA3AF;margin-top:2px;">-</div>
+      </div>
+      <div style="background:#F0F9FF;border-radius:12px;padding:14px;text-align:center;border-left:4px solid #06B6D4;">
+        <div style="font-size:11px;color:#6B7280;">Ticket promedio</div>
+        <div id="invKpiTicket" style="font-size:20px;font-weight:bold;color:#06B6D4;margin-top:4px;">$0</div>
+        <div id="invTrendTicket" style="font-size:10px;color:#9CA3AF;margin-top:2px;">-</div>
+      </div>
+      <div style="background:#DBEAFE;border-radius:12px;padding:14px;text-align:center;border-left:4px solid #1D4ED8;">
+        <div style="font-size:11px;color:#6B7280;">Total órdenes</div>
+        <div id="invKpiOrdenes" style="font-size:20px;font-weight:bold;color:#1D4ED8;margin-top:4px;">0</div>
+        <div id="invTrendOrdenes" style="font-size:10px;color:#9CA3AF;margin-top:2px;">-</div>
+      </div>
+    </div>
+    <h5>Hoy vs promedio del período</h5>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:12px;">
+        <thead><tr style="background:#5C1A2B;color:white;">
+          <th style="padding:8px;">Métrica</th><th style="padding:8px;text-align:right;">Hoy</th>
+          <th style="padding:8px;text-align:right;">Promedio período</th><th style="padding:8px;text-align:center;">Variación</th>
+        </tr></thead>
+        <tbody id="invComparativaGrid"></tbody>
+      </table>
+    </div>
+    <h5 style="margin-top:24px;">Histórico diario</h5>
+    <div style="overflow-x:auto;max-height:300px;">
+      <table style="width:100%;border-collapse:collapse;font-size:11px;">
+        <thead><tr style="background:#5C1A2B;color:white;">
+          <th style="padding:6px;">Fecha</th><th style="padding:6px;text-align:right;">Ingresos</th>
+          <th style="padding:6px;text-align:right;">Costos</th><th style="padding:6px;text-align:right;">Ganancia</th>
+          <th style="padding:6px;text-align:center;">Margen</th><th style="padding:6px;text-align:center;">Órdenes</th>
+        </tr></thead>
+        <tbody id="invHistoricoGrid"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.104.1" crossorigin="anonymous"></script>
+<script src="../assets/js/mesaio-core.js"></script>
+
+<script>
+async function cargarDashboard() {
+  const stats = await MESAIO.getStats();
+  document.getElementById('dash-ventas').textContent = MESAIO.fmtCOP(stats.ventasHoy);
+  document.getElementById('dash-activas').textContent = stats.ordenesActivas;
+  document.getElementById('dash-ocupadas').textContent = stats.ocupadas + '/' + stats.totalMesas;
+  document.getElementById('dash-platotop').textContent = stats.platoTop || '—';
+  document.getElementById('dash-platotop-cnt').textContent = stats.platoTopCount + ' unidades';
+
+  // Tabla activas dashboard
+  const activas = await MESAIO.getOrdenesActivas();
+  const tbody = document.getElementById('tabActivasBody');
+  if (!activas.length) {
+    tbody.innerHTML = '<tr><td colspan="7" class="empty-row">No hay órdenes activas. La cocina está al día.</td></tr>';
+  } else {
+    tbody.innerHTML = activas.slice(0,10).map(o => {
+      const itc = (o.items || []).reduce((s,i) => s + i.cantidad, 0);
+      return `<tr>
+        <td><strong>${String(o.id).padStart(3,'0')}</strong></td>
+        <td>M-${String(o.mesa_id).padStart(2,'0')}</td>
+        <td>${o.mesero_nombre || '—'}</td>
+        <td>${itc} items</td>
+        <td><strong>${MESAIO.fmtCOP(o.total)}</strong></td>
+        <td>${MESAIO.badgeEstado(o.estado)}</td>
+        <td>${MESAIO.fmtHora(o.created_at)}</td>
+      </tr>`;
+    }).join('');
+  }
+}
+
+async function cargarPlatos() {
+  const platos = await MESAIO.getAllPlatos();
+  const tbody = document.getElementById('tabPlatosBody');
+  if (!platos.length) { tbody.innerHTML = '<tr><td colspan="5" class="empty-row">Sin platos. Ejecuta sql/schema.sql</td></tr>'; return; }
+  tbody.innerHTML = platos.map(p => `
+    <tr>
+      <td><strong>${p.nombre}</strong>${p.descripcion ? `<div style="font-size:11px;color:var(--charcoal-2)">${p.descripcion}</div>` : ''}</td>
+      <td><span style="text-transform:capitalize">${p.categoria}</span></td>
+      <td><strong>${MESAIO.fmtCOP(p.precio)}</strong></td>
+      <td>${p.disponible ? '<span class="badge b-disp"><i class="bi bi-check-circle"></i> Sí</span>' : '<span class="badge b-ago"><i class="bi bi-x-circle"></i> Agotado</span>'}</td>
+      <td class="acts">
+        <button class="ic-btn" title="${p.disponible ? 'Marcar agotado' : 'Volver a habilitar'}" onclick="togglePlato(${p.id})"><i class="bi bi-${p.disponible ? 'eye-slash' : 'eye'}"></i></button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+async function togglePlato(id) {
+  await MESAIO.togglePlato(id);
+  MESAIO.toast('Plato actualizado', 'ok');
+  cargarPlatos();
+}
+
+async function cargarMesas() {
+  const mesas = await MESAIO.getMesas();
+  const tbody = document.getElementById('tabMesasBody');
+  if (!mesas.length) { tbody.innerHTML = '<tr><td colspan="4" class="empty-row">Sin mesas. Ejecuta sql/schema.sql</td></tr>'; return; }
+  tbody.innerHTML = mesas.map(m => `
+    <tr>
+      <td><strong>M-${String(m.numero).padStart(2,'0')}</strong></td>
+      <td>${m.capacidad} puestos</td>
+      <td>${m.ubicacion || 'salón'}</td>
+      <td>${MESAIO.badgeEstado(m.estado)}</td>
+    </tr>
+  `).join('');
+}
+
+async function cargarOrdenes() {
+  const ordenes = await MESAIO.getOrdenes();
+  const tbody = document.getElementById('tabOrdenesBody');
+  if (!ordenes.length) { tbody.innerHTML = '<tr><td colspan="7" class="empty-row">Sin órdenes registradas todavía.</td></tr>'; return; }
+  tbody.innerHTML = ordenes.slice().reverse().slice(0,30).map(o => {
+    const itc = (o.items || []).reduce((s,i) => s + i.cantidad, 0);
+    return `<tr>
+      <td><strong>${String(o.id).padStart(3,'0')}</strong></td>
+      <td>M-${String(o.mesa_id).padStart(2,'0')}</td>
+      <td>${o.mesero_nombre || '—'}</td>
+      <td>${itc} items</td>
+      <td><strong>${MESAIO.fmtCOP(o.total)}</strong></td>
+      <td>${MESAIO.badgeEstado(o.estado)}</td>
+      <td>${MESAIO.fmtHora(o.created_at)}</td>
+    </tr>`;
+  }).join('');
+}
+
+async function cargarReportes() {
+  const ordenes = await MESAIO.getOrdenes();
+  const stats = await MESAIO.getStats();
+  const platos = await MESAIO.getAllPlatos();
+
+  // Top 5 platos del día
+  const hoy = new Date().toISOString().slice(0,10);
+  const ordenesHoy = ordenes.filter(o => o.created_at && o.created_at.slice(0,10) === hoy);
+  const counts = {};
+  ordenesHoy.forEach(o => (o.items || []).forEach(i => counts[i.plato_nombre] = (counts[i.plato_nombre] || 0) + i.cantidad));
+  const top5 = Object.entries(counts).sort((a,b) => b[1] - a[1]).slice(0,5);
+
+  // Distribución por estado
+  const porEstado = {};
+  ordenes.forEach(o => porEstado[o.estado] = (porEstado[o.estado] || 0) + 1);
+
+  document.getElementById('reporteBody').innerHTML = `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+      <div>
+        <h4 style="font-family:'Playfair Display',serif;color:var(--burgundy);margin-top:0">Top 5 platos hoy</h4>
+        ${top5.length ? top5.map(([p,c],i) => `
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)">
+            <span><strong style="color:var(--gold-dk)">#${i+1}</strong> ${p}</span>
+            <span style="font-weight:800">${c} unidades</span>
+          </div>
+        `).join('') : '<p style="color:var(--charcoal-2);font-style:italic">Sin ventas hoy todavía</p>'}
+      </div>
+      <div>
+        <h4 style="font-family:'Playfair Display',serif;color:var(--burgundy);margin-top:0">Resumen del turno</h4>
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span>Total ventas hoy</span><strong style="color:var(--burgundy)">${MESAIO.fmtCOP(stats.ventasHoy)}</strong></div>
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span>Órdenes hoy</span><strong>${stats.ordenesHoy}</strong></div>
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span>Mesas ocupadas</span><strong>${stats.ocupadas}/${stats.totalMesas}</strong></div>
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span>Platos en menú</span><strong>${platos.filter(p=>p.disponible).length} disponibles</strong></div>
+        <h4 style="font-family:'Playfair Display',serif;color:var(--burgundy);margin-top:18px">Por estado</h4>
+        ${Object.entries(porEstado).map(([e,c]) => `<div style="display:flex;justify-content:space-between;padding:6px 0">${MESAIO.badgeEstado(e)}<strong>${c}</strong></div>`).join('') || '<em>Sin datos</em>'}
+      </div>
+    </div>
+  `;
+}
+
+function exportarCSV() {
+  MESAIO.getOrdenes().then(ordenes => {
+    if (!ordenes.length) { MESAIO.toast('Sin órdenes para exportar', 'err'); return; }
+    let csv = 'ID,Mesa,Mesero,Items,Total,Estado,Fecha\n';
+    ordenes.forEach(o => {
+      const itc = (o.items || []).reduce((s,i) => s + i.cantidad, 0);
+      csv += `${o.id},M-${String(o.mesa_id).padStart(2,'0')},"${o.mesero_nombre}",${itc},${o.total},${o.estado},${o.created_at}\n`;
+    });
+    // BOM para Excel
+    const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'mesaio_ordenes_' + new Date().toISOString().slice(0,10) + '.csv';
+    a.click(); URL.revokeObjectURL(url);
+    MESAIO.toast('📥 CSV descargado', 'ok');
+  });
+}
+
+// ── V2 INVENTARIO ─────────────────────────────────────────
+function cargarInventario() {
+  const ings = MESAIO.getIngredientes();
+  const alertas = MESAIO.getAlertasStock();
+  const alertDiv = document.getElementById('alertStockBajo');
+  document.getElementById('alertStockCount').textContent = alertas.length;
+  alertDiv.style.display = alertas.length ? 'block' : 'none';
+  const tbody = document.getElementById('inventarioGrid');
+  if (!ings.length) { tbody.innerHTML = '<tr><td colspan="6" class="empty-row">Inicializando inventario...</td></tr>'; return; }
+  tbody.innerHTML = ings.map(i => {
+    const bajo = i.stock <= i.stock_minimo;
+    const badge = bajo ? '<span style="color:#EF4444;font-weight:700;font-size:11px;">⚠️ BAJO</span>' : '<span style="color:#10B981;font-weight:700;font-size:11px;">✓ OK</span>';
+    const rowBg = bajo ? 'background:#FEF2F2;' : '';
+    return `<tr style="${rowBg}">
+      <td><strong>${i.nombre}</strong></td>
+      <td style="text-align:center;">${i.stock} ${i.unidad}</td>
+      <td style="text-align:center;">${i.stock_minimo} ${i.unidad}</td>
+      <td style="text-align:center;">${badge}</td>
+      <td style="text-align:right;">${MESAIO.fmtCOP(i.stock * i.precio_costo)}</td>
+      <td style="text-align:center;"><button onclick="refillIngrediente(${i.id})" style="padding:4px 10px;background:#5C1A2B;color:white;border:none;border-radius:4px;cursor:pointer;font-size:11px;">+ Reponer</button></td>
+    </tr>`;
+  }).join('');
+}
+
+function refillIngrediente(id) {
+  const qty = parseFloat(prompt('¿Cuánto reponer?', '100'));
+  if (isNaN(qty) || qty <= 0) return;
+  MESAIO.updateStock(id, qty);
+  MESAIO.toast('Stock actualizado', 'ok');
+  cargarInventario();
+}
+
+// ── V2 CONTABILIDAD ───────────────────────────────────────
+function cargarContabilidad() {
+  const cierre = MESAIO.getCierreCaja();
+  document.getElementById('kpiIngresos').textContent = MESAIO.fmtCOP(cierre.ingresos);
+  document.getElementById('kpiEgresos').textContent = MESAIO.fmtCOP(cierre.costos);
+  document.getElementById('kpiNeto').textContent = MESAIO.fmtCOP(cierre.neto);
+  const margen = cierre.ingresos > 0 ? Math.round((cierre.neto / cierre.ingresos) * 100) : 0;
+  document.getElementById('kpiMargen').textContent = margen + '%';
+  const movs = MESAIO.getMovimientosHoy();
+  const tbody = document.getElementById('movimientosGrid');
+  if (!movs.length) { tbody.innerHTML = '<tr><td colspan="4" class="empty-row">Sin movimientos hoy</td></tr>'; return; }
+  tbody.innerHTML = movs.slice().reverse().map(m => {
+    const color = m.tipo === 'venta' ? '#10B981' : '#EF4444';
+    const signo = m.tipo === 'venta' ? '+' : '-';
+    return `<tr>
+      <td>${MESAIO.fmtHora(m.created_at)}</td>
+      <td><span style="font-size:11px;font-weight:700;color:${color};text-transform:uppercase;">${m.tipo}</span></td>
+      <td>${m.descripcion || '—'}</td>
+      <td style="text-align:right;font-weight:700;color:${color};">${signo}${MESAIO.fmtCOP(m.monto)}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ── V2 FACTURACIÓN ────────────────────────────────────────
+function cargarFacturacion() {
+  const facts = MESAIO.getFacturasHoy();
+  const tbody = document.getElementById('facturasGrid');
+  if (!facts.length) { tbody.innerHTML = '<tr><td colspan="7" class="empty-row">Sin facturas hoy</td></tr>'; return; }
+  tbody.innerHTML = facts.slice().reverse().map(f => `<tr>
+    <td><strong>#${String(f.numero).padStart(6,'0')}</strong></td>
+    <td>M-${String(f.mesa_id || '?').padStart(2,'0')}</td>
+    <td>${MESAIO.fmtHora(f.created_at)}</td>
+    <td style="text-align:right;font-weight:700;">${MESAIO.fmtCOP(f.total)}</td>
+    <td>${f.metodo_pago || 'efectivo'}</td>
+    <td style="font-family:monospace;font-size:10px;">${(f.cufe || '').slice(0,8)}...</td>
+    <td><button onclick="verFactura(${f.id})" style="padding:4px 10px;background:#5C1A2B;color:white;border:none;border-radius:4px;cursor:pointer;font-size:11px;">👁 Ver</button></td>
+  </tr>`).join('');
+}
+
+function verFactura(id) {
+  const facts = MESAIO.getFacturas();
+  const f = facts.find(x => x.id === id);
+  if (!f) return;
+  const items = (f.items || []).map(i => `<tr><td>${i.plato_nombre}</td><td style="text-align:center;">${i.cantidad}</td><td style="text-align:right;">${MESAIO.fmtCOP(i.precio_unitario)}</td><td style="text-align:right;">${MESAIO.fmtCOP(i.subtotal)}</td></tr>`).join('');
+  const iva = Math.round(f.subtotal_sin_iva * 0.19);
+  document.getElementById('facturaHTML').innerHTML = `
+    <div style="text-align:center;margin-bottom:12px;border-bottom:2px solid #5C1A2B;padding-bottom:10px;">
+      <h2 style="margin:0;color:#5C1A2B;font-size:18px;">MESAIO</h2>
+      <p style="margin:2px 0;font-size:10px;">Restaurante | NIT: 900.123.456-7</p>
+      <p style="margin:2px 0;font-size:10px;">Res. DIAN No. 18764 de 2024</p>
+      <p style="margin:4px 0;font-size:12px;font-weight:bold;">FACTURA ELECTRÓNICA #${String(f.numero).padStart(6,'0')}</p>
+    </div>
+    <p style="margin:3px 0;font-size:11px;"><strong>Fecha:</strong> ${new Date(f.created_at).toLocaleString('es-CO')}</p>
+    <p style="margin:3px 0;font-size:11px;"><strong>Cliente:</strong> ${f.cliente_nombre || 'Consumidor Final'}</p>
+    <p style="margin:3px 0;font-size:11px;"><strong>Método pago:</strong> ${f.metodo_pago || 'efectivo'}</p>
+    <table style="width:100%;border-collapse:collapse;margin:10px 0;font-size:11px;">
+      <thead><tr style="border-bottom:1px solid #ccc;"><th style="text-align:left;">Item</th><th style="text-align:center;">Cant</th><th style="text-align:right;">Precio</th><th style="text-align:right;">Subtotal</th></tr></thead>
+      <tbody>${items}</tbody>
+    </table>
+    <div style="border-top:1px dashed #ccc;padding-top:8px;font-size:11px;">
+      <div style="display:flex;justify-content:space-between;"><span>Subtotal:</span><span>${MESAIO.fmtCOP(f.subtotal_sin_iva || 0)}</span></div>
+      <div style="display:flex;justify-content:space-between;"><span>IVA 19%:</span><span>${MESAIO.fmtCOP(f.iva || 0)}</span></div>
+      ${f.propina ? `<div style="display:flex;justify-content:space-between;"><span>Propina:</span><span>${MESAIO.fmtCOP(f.propina)}</span></div>` : ''}
+      <div style="display:flex;justify-content:space-between;font-weight:bold;border-top:1px solid #333;margin-top:4px;padding-top:4px;"><span>TOTAL:</span><span>${MESAIO.fmtCOP(f.total)}</span></div>
+    </div>
+    <div style="margin-top:12px;border-top:1px dashed #ccc;padding-top:8px;text-align:center;font-size:9px;">
+      <p style="margin:2px 0;"><strong>CUFE:</strong> ${f.cufe}</p>
+      <p style="margin:2px 0;">Documento válido para efectos fiscales</p>
+    </div>`;
+  document.getElementById('modalFacturaPreview').style.display = 'flex';
+}
+
+// ── V2 ARQUEO ─────────────────────────────────────────────
+function cargarArqueo() {
+  const cierre = MESAIO.getCierreCaja();
+  document.getElementById('ariqueoEsperado').textContent = MESAIO.fmtCOP(cierre.ingresos);
+  document.getElementById('arqueoReportado').value = '';
+  document.getElementById('arqueoDiscrepancia').textContent = '$0';
+  document.getElementById('arqueoEstado').textContent = 'Ingresa monto reportado arriba';
+  const arqueos = MESAIO.getArqueosHoy();
+  const tbody = document.getElementById('arqueoGrid');
+  if (!arqueos.length) { tbody.innerHTML = '<tr><td colspan="5" class="empty-row">Sin arqueos hoy</td></tr>'; return; }
+  tbody.innerHTML = arqueos.slice().reverse().map(a => {
+    const diff = a.reportado - a.esperado;
+    const color = Math.abs(diff) < 1 ? '#10B981' : diff > 0 ? '#3B82F6' : '#EF4444';
+    const label = Math.abs(diff) < 1 ? '✓ Cuadra' : diff > 0 ? '▲ Sobrante' : '▼ Faltante';
+    return `<tr>
+      <td>${new Date(a.created_at).toLocaleTimeString('es-CO')}</td>
+      <td style="text-align:right;">${MESAIO.fmtCOP(a.esperado)}</td>
+      <td style="text-align:right;">${MESAIO.fmtCOP(a.reportado)}</td>
+      <td style="text-align:right;color:${color};font-weight:700;">${MESAIO.fmtCOP(Math.abs(diff))}</td>
+      <td style="text-align:center;color:${color};font-weight:700;">${label}</td>
+    </tr>`;
+  }).join('');
+}
+
+function calcularArqueo() {
+  const esperado = MESAIO.getCierreCaja().ingresos;
+  const reportado = parseFloat(document.getElementById('arqueoReportado').value);
+  if (isNaN(reportado)) { MESAIO.toast('Ingresa el monto físico', 'err'); return; }
+  const arqueo = MESAIO.registrarArqueo(esperado, reportado);
+  const diff = reportado - esperado;
+  const discEl = document.getElementById('arqueoDiscrepancia');
+  const estadoEl = document.getElementById('arqueoEstado');
+  discEl.textContent = MESAIO.fmtCOP(Math.abs(diff));
+  if (Math.abs(diff) < 1) {
+    discEl.style.color = '#10B981';
+    estadoEl.textContent = '✓ Cuadra perfectamente';
+  } else if (diff > 0) {
+    discEl.style.color = '#3B82F6';
+    estadoEl.textContent = `▲ Sobrante de ${MESAIO.fmtCOP(diff)}`;
+  } else {
+    discEl.style.color = '#EF4444';
+    estadoEl.textContent = `▼ Faltante de ${MESAIO.fmtCOP(Math.abs(diff))}`;
+  }
+  MESAIO.toast('Arqueo registrado', 'ok');
+  cargarArqueo();
+}
+
+// ── V2 CIERRE ─────────────────────────────────────────────
+function cargarCierre() {
+  document.getElementById('cierreFecha').textContent = new Date().toLocaleDateString('es-CO', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+  const cerrado = MESAIO.getDiaEstaActuallyCerrado();
+  const cierres = MESAIO.getCierres();
+  const hoy = new Date().toISOString().slice(0,10);
+  const cierreHoy = cierres.find(c => c.fecha === hoy);
+  document.getElementById('btnReabrir').style.display = cerrado ? 'block' : 'none';
+  if (cerrado && cierreHoy) {
+    mostrarActaCierre(cierreHoy);
+  } else {
+    document.getElementById('seccionActaCierre').style.display = 'none';
+  }
+  const tbody = document.getElementById('cierresGrid');
+  const ultimos = cierres.slice().reverse().slice(0,10);
+  if (!ultimos.length) { tbody.innerHTML = '<tr><td colspan="5" class="empty-row">Sin cierres anteriores</td></tr>'; return; }
+  tbody.innerHTML = ultimos.map(c => `<tr>
+    <td>${c.fecha}</td>
+    <td style="text-align:right;">${MESAIO.fmtCOP(c.ingresos)}</td>
+    <td style="text-align:right;">${MESAIO.fmtCOP(c.neto)}</td>
+    <td style="text-align:center;">${c.ordenes_count || 0}</td>
+    <td>${c.responsable}</td>
+  </tr>`).join('');
+}
+
+function generarCierre() {
+  const responsable = document.getElementById('cierreResponsable').value.trim();
+  if (!responsable) { MESAIO.toast('Ingresa tu nombre', 'err'); return; }
+  if (MESAIO.getDiaEstaActuallyCerrado()) { MESAIO.toast('El día ya está cerrado', 'err'); return; }
+  if (!confirm('¿Confirmas el cierre del día? Esta acción generará el acta oficial.')) return;
+  const notas = document.getElementById('cierreNotas').value.trim();
+  const cierre = MESAIO.generarCierreDia(responsable, notas);
+  MESAIO.toast('✓ Día cerrado. Acta generada.', 'ok');
+  mostrarActaCierre(cierre);
+  cargarCierre();
+}
+
+function reabrirDia() {
+  if (!confirm('¿Seguro que quieres reabrir el día? Solo para admin.')) return;
+  MESAIO.reabrirDia();
+  MESAIO.toast('Día reabierto', 'ok');
+  document.getElementById('seccionActaCierre').style.display = 'none';
+  document.getElementById('btnReabrir').style.display = 'none';
+}
+
+function mostrarActaCierre(cierre) {
+  document.getElementById('seccionActaCierre').style.display = 'block';
+  document.getElementById('actaFecha').textContent = cierre.fecha;
+  document.getElementById('actaResponsable').textContent = cierre.responsable;
+  document.getElementById('actaHora').textContent = MESAIO.fmtHora(cierre.created_at);
+  document.getElementById('actaIngresos').textContent = MESAIO.fmtCOP(cierre.ingresos);
+  document.getElementById('actaCostos').textContent = MESAIO.fmtCOP(cierre.costos || 0);
+  document.getElementById('actaGanancia').textContent = MESAIO.fmtCOP(cierre.neto);
+  const margen = cierre.ingresos > 0 ? Math.round((cierre.neto / cierre.ingresos) * 100) : 0;
+  document.getElementById('actaMargen').textContent = margen + '%';
+  document.getElementById('actaOrdenes').textContent = cierre.ordenes_count || 0;
+  document.getElementById('actaFacturas').textContent = cierre.facturas_count || 0;
+  document.getElementById('actaTransacciones').textContent = cierre.movimientos_count || 0;
+  if (cierre.notas) document.getElementById('actaNotas').innerHTML = '<strong>Notas:</strong> ' + cierre.notas;
+  document.getElementById('actaCUFE').textContent = 'Cierre ID: ' + cierre.id;
+}
+
+// ── V2 INVESTORS ──────────────────────────────────────────
+let _invPeriodo = 7;
+function cargarInvestors() {
+  const data = MESAIO.getAnaliticsUltimosNDias(_invPeriodo);
+  document.getElementById('invKpiIngresos').textContent = MESAIO.fmtCOP(data.ingresos_total);
+  document.getElementById('invKpiCostos').textContent = MESAIO.fmtCOP(data.costos_total);
+  document.getElementById('invKpiGanancia').textContent = MESAIO.fmtCOP(data.ganancia_total);
+  const margen = data.ingresos_total > 0 ? Math.round((data.ganancia_total / data.ingresos_total) * 100) : 0;
+  document.getElementById('invKpiMargen').textContent = margen + '%';
+  document.getElementById('invKpiTicket').textContent = MESAIO.fmtCOP(data.ticket_promedio || 0);
+  document.getElementById('invKpiOrdenes').textContent = data.ordenes_total || 0;
+  document.getElementById('invTrendIngresos').textContent = 'período ' + _invPeriodo + ' días';
+  document.getElementById('invTrendCostos').textContent = 'período ' + _invPeriodo + ' días';
+  document.getElementById('invTrendGanancia').textContent = 'período ' + _invPeriodo + ' días';
+  document.getElementById('invTrendMargen').textContent = 'período ' + _invPeriodo + ' días';
+  document.getElementById('invTrendTicket').textContent = 'período ' + _invPeriodo + ' días';
+  document.getElementById('invTrendOrdenes').textContent = 'período ' + _invPeriodo + ' días';
+
+  const hoy = MESAIO.getCierreCaja();
+  const promIngresos = _invPeriodo > 0 ? data.ingresos_total / _invPeriodo : 0;
+  const promGanancia = _invPeriodo > 0 ? data.ganancia_total / _invPeriodo : 0;
+  const promOrdenes = _invPeriodo > 0 ? (data.ordenes_total || 0) / _invPeriodo : 0;
+  function variacion(hoyVal, promVal) {
+    if (promVal === 0) return '<span style="color:#9CA3AF;">—</span>';
+    const pct = Math.round(((hoyVal - promVal) / promVal) * 100);
+    const color = pct >= 0 ? '#10B981' : '#EF4444';
+    return `<span style="color:${color};font-weight:700;">${pct >= 0 ? '+' : ''}${pct}%</span>`;
+  }
+  const comparativa = [
+    ['Ingresos', hoy.ingresos, promIngresos],
+    ['Ganancia', hoy.neto, promGanancia],
+    ['Órdenes', hoy.ordenes_count || 0, promOrdenes],
+  ];
+  document.getElementById('invComparativaGrid').innerHTML = comparativa.map(([label, h, p]) => `<tr>
+    <td><strong>${label}</strong></td>
+    <td style="text-align:right;">${typeof h === 'number' && h > 100 ? MESAIO.fmtCOP(h) : h}</td>
+    <td style="text-align:right;">${typeof p === 'number' && p > 100 ? MESAIO.fmtCOP(p) : Math.round(p)}</td>
+    <td style="text-align:center;">${variacion(h, p)}</td>
+  </tr>`).join('');
+
+  const porDia = MESAIO.getAnaliticssPorDia(_invPeriodo);
+  const tbodyHist = document.getElementById('invHistoricoGrid');
+  if (!porDia.length) { tbodyHist.innerHTML = '<tr><td colspan="6" class="empty-row">Sin datos históricos todavía</td></tr>'; return; }
+  tbodyHist.innerHTML = porDia.slice().reverse().map(d => {
+    const m = d.ingresos > 0 ? Math.round((d.ganancia / d.ingresos) * 100) : 0;
+    return `<tr>
+      <td>${d.fecha}</td>
+      <td style="text-align:right;">${MESAIO.fmtCOP(d.ingresos)}</td>
+      <td style="text-align:right;">${MESAIO.fmtCOP(d.costos)}</td>
+      <td style="text-align:right;">${MESAIO.fmtCOP(d.ganancia)}</td>
+      <td style="text-align:center;">${m}%</td>
+      <td style="text-align:center;">${d.ordenes}</td>
+    </tr>`;
+  }).join('');
+}
+
+function cambiarPeriodoInvestors(dias) {
+  _invPeriodo = parseInt(dias);
+  document.querySelectorAll('.btn-periodo').forEach(b => {
+    b.style.background = b.dataset.dias == dias ? '#C8A951' : 'white';
+    b.style.color = b.dataset.dias == dias ? 'white' : '#5C1A2B';
+  });
+  cargarInvestors();
+}
+
+// Tab switching
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', function(e) {
+    e.preventDefault();
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
+    this.classList.add('active');
+    const paneId = 'pane-' + this.dataset.pane;
+    const pane = document.getElementById(paneId);
+    if (pane) pane.classList.add('active');
+    const map = { dashboard: cargarDashboard, platos: cargarPlatos, mesas: cargarMesas, ordenes: cargarOrdenes, reportes: cargarReportes, inventario: cargarInventario, contabilidad: cargarContabilidad, facturacion: cargarFacturacion, arqueo: cargarArqueo, cierre: cargarCierre, investors: cargarInvestors };
+    if (map[this.dataset.pane]) map[this.dataset.pane]();
+  });
+});
+
+document.addEventListener('DOMContentLoaded', async () => {
+  await MESAIO.initAppV2();
+  await cargarDashboard();
+  setInterval(() => {
+    const active = document.querySelector('.tab.active')?.dataset.pane || 'dashboard';
+    const map = { dashboard: cargarDashboard, platos: cargarPlatos, mesas: cargarMesas, ordenes: cargarOrdenes, reportes: cargarReportes, inventario: cargarInventario, contabilidad: cargarContabilidad, facturacion: cargarFacturacion, arqueo: cargarArqueo, cierre: cargarCierre, investors: cargarInvestors };
+    if (map[active]) map[active]();
+  }, 5000);
+  MESAIO.suscribirOrdenes(() => {
+    const active = document.querySelector('.tab.active')?.dataset.pane || 'dashboard';
+    if (active === 'dashboard') cargarDashboard();
+    if (active === 'ordenes') cargarOrdenes();
+  });
+});
+</script>
+</body>
+</html>

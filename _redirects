@@ -1,0 +1,15 @@
+# Netlify Redirects — Mesaio (Hackathon MVP)
+
+/admin         /admin/index.html         200
+/mesero        /mesero/index.html        200
+/cocina        /cocina/index.html        200
+/menu          /menu.html                200
+/login         /login.html               200
+/carta         /menu.html                200
+/entregables   /entregables/index.html   200
+/demo          /entregables/index.html   200
+
+# Módulos V2
+/inventario    /inventario/index.html    200
+/contabilidad  /contabilidad/index.html  200
+/facturacion   /facturacion/index.html   200

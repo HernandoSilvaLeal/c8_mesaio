@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cocina · Mesaio KDS</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<style>
+  :root{--burgundy:#5C1A2B;--burgundy-dk:#3D0F1C;--gold:#C8A951;--gold-lt:#E2C87A;--gold-dk:#9a7a1e;
+        --bg:#0F0A0C;--card:#1A1216;--card-2:#241A1F;--border:rgba(255,255,255,.08);
+        --txt:#F5F0E8;--txt-2:rgba(245,240,232,.65);
+        --pend:#FFC107;--prep:#2196F3;--listo:#4CAF50}
+  *{box-sizing:border-box} body{margin:0;font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh}
+  .topbar{background:linear-gradient(135deg,var(--burgundy),var(--burgundy-dk));padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;border-bottom:1px solid var(--border)}
+  .brand-mini{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:white}
+  .brand-mini span{color:var(--gold-lt)}
+  .role-pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);padding:5px 14px;border-radius:50px;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:6px;color:white}
+  .role-pill i{color:var(--gold-lt)}
+  .out{background:transparent;border:1px solid rgba(255,255,255,.3);color:white;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;text-decoration:none}
+  .stats-bar{background:var(--card);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;gap:36px;justify-content:center;flex-wrap:wrap}
+  .stat-mini{text-align:center}
+  .stat-v{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;line-height:1}
+  .stat-v.p{color:var(--pend)} .stat-v.r{color:var(--prep)} .stat-v.l{color:var(--listo)}
+  .stat-l{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--txt-2);margin-top:4px;font-weight:600}
+  .live-pill{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:50px;background:rgba(76,175,80,.15);border:1px solid rgba(76,175,80,.4);color:#8DD491;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+  .live-pill .pulse{width:8px;height:8px;border-radius:50%;background:#8DD491;animation:livePulse 1.5s infinite}
+  @keyframes livePulse{0%,100%{opacity:1}50%{opacity:.4}}
+  .columns{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:24px;max-width:1500px;margin:0 auto}
+  @media(max-width:1100px){.columns{grid-template-columns:1fr}}
+  .col{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;min-height:60vh}
+  .col-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+  .col-h h3{font-family:'Inter',sans-serif;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;margin:0}
+  .col-h .cnt{background:rgba(255,255,255,.08);padding:3px 10px;border-radius:50px;font-size:12px;font-weight:700}
+  .col.pend .col-h h3{color:var(--pend)}
+  .col.prep .col-h h3{color:var(--prep)}
+  .col.listo .col-h h3{color:var(--listo)}
+  .order-card{background:var(--card-2);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px;border-left:4px solid var(--pend);transition:all .25s}
+  .col.prep .order-card{border-left-color:var(--prep)}
+  .col.listo .order-card{border-left-color:var(--listo)}
+  .order-card:hover{transform:translateX(2px);background:#2D2026}
+  .order-card.late{border-left-color:#F44336;animation:latePulse 1.2s infinite}
+  @keyframes latePulse{0%,100%{box-shadow:0 0 0 0 rgba(244,67,54,0)}50%{box-shadow:0 0 0 4px rgba(244,67,54,.18)}}
+  .o-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+  .o-mesa{font-family:'Playfair Display',serif;font-size:22px;font-weight:900}
+  .o-time{font-size:11px;color:var(--txt-2);display:inline-flex;align-items:center;gap:4px;font-weight:600}
+  .o-time.late{color:#FF6B6B;font-weight:800}
+  .o-meta{font-size:11px;color:var(--txt-2);margin-bottom:8px}
+  .o-items{font-size:13px;color:var(--txt);line-height:1.6;border-top:1px solid var(--border);padding-top:8px}
+  .o-item{display:flex;justify-content:space-between;padding:2px 0}
+  .o-notas{font-size:11px;color:var(--gold-lt);margin-top:8px;padding:6px 10px;background:rgba(200,169,81,.08);border-radius:6px;border-left:2px solid var(--gold)}
+  .btn-act{width:100%;margin-top:10px;padding:10px;border:none;border-radius:8px;color:white;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:.04em;transition:all .2s;font-family:inherit;display:inline-flex;align-items:center;justify-content:center;gap:6px;font-size:12px}
+  .btn-act:hover{transform:translateY(-1px);filter:brightness(1.12)}
+  .btn-act.start{background:var(--prep)}
+  .btn-act.done{background:var(--listo)}
+  .empty{text-align:center;padding:40px 20px;color:var(--txt-2);font-size:12px;font-style:italic}
+  .empty i{font-size:32px;display:block;margin-bottom:10px;opacity:.3}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;gap:18px">
+    <div class="brand-mini">Mes<span>aio</span></div>
+    <div class="role-pill"><i class="bi bi-fire"></i> Cocina · KDS · María P.</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px">
+    <span class="live-pill"><span class="pulse"></span> En vivo</span>
+    <a href="../login.html" class="out"><i class="bi bi-box-arrow-right"></i> Salir</a>
+  </div>
+</div>
+<div class="stats-bar">
+  <div class="stat-mini"><div class="stat-v p" id="stat_pend">0</div><div class="stat-l">Pendientes</div></div>
+  <div class="stat-mini"><div class="stat-v r" id="stat_prep">0</div><div class="stat-l">Preparando</div></div>
+  <div class="stat-mini"><div class="stat-v l" id="stat_listo">0</div><div class="stat-l">Listos</div></div>
+  <div class="stat-mini"><div class="stat-v" style="color:var(--gold-lt)" id="stat_total">0</div><div class="stat-l">Total turno</div></div>
+</div>
+<div class="columns">
+  <div class="col pend">
+    <div class="col-h"><h3><i class="bi bi-hourglass-split"></i> Pendientes</h3><span class="cnt" id="count_pendiente">0</span></div>
+    <div class="kds-list" id="colPendiente"></div>
+  </div>
+  <div class="col prep">
+    <div class="col-h"><h3><i class="bi bi-fire"></i> Preparando</h3><span class="cnt" id="count_preparando">0</span></div>
+    <div class="kds-list" id="colPreparando"></div>
+  </div>
+  <div class="col listo">
+    <div class="col-h"><h3><i class="bi bi-check2-all"></i> Listos · esperar mesero</h3><span class="cnt" id="count_listo">0</span></div>
+    <div class="kds-list" id="colListo"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.104.1" crossorigin="anonymous"></script>
+<script src="../assets/js/mesaio-core.js"></script>
+
+<script>
+async function cargarKDS() {
+  const ordenes = await MESAIO.getOrdenesActivas();
+
+  const cols = {
+    pendiente: document.getElementById('colPendiente'),
+    preparando: document.getElementById('colPreparando'),
+    listo: document.getElementById('colListo'),
+  };
+
+  const emptyMsg = {
+    pendiente: '<div class="empty"><i class="bi bi-clock"></i>Sin pedidos nuevos</div>',
+    preparando: '<div class="empty"><i class="bi bi-fire"></i>Nada en preparación</div>',
+    listo: '<div class="empty"><i class="bi bi-check2-all"></i>Todo entregado</div>'
+  };
+
+  ['pendiente','preparando','listo'].forEach(estado => {
+    const items = ordenes.filter(o => o.estado === estado);
+    const col = cols[estado];
+    if (!col) return;
+
+    if (items.length === 0) { col.innerHTML = emptyMsg[estado]; return; }
+
+    col.innerHTML = items.map(o => {
+      const mins = Math.floor((Date.now() - new Date(o.created_at).getTime()) / 60000);
+      const late = mins > 10 && estado !== 'listo';
+      const itemsHtml = (o.items || []).map(i => `
+        <div class="o-item">
+          <span><b style="color:var(--gold-lt)">×${i.cantidad}</b> ${i.plato_nombre}</span>
+          ${i.observaciones ? `<span style="font-size:10px;color:var(--gold)">⚠ ${i.observaciones}</span>` : ''}
+        </div>`).join('');
+
+      let btn = '';
+      if (estado === 'pendiente') btn = `<button class="btn-act start" onclick="cambiarEstado(${o.id},'preparando')"><i class="bi bi-fire"></i> Iniciar preparación</button>`;
+      if (estado === 'preparando') btn = `<button class="btn-act done" onclick="cambiarEstado(${o.id},'listo')"><i class="bi bi-check-lg"></i> Marcar listo</button>`;
+
+      return `
+        <div class="order-card${late ? ' late' : ''}">
+          <div class="o-head">
+            <span class="o-mesa">M-${String(o.mesa_id).padStart(2,'0')} · #${String(o.id).padStart(3,'0')}</span>
+            <span class="o-time${late ? ' late' : ''}">${late ? '🔴 ' : ''}${mins} min</span>
+          </div>
+          <div class="o-meta">${o.mesero_nombre || 'Mesero'} · ${MESAIO.fmtHora(o.created_at)} · ${MESAIO.fmtCOP(o.total)}</div>
+          <div class="o-items">${itemsHtml || '<em style="color:var(--txt-2)">Sin items</em>'}</div>
+          ${o.notas ? `<div class="o-notas"><i class="bi bi-sticky"></i> ${o.notas}</div>` : ''}
+          ${btn}
+        </div>`;
+    }).join('');
+  });
+
+  // Stats
+  document.getElementById('stat_pend').textContent = ordenes.filter(o => o.estado === 'pendiente').length;
+  document.getElementById('stat_prep').textContent = ordenes.filter(o => o.estado === 'preparando').length;
+  document.getElementById('stat_listo').textContent = ordenes.filter(o => o.estado === 'listo').length;
+  document.getElementById('stat_total').textContent = ordenes.length;
+  document.getElementById('count_pendiente').textContent = ordenes.filter(o => o.estado === 'pendiente').length;
+  document.getElementById('count_preparando').textContent = ordenes.filter(o => o.estado === 'preparando').length;
+  document.getElementById('count_listo').textContent = ordenes.filter(o => o.estado === 'listo').length;
+}
+
+async function cambiarEstado(id, nuevo) {
+  await MESAIO.actualizarEstadoOrden(id, nuevo);
+  if (nuevo === 'listo') {
+    const cambios = MESAIO.descontarInventarioOrden(id);
+    if (cambios.length > 0) MESAIO.toast('✓ Inventario: ' + cambios.slice(0,3).join(', '), 'ok');
+    const alertas = MESAIO.getAlertasStock();
+    if (alertas.length > 0) MESAIO.toast('⚠️ ' + alertas.length + ' ingredientes bajo mínimo', 'ok');
+  }
+  MESAIO.toast(nuevo === 'preparando' ? '🔥 En preparación' : '✅ Listo para servir', 'ok');
+  cargarKDS();
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+  await MESAIO.initAppV2();
+  await cargarKDS();
+  setInterval(cargarKDS, 3000);
+  MESAIO.suscribirOrdenes(() => cargarKDS());
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manual de Operaria - Red Nacional de Transportes</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      line-height: 1.6;
+      color: #1A2332;
+      background: #FAFAF8;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      background: white;
+      box-shadow: 0 4px 20px rgba(11,29,58,0.08);
+      border-radius: 12px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    header {
+      text-align: center;
+      border-bottom: 3px solid #C8A951;
+      padding-bottom: 30px;
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      color: #0B1D3A;
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: #5A6A7E;
+      font-size: 1.1em;
+    }
+
+    h2 {
+      color: #0B1D3A;
+      font-size: 1.5em;
+      margin-top: 40px;
+      margin-bottom: 20px;
+      border-left: 4px solid #C8A951;
+      padding-left: 15px;
+    }
+
+    h3 {
+      color: #1B3A6B;
+      font-size: 1.2em;
+      margin-top: 25px;
+      margin-bottom: 15px;
+    }
+
+    p {
+      margin-bottom: 15px;
+      color: #1A2332;
+    }
+
+    ol, ul {
+      margin-left: 25px;
+      margin-bottom: 20px;
+    }
+
+    li {
+      margin-bottom: 10px;
+      line-height: 1.8;
+    }
+
+    .step-box {
+      background: #F4F6F9;
+      border-left: 4px solid #1B3A6B;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 6px;
+    }
+
+    .step-title {
+      font-weight: 600;
+      color: #0B1D3A;
+      margin-bottom: 10px;
+    }
+
+    .estado-badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.9em;
+      font-weight: 500;
+      margin: 5px 5px 5px 0;
+    }
+
+    .estado-recibido { background: #E2E8F0; color: #475569; }
+    .estado-transito { background: #DBEAFE; color: #1E40AF; }
+    .estado-destino { background: #FEF3C7; color: #92400E; }
+    .estado-entregado { background: #DCFCE7; color: #166534; }
+    .estado-devolucion { background: #FEE2E2; color: #991B1B; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+
+    th {
+      background: #0B1D3A;
+      color: white;
+      padding: 12px;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    td {
+      border-bottom: 1px solid #E2E8F0;
+      padding: 12px;
+    }
+
+    tr:hover {
+      background: #F4F6F9;
+    }
+
+    .warning-box {
+      background: #FEF3C7;
+      border-left: 4px solid #F59E0B;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 6px;
+    }
+
+    .warning-box strong {
+      color: #92400E;
+    }
+
+    .contact-info {
+      background: #F0F9FF;
+      border-left: 4px solid #3B82F6;
+      padding: 20px;
+      margin: 30px 0;
+      border-radius: 6px;
+    }
+
+    .contact-info p {
+      margin-bottom: 8px;
+    }
+
+    footer {
+      text-align: center;
+      color: #5A6A7E;
+      font-size: 0.9em;
+      padding-top: 30px;
+      border-top: 1px solid #E2E8F0;
+      margin-top: 40px;
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+      .container {
+        box-shadow: none;
+        margin: 0;
+        padding: 0;
+      }
+      h1, h2 {
+        page-break-after: avoid;
+      }
+      .step-box, .warning-box, .contact-info {
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Manual de Operaria</h1>
+      <p class="subtitle">Panel Administrativo de Rastreo - Red Nacional de Transportes</p>
+      <p style="font-size: 0.9em; color: #5A6A7E; margin-top: 15px;">Versión 1.0 · Abril 2026</p>
+    </header>
+
+    <section>
+      <h2>1. Inicio de Sesión</h2>
+      <p>Para acceder al panel administrativo:</p>
+      <ol>
+        <li>Ve al enlace: <code>https://rednacionaldetransporte.netlify.app/admin/</code></li>
+        <li>Verás un formulario de login</li>
+        <li>Ingresa tu clave en el campo "Ingresa tu clave"</li>
+        <li>Haz clic en el botón "Entrar al sistema"</li>
+        <li>Si la clave es correcta, verás el panel principal</li>
+      </ol>
+
+      <div class="warning-box">
+        <strong>⚠️ Importante:</strong> Tu clave es personal y confidencial. Nunca la compartas con otras personas. Si sospechas que alguien la ha descubierto, avisa inmediatamente a tu supervisor.
+      </div>
+    </section>
+
+    <section>
+      <h2>2. Interfaz Principal</h2>
+      <p>Una vez dentro del panel, verás tres secciones (pestañas):</p>
+      <ol>
+        <li><strong>Lista de Guías</strong> - Ver todas las guías registradas</li>
+        <li><strong>Nueva Guía</strong> - Crear una nueva guía</li>
+        <li><strong>Actualizar Estado</strong> - Cambiar el estado de una guía existente</li>
+      </ol>
+
+      <p>En la parte superior, verás las estadísticas resumen:</p>
+      <ul>
+        <li>Total de guías</li>
+        <li>Guías en tránsito</li>
+        <li>Guías entregadas</li>
+        <li>Guías en devolución</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>3. Crear una Nueva Guía</h2>
+
+      <div class="step-box">
+        <div class="step-title">Paso 1: Ir a la pestaña "Nueva Guía"</div>
+        <p>Haz clic en la pestaña "Nueva Guía" en el panel superior.</p>
+      </div>
+
+      <div class="step-box">
+        <div class="step-title">Paso 2: Completar el formulario</div>
+        <p>Rellena todos los campos requeridos:</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Campo</th>
+              <th>Descripción</th>
+              <th>Ejemplo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>ID Guía RNT</strong></td>
+              <td>Número único de la guía en RNT</td>
+              <td>RNT-2026-001</td>
+            </tr>
+            <tr>
+              <td><strong>Transportadora</strong></td>
+              <td>Empresa transportista</td>
+              <td>RNT / Coordinadora / Servientrega</td>
+            </tr>
+            <tr>
+              <td><strong>Guía Operadora</strong></td>
+              <td>Número de guía de la transportadora (si aplica)</td>
+              <td>ABC123456</td>
+            </tr>
+            <tr>
+              <td><strong>Remitente</strong></td>
+              <td>Nombre de quien envía</td>
+              <td>Juan Pérez García</td>
+            </tr>
+            <tr>
+              <td><strong>Destinatario</strong></td>
+              <td>Nombre de quien recibe</td>
+              <td>María López González</td>
+            </tr>
+            <tr>
+              <td><strong>Ciudad Origen</strong></td>
+              <td>Ciudad de partida</td>
+              <td>Bogotá</td>
+            </tr>
+            <tr>
+              <td><strong>Ciudad Destino</strong></td>
+              <td>Ciudad de entrega</td>
+              <td>Medellín</td>
+            </tr>
+            <tr>
+              <td><strong>Valor Declarado</strong></td>
+              <td>Valor del envío en pesos COP</td>
+              <td>50000</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="step-box">
+        <div class="step-title">Paso 3: Enviar el formulario</div>
+        <p>Haz clic en el botón "Crear Guía" para guardar la información.</p>
+        <p>Si todo es correcto, verás un mensaje de éxito y la guía aparecerá en la "Lista de Guías".</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>4. Actualizar Estado de una Guía</h2>
+
+      <div class="step-box">
+        <div class="step-title">Paso 1: Ir a la pestaña "Actualizar Estado"</div>
+        <p>Haz clic en la pestaña "Actualizar Estado" en el panel superior.</p>
+      </div>
+
+      <div class="step-box">
+        <div class="step-title">Paso 2: Buscar la guía</div>
+        <p>Ingresa el número de guía RNT en el campo de búsqueda.</p>
+      </div>
+
+      <div class="step-box">
+        <div class="step-title">Paso 3: Seleccionar el estado</div>
+        <p>Elige el nuevo estado de la guía del dropdown. Los estados disponibles son:</p>
+        <p style="margin-top: 15px;">
+          <span class="estado-badge estado-recibido">RECIBIDO</span>
+          <span class="estado-badge estado-transito">EN_TRANSITO</span>
+          <span class="estado-badge estado-destino">EN_DESTINO</span>
+          <span class="estado-badge estado-entregado">ENTREGADO</span>
+          <span class="estado-badge estado-devolucion">DEVOLUCION</span>
+        </p>
+      </div>
+
+      <div class="step-box">
+        <div class="step-title">Paso 4: Agregar detalles (opcional)</div>
+        <ul>
+          <li><strong>Ciudad</strong> - Dónde se encuentra actualmente la guía</li>
+          <li><strong>Observación</strong> - Notas adicionales (ej: "En espera de confirmación de entrega")</li>
+          <li><strong>Imagen de entrega</strong> - URL de comprobante fotográfico (si aplica)</li>
+        </ul>
+      </div>
+
+      <div class="step-box">
+        <div class="step-title">Paso 5: Guardar cambios</div>
+        <p>Haz clic en "Actualizar Estado" para guardar el cambio.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>5. Ver Historial de una Guía</h2>
+      <p>Para ver todo el historial de cambios de una guía:</p>
+      <ol>
+        <li>Ve a la pestaña "Lista de Guías"</li>
+        <li>Busca la guía usando el buscador (por número, remitente, destinatario, etc.)</li>
+        <li>Haz clic en la fila de la guía que quieres ver</li>
+        <li>Se abrirá un modal (ventana) mostrando:
+          <ul>
+            <li>Información completa de la guía</li>
+            <li>Timeline (línea de tiempo) de todos los estados por los que pasó</li>
+            <li>Fechas y detalles de cada cambio</li>
+          </ul>
+        </li>
+        <li>Cierra el modal haciendo clic fuera de él o presionando ESC</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>6. Buscar y Filtrar Guías</h2>
+      <p>En la pestaña "Lista de Guías", puedes buscar de varias formas:</p>
+      <ul>
+        <li><strong>Por número de guía</strong> - Escribe el número RNT</li>
+        <li><strong>Por remitente</strong> - Escribe el nombre de quien envía</li>
+        <li><strong>Por destinatario</strong> - Escribe el nombre de quien recibe</li>
+        <li><strong>Por ciudad</strong> - Escribe la ciudad de destino</li>
+        <li><strong>Por transportadora</strong> - Busca por nombre de la empresa transportista</li>
+      </ul>
+
+      <p>También puedes filtrar por estado usando el dropdown "Estado" para ver solo las guías que están en un estado específico.</p>
+    </section>
+
+    <section>
+      <h2>7. Entender los Estados de una Guía</h2>
+      <p>Los estados representan el progreso del envío:</p>
+
+      <div style="margin: 20px 0;">
+        <h4 style="margin-bottom: 10px;">🔵 <strong>RECIBIDO</strong></h4>
+        <p>La guía ha sido registrada en el sistema. El remitente entregó el paquete en una de nuestras sedes.</p>
+      </div>
+
+      <div style="margin: 20px 0;">
+        <h4 style="margin-bottom: 10px;">🚚 <strong>EN_TRANSITO</strong></h4>
+        <p>El paquete está en camino hacia la ciudad destino. Se encuentra en un vehículo de transporte.</p>
+      </div>
+
+      <div style="margin: 20px 0;">
+        <h4 style="margin-bottom: 10px;">📍 <strong>EN_DESTINO</strong></h4>
+        <p>El paquete ha llegado a la ciudad destino. Se encuentra en nuestro centro de distribución local.</p>
+      </div>
+
+      <div style="margin: 20px 0;">
+        <h4 style="margin-bottom: 10px;">✅ <strong>ENTREGADO</strong></h4>
+        <p>El paquete ha sido entregado al destinatario. El proceso está completo.</p>
+      </div>
+
+      <div style="margin: 20px 0;">
+        <h4 style="margin-bottom: 10px;">↩️ <strong>DEVOLUCION</strong></h4>
+        <p>El paquete está siendo devuelto al remitente (por rechazo, dirección incorrecta, etc.).</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>8. Consejos y Mejores Prácticas</h2>
+      <ul>
+        <li><strong>Actualiza regularmente:</strong> Mantén los estados actualizados para que los clientes vean información precisa</li>
+        <li><strong>Sé preciso:</strong> Ingresa números de guía correctamente (evita espacios extras)</li>
+        <li><strong>Notas claras:</strong> Usa observaciones para detallar cualquier incidencia (ej: "Dirección incompleta, contactando destinatario")</li>
+        <li><strong>Fotografías:</strong> Adjunta fotos de entrega como comprobante cuando sea posible</li>
+        <li><strong>Horario de trabajo:</strong> El sistema funciona 24/7, pero actualiza durante tu horario laboral</li>
+        <li><strong>Conectividad:</strong> Asegúrate de tener buena conexión a internet al trabajar</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>9. Solución de Problemas</h2>
+
+      <h3>¿Olvidé mi clave?</h3>
+      <p>Contacta a tu supervisor. Él puede solicitar una nueva clave o reiniciar tu acceso.</p>
+
+      <h3>¿El sistema dice "Clave incorrecta"?</h3>
+      <p>Verifica que estés escribiendo correctamente la clave. Ten cuidado con mayúsculas y espacios.</p>
+
+      <h3>¿No puedo ver una guía que acabo de crear?</h3>
+      <p>Espera unos segundos y recarga la página (presiona F5). El sistema puede tardar un momento en sincronizar los datos.</p>
+
+      <h3>¿El modal de historial no se abre?</h3>
+      <p>Intenta hacer clic nuevamente. Si persiste, prueba desde otro navegador (Chrome, Firefox, Safari).</p>
+
+      <h3>¿Tengo un error que no aparece aquí?</h3>
+      <p>Contacta inmediatamente al soporte técnico.</p>
+    </section>
+
+    <div class="contact-info">
+      <h3 style="margin-top: 0; color: #1E40AF;">📞 Contacto y Soporte</h3>
+      <p><strong>Teléfono PBX:</strong> (601) 272 6117</p>
+      <p><strong>WhatsApp:</strong> +57 312 437 6616</p>
+      <p><strong>Email:</strong> servicioalcliente@rednacionaldetransportes.com</p>
+      <p><strong>Horario de atención:</strong> Lunes a viernes, 8:00 AM - 6:00 PM</p>
+    </div>
+
+    <footer>
+      <p><strong>Red Nacional de Transportes S.A.S.</strong></p>
+      <p>Manual de Operaria - Panel Administrativo v1.0</p>
+      <p>Este documento es confidencial y es de uso exclusivo del personal autorizado.</p>
+      <p style="margin-top: 20px; font-size: 0.85em;">Última actualización: Abril de 2026 | Para sugerencias de mejora, contacta a tu supervisor</p>
+    </footer>
+  </div>
+</body>
+</html>
