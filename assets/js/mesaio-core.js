@@ -35,16 +35,20 @@ const MESAIO = {
   _initLocalData() {
     if (localStorage.getItem('mesaio_mesas')) return;
 
-    const mesas = [];
-    for (let i = 1; i <= 12; i++) {
-      mesas.push({
-        id: i,
-        numero: i,
-        capacidad: i === 8 ? 8 : (i <= 2 || i === 10 ? 2 : (i === 4 || i === 11 ? 6 : 4)),
-        estado: 'libre',
-        ubicacion: [1,10].includes(i) ? 'barra' : [5,6,9,12].includes(i) ? 'terraza' : i === 8 ? 'privado' : 'salón'
-      });
-    }
+    const mesas = [
+      {id:1,numero:1,capacidad:2,estado:'libre',ubicacion:'Salón'},{id:2,numero:2,capacidad:4,estado:'libre',ubicacion:'Salón'},
+      {id:3,numero:3,capacidad:4,estado:'libre',ubicacion:'Salón'},{id:4,numero:4,capacidad:6,estado:'libre',ubicacion:'Salón'},
+      {id:5,numero:5,capacidad:6,estado:'libre',ubicacion:'Salón'},{id:6,numero:6,capacidad:4,estado:'libre',ubicacion:'Salón'},
+      {id:7,numero:7,capacidad:2,estado:'libre',ubicacion:'Salón'},{id:8,numero:8,capacidad:4,estado:'libre',ubicacion:'Salón'},
+      {id:9,numero:9,capacidad:4,estado:'libre',ubicacion:'Terraza'},{id:10,numero:10,capacidad:4,estado:'libre',ubicacion:'Terraza'},
+      {id:11,numero:11,capacidad:6,estado:'libre',ubicacion:'Terraza'},{id:12,numero:12,capacidad:6,estado:'libre',ubicacion:'Terraza'},
+      {id:13,numero:13,capacidad:2,estado:'libre',ubicacion:'Terraza'},{id:14,numero:14,capacidad:4,estado:'libre',ubicacion:'Terraza'},
+      {id:15,numero:15,capacidad:8,estado:'libre',ubicacion:'Terraza'},{id:16,numero:16,capacidad:4,estado:'libre',ubicacion:'Terraza'},
+      {id:17,numero:17,capacidad:2,estado:'libre',ubicacion:'Barra'},{id:18,numero:18,capacidad:2,estado:'libre',ubicacion:'Barra'},
+      {id:19,numero:19,capacidad:2,estado:'libre',ubicacion:'Barra'},{id:20,numero:20,capacidad:2,estado:'libre',ubicacion:'Barra'},
+      {id:21,numero:21,capacidad:8,estado:'libre',ubicacion:'Privado'},{id:22,numero:22,capacidad:10,estado:'libre',ubicacion:'Privado'},
+      {id:23,numero:23,capacidad:12,estado:'libre',ubicacion:'Privado'},{id:24,numero:24,capacidad:6,estado:'libre',ubicacion:'Privado'},
+    ];
     localStorage.setItem('mesaio_mesas', JSON.stringify(mesas));
 
     const platos = [
@@ -282,6 +286,12 @@ const MESAIO = {
   // ══════════════════════════════════════════════════════════
 
   initV2() {
+    // Forzar 24 mesas si todavía tiene 12
+    const mesasActuales = JSON.parse(localStorage.getItem('mesaio_mesas') || '[]');
+    if (mesasActuales.length < 24) {
+      localStorage.removeItem('mesaio_mesas');
+      this._initLocalData();
+    }
     if (localStorage.getItem('mesaio_v2_seed')) return;
 
     const ingredientes = [
@@ -432,30 +442,36 @@ const MESAIO = {
   // V2 — FACTURACIÓN
   // ══════════════════════════════════════════════════════════
 
-  generarFactura(ordenId, metodoPago = 'efectivo', incluirPropina = true) {
+  generarFactura(ordenId, metodoPago = 'efectivo') {
     const ordenes = JSON.parse(localStorage.getItem('mesaio_ordenes') || '[]');
     const orden = ordenes.find(o => o.id === ordenId);
     if (!orden) return null;
-    const facturas = JSON.parse(localStorage.getItem('mesaio_facturas') || '[]');
     let counter = parseInt(localStorage.getItem('mesaio_factura_counter') || '0') + 1;
-    const subtotal = orden.total;
+    const subtotal = orden.items.reduce((s, i) => s + (i.subtotal || (i.precio_unitario * i.cantidad) || 0), 0);
     const iva = Math.round(subtotal * 0.19);
-    const propina = incluirPropina ? Math.round(subtotal * 0.10) : 0;
     const total = subtotal + iva;
     const factura = {
       id: counter, numero: String(counter).padStart(6, '0'),
-      orden_id: ordenId, mesa_id: orden.mesa_id, mesero_nombre: orden.mesero_nombre,
-      items: orden.items.map(i => ({ nombre: i.plato_nombre, cantidad: i.cantidad, precio_unitario: i.precio_unitario, subtotal: i.subtotal })),
-      subtotal, iva, propina_sugerida: propina, total, metodo_pago: metodoPago, estado: 'pagada',
+      orden_id: ordenId, mesa_id: orden.mesa_id,
+      mesero_nombre: orden.mesero_nombre || orden.mesero || 'Mesero',
+      items: orden.items.map(i => ({
+        nombre: i.plato_nombre || i.nombre || i.plato || 'Item',
+        cantidad: i.cantidad || 1,
+        precio_unitario: i.precio_unitario || i.precio || 0,
+        subtotal: i.subtotal || ((i.precio_unitario || 0) * (i.cantidad || 1))
+      })),
+      subtotal, iva, propina_sugerida: Math.round(subtotal * 0.10), total,
+      metodo_pago: metodoPago, estado: 'pagada',
       cufe: this.generarCUFE(), resolucion_dian: '18764020853100 del 2026-01-01',
       cliente_nombre: 'Consumidor Final', created_at: new Date().toISOString()
     };
+    const facturas = JSON.parse(localStorage.getItem('mesaio_facturas') || '[]');
     facturas.push(factura);
     localStorage.setItem('mesaio_facturas', JSON.stringify(facturas));
     localStorage.setItem('mesaio_factura_counter', String(counter));
     this.registrarMovimiento('venta', total, `Factura #${factura.numero} — Mesa ${orden.mesa_id}`, ordenId);
-    const costoIngredientes = this.getCostoOrden(ordenId);
-    if (costoIngredientes > 0) this.registrarMovimiento('gasto', costoIngredientes, `Costo ingredientes Factura #${factura.numero}`, ordenId);
+    const costoIngredientes = this.getCostoOrden ? this.getCostoOrden(ordenId) : 0;
+    if (costoIngredientes > 0) this.registrarMovimiento('gasto', costoIngredientes, `Costo Factura #${factura.numero}`, ordenId);
     return factura;
   },
 

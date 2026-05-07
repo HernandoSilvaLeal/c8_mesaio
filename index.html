@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Mesaio — Sistema de Gestión de Restaurantes</title>
-  <meta name="description" content="Mesaio: sistema integral para restaurantes. Mesero, cocina y administración en una sola plataforma. Hackathon MVP.">
+  <title>Mesaio — Sistema 360° para Restaurantes · Inventario · Contabilidad · Facturación</title>
+  <meta name="description" content="Mesaio V2: reemplaza Alegra ($150k/mes), gestión de mesas ($80k/mes) e inventario ($120k/mes) con una sola plataforma. Demo en vivo.">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -233,12 +233,13 @@
     <div class="nav-inner">
       <a href="/" class="logo-mesaio">Mes<span>aio</span></a>
       <div class="nav-links">
-        <a href="#roles">Roles</a>
+        <a href="#savings">Ahorro</a>
+        <a href="#roles">Módulos</a>
         <a href="#features">Funcionalidades</a>
-        <a href="menu.html">Menú demo</a>
-        <a href="entregables/">Entregables</a>
+        <a href="entregables/">Pitch deck</a>
+        <a href="admin/">Admin</a>
       </div>
-      <a href="login.html" class="btn-mesaio"><i class="bi bi-box-arrow-in-right"></i> Acceder al sistema</a>
+      <a href="login.html" class="btn-mesaio"><i class="bi bi-play-fill"></i> Ver demo</a>
     </div>
   </nav>
 
@@ -246,17 +247,17 @@
   <section class="hero-mesaio">
     <div class="hero-inner">
       <div data-aos="fade-up">
-        <span class="eyebrow"><i class="bi bi-stars"></i> Hackathon MVP · Sistema 360°</span>
-        <h1>El restaurante moderno <em>vive en una pantalla.</em></h1>
-        <p class="lead">Mesaio orquesta meseros, cocina y administración en tiempo real. Toma de orden a entrega: una sola plataforma, cero fricción.</p>
+        <span class="eyebrow"><i class="bi bi-stars"></i> Mesaio V2 · Sistema 360° Completo</span>
+        <h1>Un sistema que <em>reemplaza tres.</em></h1>
+        <p class="lead">Alegra ($150k/mes) + gestión de mesas ($80k/mes) + inventario ($120k/mes) = <strong style="color:var(--gold-lt);">$350.000/mes</strong> en software externo. Mesaio lo integra todo, sin costo mensual.</p>
         <div class="hero-actions">
-          <a href="login.html" class="btn-mesaio"><i class="bi bi-play-fill"></i> Probar la demo</a>
-          <a href="#roles" class="btn-ghost-bg"><i class="bi bi-arrow-down"></i> Ver cómo funciona</a>
+          <a href="admin/" class="btn-mesaio"><i class="bi bi-play-fill"></i> Ver demo completo</a>
+          <a href="entregables/" class="btn-ghost-bg"><i class="bi bi-easel"></i> Guía pitch 7 min</a>
         </div>
         <div class="stats-strip">
-          <div class="stat-x"><div class="stat-num">3</div><div class="stat-lbl">Roles<br>integrados</div></div>
-          <div class="stat-x"><div class="stat-num">&lt;30s</div><div class="stat-lbl">Toma<br>de orden</div></div>
-          <div class="stat-x"><div class="stat-num">100%</div><div class="stat-lbl">Tiempo<br>real</div></div>
+          <div class="stat-x"><div class="stat-num">$350k</div><div class="stat-lbl">Ahorros<br>mensuales</div></div>
+          <div class="stat-x"><div class="stat-num">9+</div><div class="stat-lbl">Módulos<br>integrados</div></div>
+          <div class="stat-x"><div class="stat-num">24</div><div class="stat-lbl">Mesas<br>en tiempo real</div></div>
         </div>
       </div>
       <div class="hero-mockup" data-aos="fade-left" data-aos-delay="200">
@@ -293,45 +294,92 @@
     </div>
   </section>
 
+  <!-- ── SAVINGS STRIP ── -->
+  <section id="savings" style="background:var(--cream-2);padding:48px 0;border-bottom:1px solid var(--border);">
+    <div class="container-mesaio">
+      <div style="text-align:center;margin-bottom:32px;">
+        <span class="lbl" style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-dk);margin-bottom:10px;">Problema que resolvemos</span>
+        <h2 style="font-size:clamp(1.6rem,3vw,2.4rem);color:var(--burgundy);">Los restaurantes pagan $350.000/mes por 3 sistemas que no se hablan</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px;margin:0 auto 32px;">
+        <div style="background:white;border-radius:14px;padding:24px;border:1px solid var(--border);text-align:center;box-shadow:var(--shadow-sm);">
+          <div style="font-size:28px;margin-bottom:8px;">💸</div>
+          <div style="font-size:11px;color:var(--charcoal-2);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;">Alegra · Contabilidad</div>
+          <div style="font-family:'Playfair Display',serif;font-size:2rem;color:#EF4444;font-weight:800;">$150k</div>
+          <div style="font-size:12px;color:var(--charcoal-2);">por mes</div>
+        </div>
+        <div style="background:white;border-radius:14px;padding:24px;border:1px solid var(--border);text-align:center;box-shadow:var(--shadow-sm);">
+          <div style="font-size:28px;margin-bottom:8px;">💸</div>
+          <div style="font-size:11px;color:var(--charcoal-2);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;">Gestión de mesas</div>
+          <div style="font-family:'Playfair Display',serif;font-size:2rem;color:#EF4444;font-weight:800;">$80k</div>
+          <div style="font-size:12px;color:var(--charcoal-2);">por mes</div>
+        </div>
+        <div style="background:white;border-radius:14px;padding:24px;border:1px solid var(--border);text-align:center;box-shadow:var(--shadow-sm);">
+          <div style="font-size:28px;margin-bottom:8px;">💸</div>
+          <div style="font-size:11px;color:var(--charcoal-2);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;">Inventario</div>
+          <div style="font-family:'Playfair Display',serif;font-size:2rem;color:#EF4444;font-weight:800;">$120k</div>
+          <div style="font-size:12px;color:var(--charcoal-2);">por mes</div>
+        </div>
+      </div>
+      <div style="text-align:center;">
+        <div style="display:inline-flex;align-items:center;gap:20px;background:linear-gradient(135deg,var(--burgundy),#7C2A3A);border-radius:14px;padding:20px 40px;color:white;">
+          <div>
+            <div style="font-size:12px;opacity:.75;text-transform:uppercase;letter-spacing:.1em;">Total actual</div>
+            <div style="font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:#FCA5A5;text-decoration:line-through;">$350.000/mes</div>
+          </div>
+          <div style="font-size:32px;">→</div>
+          <div>
+            <div style="font-size:12px;opacity:.75;text-transform:uppercase;letter-spacing:.1em;">Con Mesaio</div>
+            <div style="font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:var(--gold-lt);">$0/mes</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ── ② ROLES ── -->
   <section class="block" id="roles">
     <div class="container-mesaio">
       <div class="section-title-mesaio" data-aos="fade-up">
-        <span class="lbl">Tres roles, un solo sistema</span>
+        <span class="lbl">3 roles · 9 módulos · 1 sistema</span>
         <h2>Cada uno ve lo que necesita ver</h2>
-        <p>Mesero, cocinero y administrador. Tres interfaces diseñadas para sus tareas reales — sin botones de más, sin pasos perdidos.</p>
+        <p>Mesero cobra desde el celular. Cocina descuenta inventario automático. Admin cierra el día con acta y KPIs para inversores.</p>
       </div>
       <div class="roles-grid">
         <div class="role-card" data-aos="fade-up" data-aos-delay="100">
           <div class="role-icon-wrap"><i class="bi bi-person-badge"></i></div>
           <h3>Mesero</h3>
-          <p>Toma órdenes desde el celular junto a la mesa. Sin cuadernos, sin errores.</p>
+          <p>Toma y cobra órdenes desde el celular. Sin cuadernos, sin errores, con factura inmediata.</p>
           <ul>
-            <li>Mapa visual de mesas en tiempo real</li>
-            <li>Catálogo con fotos y modificadores</li>
-            <li>Estado de la cocina al instante</li>
+            <li>Mapa visual de 24 mesas en tiempo real</li>
+            <li>Modal de cobro con IVA automático</li>
+            <li>Factura generada al confirmar pago</li>
+            <li>Efectivo, tarjeta o transferencia</li>
           </ul>
           <a href="mesero/" class="role-cta">Entrar como mesero <i class="bi bi-arrow-right-short"></i></a>
         </div>
         <div class="role-card" data-aos="fade-up" data-aos-delay="200">
           <div class="role-icon-wrap"><i class="bi bi-fire"></i></div>
           <h3>Cocinero</h3>
-          <p>Pantalla KDS estilo profesional. Las órdenes llegan, se preparan, se entregan.</p>
+          <p>Pantalla KDS profesional. Al marcar listo, el inventario se descuenta automáticamente.</p>
           <ul>
             <li>Cola de pedidos por estado</li>
             <li>Cronómetro de tiempo de preparación</li>
-            <li>Marcado rápido: preparando / listo</li>
+            <li>Descuento automático de ingredientes</li>
+            <li>Alerta si algún insumo baja del mínimo</li>
           </ul>
           <a href="cocina/" class="role-cta">Entrar como cocina <i class="bi bi-arrow-right-short"></i></a>
         </div>
         <div class="role-card" data-aos="fade-up" data-aos-delay="300">
           <div class="role-icon-wrap"><i class="bi bi-graph-up-arrow"></i></div>
           <h3>Administrador</h3>
-          <p>Control total: platos, mesas, usuarios, ingresos. La cabina de mando completa.</p>
+          <p>6 módulos de gestión completa: inventario, contabilidad, facturación, arqueo, cierre e inversores.</p>
           <ul>
-            <li>CRUD de menú, mesas y empleados</li>
-            <li>Reporte de ventas y platos top</li>
-            <li>Exportar CSV para contabilidad</li>
+            <li>Inventario con 25 ingredientes y recetas</li>
+            <li>Contabilidad P&amp;L en tiempo real</li>
+            <li>Facturación con CUFE e impresión 80mm</li>
+            <li>Arqueo de caja y acta de cierre</li>
+            <li>Dashboard de inversores (7 días)</li>
           </ul>
           <a href="admin/" class="role-cta">Entrar como admin <i class="bi bi-arrow-right-short"></i></a>
         </div>
@@ -343,50 +391,50 @@
   <section class="block features-bg" id="features">
     <div class="container-mesaio">
       <div class="section-title-mesaio" data-aos="fade-up">
-        <span class="lbl">Funcionalidades</span>
+        <span class="lbl">9 módulos integrados</span>
         <h2>Todo lo que un restaurante moderno necesita</h2>
-        <p>Pensado para servir más rápido, vender más y entender mejor tu operación.</p>
+        <p>Desde el pedido del mesero hasta el informe de inversores. Un flujo sin interrupciones.</p>
       </div>
       <div class="features-grid">
         <div class="feat-card" data-aos="fade-up" data-aos-delay="100">
           <div class="feat-icon"><i class="bi bi-grid-3x3-gap"></i></div>
-          <h4>Mapa de mesas</h4>
-          <p>Distribución visual con estado en vivo: libre, ocupada, en cobro.</p>
+          <h4>Mapa de 24 mesas</h4>
+          <p>Salón, Terraza, Barra y Privado. Estado en vivo: libre, ocupada, en cobro.</p>
         </div>
         <div class="feat-card" data-aos="fade-up" data-aos-delay="150">
-          <div class="feat-icon"><i class="bi bi-card-list"></i></div>
-          <h4>Catálogo de platos</h4>
-          <p>Categorías, fotos, precios y disponibilidad. Edición en segundos.</p>
+          <div class="feat-icon"><i class="bi bi-box-seam"></i></div>
+          <h4>Inventario inteligente</h4>
+          <p>25 ingredientes + 15 recetas. Descuento automático al marcar listo en cocina.</p>
         </div>
         <div class="feat-card" data-aos="fade-up" data-aos-delay="200">
-          <div class="feat-icon"><i class="bi bi-clock-history"></i></div>
-          <h4>Estado en tiempo real</h4>
-          <p>Pendiente → preparando → listo → entregado. Sin llamadas a cocina.</p>
+          <div class="feat-icon"><i class="bi bi-graph-up"></i></div>
+          <h4>Contabilidad P&amp;L</h4>
+          <p>Ingresos, costos, margen bruto y neto en tiempo real. Reemplaza Alegra.</p>
         </div>
         <div class="feat-card" data-aos="fade-up" data-aos-delay="250">
-          <div class="feat-icon"><i class="bi bi-receipt"></i></div>
-          <h4>Cuenta por mesa</h4>
-          <p>Ítems agrupados, propina sugerida y división de cuenta automática.</p>
+          <div class="feat-icon"><i class="bi bi-receipt-cutoff"></i></div>
+          <h4>Facturación con CUFE</h4>
+          <p>Factura numerada con IVA 19%, CUFE único e impresión en formato 80mm POS.</p>
         </div>
         <div class="feat-card" data-aos="fade-up" data-aos-delay="100">
-          <div class="feat-icon"><i class="bi bi-people"></i></div>
-          <h4>Roles y permisos</h4>
-          <p>Cada usuario solo ve lo que su rol necesita. Auth con Supabase.</p>
+          <div class="feat-icon"><i class="bi bi-safe2"></i></div>
+          <h4>Arqueo de caja</h4>
+          <p>Ingresa el efectivo físico, el sistema calcula la diferencia automáticamente.</p>
         </div>
         <div class="feat-card" data-aos="fade-up" data-aos-delay="150">
-          <div class="feat-icon"><i class="bi bi-bar-chart"></i></div>
-          <h4>Reportes</h4>
-          <p>Ventas del día, platos top, mesa más rentable. Exportable a CSV.</p>
+          <div class="feat-icon"><i class="bi bi-lock-fill"></i></div>
+          <h4>Cierre con acta</h4>
+          <p>Genera acta oficial del turno con resumen de ingresos, costos y órdenes.</p>
         </div>
         <div class="feat-card" data-aos="fade-up" data-aos-delay="200">
-          <div class="feat-icon"><i class="bi bi-phone"></i></div>
-          <h4>Mobile-first</h4>
-          <p>El mesero opera desde el celular. Cocina y admin desde tablet o desktop.</p>
+          <div class="feat-icon"><i class="bi bi-bar-chart-line"></i></div>
+          <h4>Dashboard inversores</h4>
+          <p>KPIs de 7 días, gráfico de barras canvas, comparativa hoy vs promedio.</p>
         </div>
         <div class="feat-card" data-aos="fade-up" data-aos-delay="250">
-          <div class="feat-icon"><i class="bi bi-shield-check"></i></div>
-          <h4>Cero instalación</h4>
-          <p>Web app responsive. Solo navegador y conexión. Listo en minutos.</p>
+          <div class="feat-icon"><i class="bi bi-phone"></i></div>
+          <h4>Sin instalación</h4>
+          <p>Web app 100% offline-capable. Solo navegador. Funciona en celular, tablet y desktop.</p>
         </div>
       </div>
     </div>
@@ -450,16 +498,25 @@
   <!-- ── ⑤ CTA ── -->
   <section class="cta-final">
     <div data-aos="zoom-in">
-      <h2>Tu restaurante merece operar como uno del 2026.</h2>
-      <p>Probá la demo en vivo. Sin registro. Sin tarjeta. Sin compromiso.</p>
-      <a href="login.html" class="btn-burgundy"><i class="bi bi-rocket-takeoff"></i> Entrar a la demo ahora</a>
+      <h2>$350.000/mes en software que ya no necesitas.</h2>
+      <p>Demo en vivo — 9 módulos funcionando. Sin registro, sin tarjeta, sin compromiso.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <a href="admin/" class="btn-burgundy"><i class="bi bi-rocket-takeoff"></i> Ver demo admin</a>
+        <a href="entregables/" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--burgundy-dk);font-weight:700;font-size:14px;padding:14px 32px;border-radius:50px;border:2px solid var(--burgundy);letter-spacing:.05em;text-transform:uppercase;transition:all .3s;"><i class="bi bi-easel"></i> Guía pitch 7 min</a>
+      </div>
     </div>
   </section>
 
   <!-- ── FOOTER ── -->
   <footer class="foot">
     <div class="brand-foot">Mes<span>aio</span></div>
-    <div>Sistema integral de gestión para restaurantes — Hackathon 2026</div>
+    <div>Sistema 360° de gestión para restaurantes · V2 · Hackathon 2026</div>
+    <div style="margin-top:12px;display:flex;gap:20px;justify-content:center;flex-wrap:wrap;">
+      <a href="mesero/" style="color:rgba(255,255,255,.6);font-size:13px;">Mesero</a>
+      <a href="cocina/" style="color:rgba(255,255,255,.6);font-size:13px;">Cocina</a>
+      <a href="admin/" style="color:rgba(255,255,255,.6);font-size:13px;">Admin</a>
+      <a href="entregables/" style="color:rgba(255,255,255,.6);font-size:13px;">Entregables</a>
+    </div>
     <div class="copy">© 2026 Mesaio. Construido con velocidad y precisión.</div>
   </footer>
 
