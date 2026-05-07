@@ -152,8 +152,9 @@ const MESAIO = {
     if (this.useLocal) {
       let counter = parseInt(localStorage.getItem('mesaio_orden_counter') || '0') + 1;
       localStorage.setItem('mesaio_orden_counter', String(counter));
+      const sesion = JSON.parse(localStorage.getItem('mesaio_session') || 'null');
       const orden = {
-        id: counter, mesa_id, mesero_nombre: mesero || 'Demo',
+        id: counter, mesa_id, mesero_nombre: mesero || (sesion ? sesion.nombre : 'Mesero'),
         estado: 'pendiente', total, notas: notas || '',
         items: items, created_at: now, updated_at: now
       };

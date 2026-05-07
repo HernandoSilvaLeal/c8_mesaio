@@ -66,7 +66,7 @@
 <div class="topbar">
   <div style="display:flex;align-items:center;gap:18px">
     <div class="brand-mini">Mes<span>aio</span></div>
-    <div class="role-pill"><i class="bi bi-person-badge"></i> Mesero · Carlos R.</div>
+    <div class="role-pill" id="headerSesion"><i class="bi bi-person-badge"></i> Mesero</div>
   </div>
   <a href="../login.html" class="out"><i class="bi bi-box-arrow-right"></i> Salir</a>
 </div>
@@ -130,6 +130,13 @@
 <script src="../assets/js/mesaio-core.js"></script>
 
 <script>
+(function() {
+  const s = JSON.parse(localStorage.getItem('mesaio_session') || 'null');
+  if (!s) return;
+  const el = document.getElementById('headerSesion');
+  if (el) el.innerHTML = `<i class="bi bi-person-badge"></i> ${s.nombre} · Mesero`;
+})();
+
 let mesaSeleccionada = null;
 let carrito = [];
 let modoModal = 'nueva'; // 'nueva' | 'detalle'

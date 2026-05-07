@@ -62,7 +62,7 @@
 <div class="topbar">
   <div style="display:flex;align-items:center;gap:18px">
     <div class="brand-mini">Mes<span>aio</span></div>
-    <div class="role-pill"><i class="bi bi-fire"></i> Cocina · KDS · María P.</div>
+    <div class="role-pill" id="headerSesion"><i class="bi bi-fire"></i> Cocina · KDS</div>
   </div>
   <div style="display:flex;align-items:center;gap:12px">
     <span class="live-pill"><span class="pulse"></span> En vivo</span>
@@ -94,6 +94,13 @@
 <script src="../assets/js/mesaio-core.js"></script>
 
 <script>
+(function() {
+  const s = JSON.parse(localStorage.getItem('mesaio_session') || 'null');
+  if (!s) return;
+  const el = document.getElementById('headerSesion');
+  if (el) el.innerHTML = `<i class="bi bi-fire"></i> ${s.nombre} · Cocina`;
+})();
+
 async function cargarKDS() {
   const ordenes = await MESAIO.getOrdenesActivas();
 

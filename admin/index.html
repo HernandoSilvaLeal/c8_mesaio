@@ -60,7 +60,7 @@
 <div class="topbar">
   <div style="display:flex;align-items:center;gap:18px">
     <div class="brand-mini">Mes<span>aio</span></div>
-    <div class="role-pill"><i class="bi bi-graph-up-arrow"></i> Administrador · Chef</div>
+    <div class="role-pill" id="headerSesion"><i class="bi bi-graph-up-arrow"></i> Administrador</div>
   </div>
   <div style="display:flex;align-items:center">
     <span class="live-pill"><span class="pulse"></span> Sincronizado</span>
@@ -259,7 +259,7 @@
         <hr style="border:none;border-top:1px dashed #ddd;">
         <div style="margin:12px 0;">
           <label style="font-size:13px;font-weight:bold;">Efectivo REPORTADO (conteo físico):</label>
-          <input type="text" inputmode="numeric" pattern="[0-9]*" id="arqueoReportado" placeholder="Ej: 450000" style="width:100%;padding:10px;border:2px solid #C8A951;border-radius:8px;font-size:18px;font-weight:bold;color:#5C1A2B;box-sizing:border-box;margin-top:6px;" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+          <input type="tel" id="arqueoReportado" placeholder="Ej: 450.000" autocomplete="off" style="width:100%;padding:10px;border:2px solid #C8A951;border-radius:8px;font-size:20px;font-weight:bold;color:#5C1A2B;box-sizing:border-box;margin-top:6px;letter-spacing:1px;" oninput="formatearArqueo(this)" onkeydown="return event.key!=='e'&&event.key!=='+'&&event.key!=='-'">
         </div>
         <hr style="border:none;border-top:1px dashed #ddd;">
         <div style="margin:12px 0;">
@@ -747,8 +747,6 @@ function imprimirRecibo() {
 function cargarArqueo() {
   const cierre = MESAIO.getCierreCaja();
   document.getElementById('ariqueoEsperado').textContent = MESAIO.fmtCOP(cierre.ingresos);
-  const inputActual = document.getElementById('arqueoReportado').value;
-  if (!inputActual) document.getElementById('arqueoReportado').value = '';
   document.getElementById('arqueoDiscrepancia').textContent = '$0';
   document.getElementById('arqueoEstado').textContent = 'Ingresa monto reportado arriba';
   const arqueos = MESAIO.getArqueosHoy();
@@ -768,10 +766,28 @@ function cargarArqueo() {
   }).join('');
 }
 
+function formatearArqueo(input) {
+  const val = input.value.replace(/\D/g, '');
+  if (val === '') { input.value = ''; return; }
+  const num = parseInt(val);
+  input.value = num.toLocaleString('es-CO');
+  const cierre = MESAIO.getCierreCaja();
+  const diff = num - cierre.ingresos;
+  const discEl = document.getElementById('arqueoDiscrepancia');
+  const estadoEl = document.getElementById('arqueoEstado');
+  if (discEl) { discEl.textContent = MESAIO.fmtCOP(Math.abs(diff)); discEl.style.color = Math.abs(diff) < 500 ? '#10B981' : '#EF4444'; }
+  if (estadoEl) {
+    if (Math.abs(diff) < 500) estadoEl.textContent = '✓ Coincide correctamente';
+    else if (diff > 0) estadoEl.textContent = `⚠️ Sobrante de ${MESAIO.fmtCOP(diff)}`;
+    else estadoEl.textContent = `🔴 Faltante de ${MESAIO.fmtCOP(Math.abs(diff))}`;
+  }
+}
+
 function calcularArqueo() {
   const esperado = MESAIO.getCierreCaja().ingresos;
-  const reportado = parseFloat(document.getElementById('arqueoReportado').value);
-  if (isNaN(reportado)) { MESAIO.toast('Ingresa el monto físico', 'err'); return; }
+  const raw = document.getElementById('arqueoReportado').value.replace(/\./g,'').replace(/,/g,'');
+  const reportado = parseInt(raw) || 0;
+  if (reportado === 0) { MESAIO.toast('⚠️ Ingresa el monto contado en caja', 'warning'); return; }
   const arqueo = MESAIO.registrarArqueo(esperado, reportado);
   const diff = reportado - esperado;
   const discEl = document.getElementById('arqueoDiscrepancia');
@@ -1174,6 +1190,12 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 document.addEventListener('DOMContentLoaded', async () => {
+  (function() {
+    const s = JSON.parse(localStorage.getItem('mesaio_session') || 'null');
+    if (!s) return;
+    const el = document.getElementById('headerSesion');
+    if (el) el.innerHTML = `<i class="bi bi-graph-up-arrow"></i> ${s.nombre} · Admin`;
+  })();
   await MESAIO.initAppV2();
   if (MESAIO.getFacturas().length === 0) {
     document.getElementById('btnDemoContainer').style.display = 'block';
