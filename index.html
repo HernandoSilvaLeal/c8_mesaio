@@ -610,6 +610,67 @@ body {
 .footer-badge::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); opacity: 0.5; }
 
 /* ═══════════════════════════════════════════════
+   EL FLUJO (sección clonada de entregables)
+═══════════════════════════════════════════════ */
+.flujo-landing {
+  padding: 120px 0;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse 100% 50% at 50% 0%, #E8D9BB 0%, var(--cream) 60%);
+  position: relative;
+}
+.flujo-landing::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(200,169,81,.35),transparent); }
+.flujo-hd { text-align:center; margin-bottom:64px; }
+.flujo-hd h2 { font-family:var(--serif); font-size:clamp(34px,4vw,58px); font-weight:300; color:var(--ink); line-height:1.1; margin:12px 0 16px; }
+.flujo-hd h2 em { font-style:italic; color:var(--burgundy); }
+.flujo-hd p { font-size:16px; color:var(--muted); max-width:520px; margin:0 auto; line-height:1.8; }
+.flujo-row { display:flex; align-items:stretch; overflow-x:auto; padding-bottom:8px; }
+.flujo-row::-webkit-scrollbar { height:3px; }
+.flujo-row::-webkit-scrollbar-thumb { background:rgba(200,169,81,0.3); }
+.flujo-st {
+  flex:1; min-width:155px; padding:24px 16px; text-align:center;
+  background:white; border:1px solid rgba(92,26,43,0.08); border-right:none; position:relative;
+}
+.flujo-st:last-child { border-right:1px solid rgba(92,26,43,0.08); }
+.flujo-st::after { content:'›'; position:absolute; right:-12px; top:50%; transform:translateY(-50%); font-size:20px; color:var(--gold); z-index:2; background:white; padding:2px 3px; }
+.flujo-st:last-child::after { display:none; }
+.flujo-st-n { width:24px; height:24px; border-radius:50%; margin:0 auto 10px; font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; }
+.flujo-st-ico { font-size:26px; margin-bottom:8px; display:block; font-family:"Noto Color Emoji","Apple Color Emoji","Segoe UI Emoji",sans-serif; }
+.flujo-st-name { font-weight:700; font-size:12px; color:var(--ink); margin-bottom:4px; }
+.flujo-st-sub { font-size:11px; color:var(--muted); line-height:1.5; margin-bottom:8px; }
+.flujo-st-role { font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:3px 9px; border-radius:20px; display:inline-block; }
+.fsr-mesero { background:rgba(92,26,43,0.1); color:var(--burgundy); }
+.fsr-cocina  { background:rgba(180,90,0,0.1); color:#a05a00; }
+.fsr-auto    { background:rgba(200,169,81,0.15); color:#7a6020; }
+
+/* ═══════════════════════════════════════════════
+   DEMO EN VIVO (sección clonada de entregables)
+═══════════════════════════════════════════════ */
+.demo-landing { padding:120px 0; background:var(--ink-2); position:relative; }
+.demo-landing::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(200,169,81,.2),transparent); }
+.demo-hd { margin-bottom:60px; }
+.demo-hd h2 { font-family:var(--serif); font-size:clamp(34px,4vw,58px); font-weight:300; color:var(--cream); line-height:1.1; margin:12px 0 12px; }
+.demo-hd h2 em { font-style:italic; color:var(--gold); }
+.demo-hd p { font-size:16px; color:rgba(250,246,238,0.45); max-width:500px; line-height:1.8; }
+.demo-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.demo-lcard {
+  background:rgba(255,255,255,0.03); border:1px solid rgba(200,169,81,0.12);
+  padding:36px 28px; text-decoration:none; display:block;
+  transition:border-color .3s,background .3s,transform .3s var(--ease-out); position:relative; overflow:hidden;
+}
+.demo-lcard:hover { border-color:rgba(200,169,81,0.45); background:rgba(200,169,81,0.05); transform:translateY(-4px); }
+.demo-lcard-bg { font-family:var(--serif); font-size:80px; font-weight:300; color:rgba(200,169,81,0.05); position:absolute; top:4px; right:16px; line-height:1; }
+.demo-lcard-ico { font-size:32px; margin-bottom:16px; display:block; font-family:"Noto Color Emoji","Apple Color Emoji","Segoe UI Emoji",sans-serif; }
+.demo-lcard-name { font-family:var(--serif); font-size:24px; font-weight:600; color:var(--cream); margin-bottom:6px; }
+.demo-lcard-desc { font-size:13px; color:rgba(250,246,238,0.4); line-height:1.8; margin-bottom:20px; }
+.demo-lcard-list { list-style:none; margin-bottom:20px; }
+.demo-lcard-list li { font-size:12px; color:rgba(250,246,238,0.3); padding:4px 0; border-bottom:1px solid rgba(255,255,255,0.04); display:flex; gap:8px; }
+.demo-lcard-list li::before { content:'·'; color:var(--gold); }
+.demo-lcard-cta { font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--gold); display:flex; align-items:center; gap:8px; }
+.demo-lcard-cta::after { content:'→'; transition:transform .2s; }
+.demo-lcard:hover .demo-lcard-cta::after { transform:translateX(4px); }
+
+/* ═══════════════════════════════════════════════
    RESPONSIVE
 ═══════════════════════════════════════════════ */
 @media (max-width: 900px) {
@@ -627,7 +688,8 @@ body {
   .roles-grid        { grid-template-columns: 1fr; }
   .container         { padding: 0 24px; }
   .container-sm      { padding: 0 24px; }
-  .planes, .problema, .roi, .features, .roles, .cta-final { padding: 80px 0; }
+  .planes, .problema, .roi, .features, .roles, .cta-final, .flujo-landing, .demo-landing { padding: 80px 0; }
+  .demo-cards { grid-template-columns: 1fr; }
   .hero-stats        { gap: 24px; }
   .footer-top        { grid-template-columns: 1fr 1fr; }
   .footer-brand-col  { grid-column: 1/-1; max-width: none; }
@@ -654,7 +716,7 @@ body {
     <li><a href="#planes">Planes</a></li>
     <li><a href="#roi">Retorno</a></li>
     <li><a href="#modulos">Módulos</a></li>
-    <li><a href="/entregables/">Demo</a></li>
+    <li><a href="/entregables/">Propuesta ↗</a></li>
   </ul>
   <a href="/login" class="nav-cta">Acceder →</a>
 </nav>
@@ -678,6 +740,7 @@ body {
     <div class="hero-actions ao ao-d3">
       <a href="/login" class="btn-hero-primary">▶ Ver en vivo ahora</a>
       <a href="#planes" class="btn-hero-ghost">Ver planes</a>
+      <a href="/entregables/" class="btn-hero-ghost" style="font-size:12px;padding:10px 22px;opacity:.65;">Ver propuesta completa →</a>
     </div>
     <div class="hero-stats ao ao-d4">
       <div>
@@ -1083,6 +1146,62 @@ body {
 </section>
 
 
+<!-- ═══ EL FLUJO ═══ -->
+<section class="flujo-landing">
+  <div class="container">
+    <div class="flujo-hd">
+      <span class="overline ao">El flujo completo</span>
+      <h2 class="ao ao-d1">De la mesa vacía <em>a la caja cerrada.</em></h2>
+      <p class="ao ao-d2">Así funciona una noche en tu restaurante. Cada paso conectado, sin papel, sin dobles entradas.</p>
+    </div>
+    <div class="flujo-row ao ao-d2">
+      <div class="flujo-st">
+        <div class="flujo-st-n" style="background:rgba(92,26,43,0.08);color:var(--burgundy);">1</div>
+        <span class="flujo-st-ico">🪑</span>
+        <div class="flujo-st-name">Mesa libre</div>
+        <div class="flujo-st-sub">24 mesas visibles en tiempo real por zona.</div>
+        <span class="flujo-st-role fsr-mesero">Mesero</span>
+      </div>
+      <div class="flujo-st">
+        <div class="flujo-st-n" style="background:rgba(92,26,43,0.08);color:var(--burgundy);">2</div>
+        <span class="flujo-st-ico">📋</span>
+        <div class="flujo-st-name">Pedido tomado</div>
+        <div class="flujo-st-sub">Menú digital. Va directo a cocina.</div>
+        <span class="flujo-st-role fsr-mesero">Mesero</span>
+      </div>
+      <div class="flujo-st">
+        <div class="flujo-st-n" style="background:rgba(180,90,0,0.08);color:#a05a00;">3</div>
+        <span class="flujo-st-ico">🔥</span>
+        <div class="flujo-st-name">En cocina (KDS)</div>
+        <div class="flujo-st-sub">Cola con cronómetro. Alerta a los 10 min.</div>
+        <span class="flujo-st-role fsr-cocina">Cocina</span>
+      </div>
+      <div class="flujo-st">
+        <div class="flujo-st-n" style="background:rgba(180,90,0,0.08);color:#a05a00;">4</div>
+        <span class="flujo-st-ico">✅</span>
+        <div class="flujo-st-name">Listo · Entregado</div>
+        <div class="flujo-st-sub">Inventario se descuenta automáticamente.</div>
+        <span class="flujo-st-role fsr-cocina">Cocina</span>
+      </div>
+      <div class="flujo-st">
+        <div class="flujo-st-n" style="background:rgba(92,26,43,0.08);color:var(--burgundy);">5</div>
+        <span class="flujo-st-ico">💳</span>
+        <div class="flujo-st-name">Cobro</div>
+        <div class="flujo-st-sub">Efectivo, tarjeta o Nequi. Factura al instante.</div>
+        <span class="flujo-st-role fsr-mesero">Mesero</span>
+      </div>
+      <div class="flujo-st">
+        <div class="flujo-st-n" style="background:rgba(200,169,81,0.12);color:#7a6020;">6</div>
+        <span class="flujo-st-ico">📊</span>
+        <div class="flujo-st-name">Contabilizado</div>
+        <div class="flujo-st-sub">Ingresos, costos y margen en tiempo real.</div>
+        <span class="flujo-st-role fsr-auto">Auto · Dueño</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <!-- ═══ MÓDULOS ═══ -->
 <section class="features" id="modulos">
   <div class="container">
@@ -1213,6 +1332,56 @@ body {
 </section>
 
 
+<!-- ═══ DEMO EN VIVO ═══ -->
+<section class="demo-landing">
+  <div class="container">
+    <div class="demo-hd">
+      <span class="overline ao">Demo en vivo · sin registro</span>
+      <h2 class="ao ao-d1">Pruébalo <em>ahora mismo.</em></h2>
+      <p class="ao ao-d2">El sistema corre con datos de demostración. Explora cada vista como si fuera tu restaurante real.</p>
+    </div>
+    <div class="demo-cards">
+      <a href="/mesero/" class="demo-lcard ao ao-d1">
+        <div class="demo-lcard-bg">01</div>
+        <span class="demo-lcard-ico">🧑‍🍽️</span>
+        <div class="demo-lcard-name">Vista Mesero</div>
+        <div class="demo-lcard-desc">Optimizada para celular. Toma un pedido, mándalo a cocina y genera una factura en menos de 2 minutos.</div>
+        <ul class="demo-lcard-list">
+          <li>Mapa de mesas en tiempo real</li>
+          <li>Menú con categorías y precios</li>
+          <li>Cobro y factura electrónica</li>
+        </ul>
+        <div class="demo-lcard-cta">Abrir demo</div>
+      </a>
+      <a href="/cocina/" class="demo-lcard ao ao-d2">
+        <div class="demo-lcard-bg">02</div>
+        <span class="demo-lcard-ico">👨‍🍳</span>
+        <div class="demo-lcard-name">Vista Cocina</div>
+        <div class="demo-lcard-desc">Pantalla KDS en tiempo real. Los pedidos llegan solos y avanzas los estados con un toque.</div>
+        <ul class="demo-lcard-list">
+          <li>Cola con cronómetro de urgencia</li>
+          <li>Pendiente → Preparando → Listo</li>
+          <li>Descuento automático de inventario</li>
+        </ul>
+        <div class="demo-lcard-cta">Abrir demo</div>
+      </a>
+      <a href="/admin/" class="demo-lcard ao ao-d3">
+        <div class="demo-lcard-bg">03</div>
+        <span class="demo-lcard-ico">👔</span>
+        <div class="demo-lcard-name">Panel del Dueño</div>
+        <div class="demo-lcard-desc">El cerebro del negocio. Dashboard, facturas, inventario y cierre de caja con datos reales de demo.</div>
+        <ul class="demo-lcard-list">
+          <li>Dashboard KPIs e ingresos</li>
+          <li>Historial de facturas</li>
+          <li>Arqueo de caja y cierre de día</li>
+        </ul>
+        <div class="demo-lcard-cta">Abrir demo</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+
 <!-- ═══ CTA FINAL ═══ -->
 <section class="cta-final">
   <div class="container-sm">
@@ -1270,7 +1439,7 @@ body {
       </div>
       <div class="footer-col">
         <h4>AppCors</h4>
-        <a href="https://github.com/HernandoSilvaLeal/c8_mesaio" target="_blank" rel="noopener">GitHub</a>
+        <a href="/entregables/">Propuesta</a>
         <a href="https://wa.me/573TUNUMERO" target="_blank" rel="noopener">WhatsApp</a>
         <a href="mailto:contacto@mesaio.co">Contacto</a>
       </div>
