@@ -385,8 +385,8 @@ function seleccionarMetodo(metodo) {
 
 async function confirmarCobro() {
   if (!cobroOrdenId) return;
-  const factura = MESAIO.generarFactura(cobroOrdenId, cobroMetodo, false);
-  MESAIO.registrarMovimiento('venta', factura.total, `Mesa ${factura.mesa_id || '?'} · Factura #${String(factura.numero).padStart(6,'0')}`);
+  const factura = MESAIO.generarFactura(cobroOrdenId, cobroMetodo);
+  if (!factura) { MESAIO.toast('Error al generar factura', 'error'); return; }
   await MESAIO.actualizarEstadoOrden(cobroOrdenId, 'cobrado');
   document.getElementById('modalCobro').style.display = 'none';
   MESAIO.toast('🧾 Factura #' + String(factura.numero).padStart(6,'0') + ' generada', 'ok');

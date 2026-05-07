@@ -535,7 +535,7 @@ const MESAIO = {
         const mesaId = 1 + Math.floor(Math.random() * 12);
         facturas.push({
           id: facturaCounter,
-          numero: facturaCounter,
+          numero: String(facturaCounter).padStart(6, '0'),
           orden_id: facturaCounter,
           mesa_id: mesaId,
           mesero_nombre: meseros[Math.floor(Math.random() * meseros.length)],
@@ -543,9 +543,9 @@ const MESAIO = {
             { plato_nombre: plato.nombre, cantidad, precio_unitario: plato.precio, subtotal: plato.precio * cantidad },
             { plato_nombre: extras.nombre, cantidad: 1, precio_unitario: extras.precio, subtotal: extras.precio }
           ],
-          subtotal_sin_iva: subtotal,
+          subtotal: subtotal,
           iva,
-          propina: 0,
+          propina_sugerida: 0,
           total,
           metodo_pago: ['efectivo','tarjeta','nequi'][Math.floor(Math.random() * 3)],
           cufe: String(Math.floor(Math.random() * 1e12)).padStart(12,'0'),
