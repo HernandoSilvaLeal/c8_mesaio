@@ -89,6 +89,20 @@
 
   <!-- DASHBOARD -->
   <div class="pane active" id="pane-dashboard">
+    <!-- BARRA CONTROL DEMO -->
+    <div id="barraControlDemo" style="background:white;border:1px solid #E5E7EB;border-radius:12px;padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+      <div style="font-size:11px;font-weight:700;color:#9CA3AF;text-transform:uppercase;letter-spacing:.08em;margin-right:4px;white-space:nowrap;">🎛️ Control demo</div>
+      <div style="width:1px;height:28px;background:#E5E7EB;margin:0 4px;"></div>
+      <button id="btnCargarDemo" onclick="accionDemo('cargar')" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:700;background:#C8A951;color:white;border:none;cursor:pointer;transition:all .2s;white-space:nowrap;">🚀 Cargar 7 días</button>
+      <button id="btnDeshacerUltima" onclick="accionDemo('deshacer')" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:700;background:#F3F4F6;color:#6B7280;border:1px solid #E5E7EB;cursor:pointer;transition:all .2s;white-space:nowrap;">↩ Deshacer última venta</button>
+      <button id="btnResetMesas" onclick="accionDemo('mesas')" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:700;background:#F3F4F6;color:#6B7280;border:1px solid #E5E7EB;cursor:pointer;transition:all .2s;white-space:nowrap;">🪑 Liberar todas las mesas</button>
+      <button id="btnLimpiarTodo" onclick="accionDemo('limpiar')" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:700;background:#FEF2F2;color:#EF4444;border:1px solid #FECACA;cursor:pointer;transition:all .2s;white-space:nowrap;">🗑️ Limpiar todo</button>
+      <div id="demoStatus" style="margin-left:auto;font-size:12px;color:#9CA3AF;display:flex;align-items:center;gap:6px;">
+        <span id="demoStatusDot" style="width:7px;height:7px;border-radius:50%;background:#D1D5DB;display:inline-block;"></span>
+        <span id="demoStatusText">Sin datos cargados</span>
+      </div>
+    </div>
+
     <div id="bannerDemo" style="display:none;background:linear-gradient(135deg,#5C1A2B,#7C2A3A);border-radius:14px;padding:20px 24px;margin-bottom:20px;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
       <div style="color:white;"><div style="font-family:'Playfair Display',serif;font-size:16px;font-weight:bold;margin-bottom:4px;">🎭 Sin datos de operación</div><div style="font-size:12px;opacity:.8;">Carga 7 días simulados para ver el sistema completo en acción</div></div>
       <div style="display:flex;gap:8px;flex-shrink:0;">
@@ -1174,6 +1188,116 @@ function cargarDemo() {
   if (map[activo]) map[activo]();
 }
 
+// ═══════════════════════════════════════════
+// CONTROL DEMO
+// ═══════════════════════════════════════════
+
+function accionDemo(tipo) {
+  switch(tipo) {
+    case 'cargar': {
+      const facturas = MESAIO.getFacturas();
+      if (facturas.length > 0) { MESAIO.toast('⚠️ Ya hay datos cargados. Limpia primero.', 'warning'); return; }
+      const btn = document.getElementById('btnCargarDemo');
+      btn.textContent = '⏳ Cargando...'; btn.disabled = true; btn.style.background = '#D1D5DB'; btn.style.cursor = 'not-allowed';
+      setTimeout(() => {
+        const resultado = MESAIO.cargarDemoData();
+        MESAIO.toast(`✓ ${resultado.facturas} facturas · ${resultado.movimientos} movimientos · 7 días`, 'success');
+        actualizarEstadoBarra();
+        if (typeof cargarDashboard === 'function') cargarDashboard();
+      }, 400);
+      break;
+    }
+    case 'deshacer': {
+      const facturas = JSON.parse(localStorage.getItem('mesaio_facturas') || '[]');
+      if (facturas.length === 0) { MESAIO.toast('No hay ventas para deshacer', 'warning'); return; }
+      const ultima = facturas[facturas.length - 1];
+      facturas.pop();
+      localStorage.setItem('mesaio_facturas', JSON.stringify(facturas));
+      localStorage.setItem('mesaio_factura_counter', String(facturas.length));
+      const movimientos = JSON.parse(localStorage.getItem('mesaio_movimientos') || '[]').filter(m => m.orden_id !== ultima.orden_id);
+      localStorage.setItem('mesaio_movimientos', JSON.stringify(movimientos));
+      MESAIO.toast(`↩ Deshecha: Factura #${ultima.numero} — ${MESAIO.fmtCOP(ultima.total)}`, 'success');
+      actualizarEstadoBarra();
+      if (typeof cargarDashboard === 'function') cargarDashboard();
+      break;
+    }
+    case 'mesas': {
+      const mesas = JSON.parse(localStorage.getItem('mesaio_mesas') || '[]').map(m => ({ ...m, estado: 'libre' }));
+      localStorage.setItem('mesaio_mesas', JSON.stringify(mesas));
+      const ordenes = JSON.parse(localStorage.getItem('mesaio_ordenes') || '[]').map(o => ['pendiente','preparando','listo','entregado'].includes(o.estado) ? { ...o, estado: 'cancelado' } : o);
+      localStorage.setItem('mesaio_ordenes', JSON.stringify(ordenes));
+      MESAIO.toast('🪑 Todas las mesas liberadas', 'success');
+      actualizarEstadoBarra();
+      break;
+    }
+    case 'limpiar': {
+      if (!confirm('¿Seguro? Esto borra facturas, movimientos, arqueos y cierres del día.')) return;
+      localStorage.removeItem('mesaio_facturas');
+      localStorage.removeItem('mesaio_factura_counter');
+      localStorage.removeItem('mesaio_movimientos');
+      localStorage.removeItem('mesaio_arqueos');
+      localStorage.removeItem('mesaio_cierres');
+      localStorage.removeItem('mesaio_v2_seed');
+      const ordenes = JSON.parse(localStorage.getItem('mesaio_ordenes') || '[]').map(o => ({ ...o, estado: 'cancelado' }));
+      localStorage.setItem('mesaio_ordenes', JSON.stringify(ordenes));
+      const mesas = JSON.parse(localStorage.getItem('mesaio_mesas') || '[]').map(m => ({ ...m, estado: 'libre' }));
+      localStorage.setItem('mesaio_mesas', JSON.stringify(mesas));
+      MESAIO.initV2();
+      MESAIO.toast('🗑️ Sistema limpio · Listo para nueva demo', 'success');
+      actualizarEstadoBarra();
+      if (typeof cargarDashboard === 'function') cargarDashboard();
+      break;
+    }
+  }
+}
+
+function actualizarEstadoBarra() {
+  const facturas = JSON.parse(localStorage.getItem('mesaio_facturas') || '[]');
+  const mesas = JSON.parse(localStorage.getItem('mesaio_mesas') || '[]');
+  const mesasOcupadas = mesas.filter(m => m.estado !== 'libre').length;
+  const btnCargar   = document.getElementById('btnCargarDemo');
+  const btnDeshacer = document.getElementById('btnDeshacerUltima');
+  const btnMesas    = document.getElementById('btnResetMesas');
+  const btnLimpiar  = document.getElementById('btnLimpiarTodo');
+  const statusDot   = document.getElementById('demoStatusDot');
+  const statusText  = document.getElementById('demoStatusText');
+  if (!btnCargar) return;
+
+  if (facturas.length > 0) {
+    btnCargar.disabled = true; btnCargar.style.background = '#D1D5DB'; btnCargar.style.color = '#9CA3AF'; btnCargar.style.cursor = 'not-allowed'; btnCargar.textContent = '✓ Demo cargada';
+  } else {
+    btnCargar.disabled = false; btnCargar.style.background = '#C8A951'; btnCargar.style.color = 'white'; btnCargar.style.cursor = 'pointer'; btnCargar.textContent = '🚀 Cargar 7 días';
+  }
+
+  if (facturas.length === 0) {
+    btnDeshacer.disabled = true; btnDeshacer.style.opacity = '0.4'; btnDeshacer.style.cursor = 'not-allowed';
+  } else {
+    const ultima = facturas[facturas.length - 1];
+    btnDeshacer.disabled = false; btnDeshacer.style.opacity = '1'; btnDeshacer.style.cursor = 'pointer';
+    btnDeshacer.textContent = `↩ Deshacer #${ultima.numero}`;
+  }
+
+  if (mesasOcupadas === 0) {
+    btnMesas.disabled = true; btnMesas.style.opacity = '0.4'; btnMesas.style.cursor = 'not-allowed'; btnMesas.textContent = '🪑 Todas libres';
+  } else {
+    btnMesas.disabled = false; btnMesas.style.opacity = '1'; btnMesas.style.cursor = 'pointer';
+    btnMesas.textContent = `🪑 Liberar ${mesasOcupadas} mesa${mesasOcupadas > 1 ? 's' : ''}`;
+  }
+
+  if (facturas.length === 0 && mesasOcupadas === 0) {
+    btnLimpiar.disabled = true; btnLimpiar.style.opacity = '0.4'; btnLimpiar.style.cursor = 'not-allowed';
+  } else {
+    btnLimpiar.disabled = false; btnLimpiar.style.opacity = '1'; btnLimpiar.style.cursor = 'pointer';
+  }
+
+  if (facturas.length > 0) {
+    statusDot.style.background = '#10B981';
+    statusText.textContent = `${facturas.length} facturas · ${MESAIO.fmtCOP(JSON.parse(localStorage.getItem('mesaio_movimientos') || '[]').filter(m => m.tipo === 'venta').reduce((s,m) => s + m.monto, 0))} en ventas`;
+  } else {
+    statusDot.style.background = '#D1D5DB'; statusText.textContent = 'Sin datos cargados';
+  }
+}
+
 // Tab switching
 document.querySelectorAll('.tab').forEach(tab => {
   tab.addEventListener('click', function(e) {
@@ -1204,6 +1328,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   actualizarAlertasHeader();
   setInterval(actualizarAlertasHeader, 30000);
   await cargarDashboard();
+  actualizarEstadoBarra();
   setInterval(() => {
     const active = document.querySelector('.tab.active')?.dataset.pane || 'dashboard';
     const map = { dashboard: cargarDashboard, platos: cargarPlatos, mesas: cargarMesas, ordenes: cargarOrdenes, reportes: cargarReportes, inventario: cargarInventario, contabilidad: cargarContabilidad, facturacion: cargarFacturacion, arqueo: cargarArqueo, cierre: cargarCierre, investors: cargarInvestors };
