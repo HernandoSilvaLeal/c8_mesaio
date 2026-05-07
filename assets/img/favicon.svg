@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Burgundy rounded background -->
+  <rect width="32" height="32" rx="7" fill="#5C1A2B"/>
+  <!-- Plate base line -->
+  <line x1="5" y1="22" x2="27" y2="22" stroke="#C8A951" stroke-width="2" stroke-linecap="round"/>
+  <!-- Cloche dome -->
+  <path d="M7 22 C7 10 25 10 25 22" stroke="#C8A951" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Handle knob -->
+  <circle cx="16" cy="10" r="2.2" fill="#C8A951"/>
+  <!-- Subtle gold accent line at bottom -->
+  <line x1="8" y1="25.5" x2="24" y2="25.5" stroke="#C8A951" stroke-width="1" stroke-linecap="round" opacity="0.45"/>
+</svg>
