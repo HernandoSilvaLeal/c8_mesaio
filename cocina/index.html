@@ -13,6 +13,7 @@
         --txt:#F5F0E8;--txt-2:rgba(245,240,232,.65);
         --pend:#FFC107;--prep:#2196F3;--listo:#4CAF50}
   *{box-sizing:border-box} body{margin:0;font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh}
+  @keyframes pulseRed{0%,100%{opacity:1}50%{opacity:.45}}
   .topbar{background:linear-gradient(135deg,var(--burgundy),var(--burgundy-dk));padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;border-bottom:1px solid var(--border)}
   .brand-mini{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:white}
   .brand-mini span{color:var(--gold-lt)}
@@ -101,6 +102,16 @@
   if (el) el.innerHTML = `<i class="bi bi-fire"></i> ${s.nombre} · Cocina`;
 })();
 
+function calcularTiempoMinutos(isoString) {
+  return Math.floor((Date.now() - new Date(isoString).getTime()) / 60000);
+}
+
+function badgeTimer(minutos) {
+  if (minutos < 10) return `<span style="background:#ECFDF5;color:#065F46;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:bold;">🟢 ${minutos} min</span>`;
+  if (minutos < 20) return `<span style="background:#FFFBEB;color:#92400E;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:bold;">🟡 ${minutos} min</span>`;
+  return `<span style="background:#FEF2F2;color:#991B1B;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:bold;animation:pulseRed 1s infinite;">🔴 ${minutos} min — URGENTE</span>`;
+}
+
 async function cargarKDS() {
   const ordenes = await MESAIO.getOrdenesActivas();
 
@@ -124,7 +135,7 @@ async function cargarKDS() {
     if (items.length === 0) { col.innerHTML = emptyMsg[estado]; return; }
 
     col.innerHTML = items.map(o => {
-      const mins = Math.floor((Date.now() - new Date(o.created_at).getTime()) / 60000);
+      const mins = calcularTiempoMinutos(o.created_at);
       const late = mins > 10 && estado !== 'listo';
       const itemsHtml = (o.items || []).map(i => `
         <div class="o-item">
@@ -140,7 +151,7 @@ async function cargarKDS() {
         <div class="order-card${late ? ' late' : ''}">
           <div class="o-head">
             <span class="o-mesa">M-${String(o.mesa_id).padStart(2,'0')} · #${String(o.id).padStart(3,'0')}</span>
-            <span class="o-time${late ? ' late' : ''}">${late ? '🔴 ' : ''}${mins} min</span>
+            <span data-orden-time="${o.created_at}">${badgeTimer(mins)}</span>
           </div>
           <div class="o-meta">${o.mesero_nombre || 'Mesero'} · ${MESAIO.fmtHora(o.created_at)} · ${MESAIO.fmtCOP(o.total)}</div>
           <div class="o-items">${itemsHtml || '<em style="color:var(--txt-2)">Sin items</em>'}</div>
@@ -176,6 +187,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   await MESAIO.initAppV2();
   await cargarKDS();
   setInterval(cargarKDS, 3000);
+  setInterval(() => {
+    document.querySelectorAll('[data-orden-time]').forEach(el => {
+      el.innerHTML = badgeTimer(calcularTiempoMinutos(el.getAttribute('data-orden-time')));
+    });
+  }, 60000);
   MESAIO.suscribirOrdenes(() => cargarKDS());
 });
 </script>
