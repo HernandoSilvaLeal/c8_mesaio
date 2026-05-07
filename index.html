@@ -314,7 +314,20 @@ body {
 /* ═══════════════════════════════════════════════
    SECCIÓN: PLANES
 ═══════════════════════════════════════════════ */
-.planes { padding: 120px 0; background: var(--cream); }
+.planes {
+  padding: 120px 0;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse 110% 55% at 50% 0%, #E8D9BB 0%, var(--cream) 60%);
+  position: relative;
+}
+.planes::before, .planes::after {
+  content: '';
+  position: absolute; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(200,169,81,0.35), transparent);
+}
+.planes::before { top: 0; }
+.planes::after  { bottom: 0; opacity: 0.5; }
 .planes-header { text-align: center; margin-bottom: 64px; }
 .planes-header h2 {
   font-family: var(--serif); font-size: clamp(38px,4.5vw,62px);
@@ -449,7 +462,18 @@ body {
 /* ═══════════════════════════════════════════════
    FEATURES GRID
 ═══════════════════════════════════════════════ */
-.features { padding: 120px 0; background: var(--cream-2); }
+.features {
+  padding: 120px 0;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.022'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse 90% 60% at 50% 100%, #E4D4B4 0%, var(--cream-2) 55%);
+  position: relative;
+}
+.features::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(200,169,81,0.3), transparent);
+}
 .features-header { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-bottom: 64px; align-items: end; }
 .features-header h2 {
   font-family: var(--serif); font-size: clamp(38px,4.5vw,62px);
@@ -489,7 +513,18 @@ body {
 /* ═══════════════════════════════════════════════
    ROLES SECTION
 ═══════════════════════════════════════════════ */
-.roles { padding: 120px 0; background: var(--cream); }
+.roles {
+  padding: 120px 0;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse 120% 50% at 50% 0%, #EAD9BC 0%, var(--cream) 65%);
+  position: relative;
+}
+.roles::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(200,169,81,0.3), transparent);
+}
 .roles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
 .role-card {
   position: relative; overflow: hidden; text-decoration: none; display: block;
