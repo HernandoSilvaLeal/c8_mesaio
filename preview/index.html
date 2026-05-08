@@ -270,13 +270,22 @@ body { font-family: var(--sans); background: var(--ink); color: var(--cream); -w
   .modulos-grid{grid-template-columns:1fr;}
   .hero-prop-ctas{flex-direction:column;align-items:center;}
 }
-/* TWEMOJI */
+/* === HEROICONS — SVG sizing + color === */
+.flujo-step-icon svg   { width: 28px; height: 28px; display: block; }
+.role-prop-icon svg    { width: 32px; height: 32px; display: block; }
+.arq-node-icon svg     { width: 28px; height: 28px; display: block; }
+.modulo-icon svg       { width: 26px; height: 26px; display: block; }
+.demo-card-icon svg    { width: 40px; height: 40px; display: block; }
+
+/* Color por sección (currentColor hereda al SVG) */
+.flujo-step-icon    { color: var(--burgundy); }
+.role-prop-icon     { color: var(--burgundy); }
+.arq-node-icon      { color: var(--gold); }
+.modulo-icon        { color: var(--gold); }
+.demo-card-icon     { color: var(--gold); }
+
+/* TWEMOJI para emoji inline (badges, texto) */
 img.emoji { height:1em; width:1em; margin:0 .05em 0 .1em; vertical-align:-.15em; }
-.flujo-step-icon img { width:28px; height:28px; vertical-align:middle; }
-.role-prop-icon img { width:24px; height:24px; vertical-align:middle; }
-.arq-node-icon img { width:24px; height:24px; vertical-align:middle; }
-.modulo-icon img { width:26px; height:26px; vertical-align:middle; }
-.demo-card-icon img { width:36px; height:36px; vertical-align:middle; }
 
 /* FOOTER LINKS */
 .footer-prop-dev-name { color:inherit; text-decoration:none; transition:opacity .2s; }
@@ -330,42 +339,42 @@ img.emoji { height:1em; width:1em; margin:0 .05em 0 .1em; vertical-align:-.15em;
     <div class="flujo-diagram ao ao-d2">
       <div class="flujo-step">
         <div class="flujo-step-num" style="background:rgba(92,26,43,0.08);color:var(--burgundy);">1</div>
-        <span class="flujo-step-icon">🪑</span>
+        <span class="flujo-step-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"/></svg></span>
         <div class="flujo-step-name">Mesa libre</div>
         <div class="flujo-step-sub">24 mesas visibles en tiempo real por zona.</div>
         <span class="flujo-step-role role-mesero">Mesero</span>
       </div>
       <div class="flujo-step">
         <div class="flujo-step-num" style="background:rgba(92,26,43,0.08);color:var(--burgundy);">2</div>
-        <span class="flujo-step-icon">📋</span>
+        <span class="flujo-step-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z"/></svg></span>
         <div class="flujo-step-name">Pedido tomado</div>
         <div class="flujo-step-sub">Menú digital. El pedido va directo a cocina.</div>
         <span class="flujo-step-role role-mesero">Mesero</span>
       </div>
       <div class="flujo-step">
         <div class="flujo-step-num" style="background:rgba(180,90,0,0.08);color:#a05a00;">3</div>
-        <span class="flujo-step-icon">🔥</span>
+        <span class="flujo-step-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047 8.287 8.287 0 0 0 9 9.601a8.983 8.983 0 0 1 3.361-6.867 8.21 8.21 0 0 0 3 2.48Z M12 18a3.75 3.75 0 0 0 .495-7.468 5.99 5.99 0 0 0-1.925 3.547 5.975 5.975 0 0 1-2.133-1.001A3.75 3.75 0 0 0 12 18Z"/></svg></span>
         <div class="flujo-step-name">En cocina (KDS)</div>
         <div class="flujo-step-sub">Cola con cronómetro. Alerta a los 10 min.</div>
         <span class="flujo-step-role role-cocina">Cocina</span>
       </div>
       <div class="flujo-step">
         <div class="flujo-step-num" style="background:rgba(180,90,0,0.08);color:#a05a00;">4</div>
-        <span class="flujo-step-icon">✅</span>
+        <span class="flujo-step-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg></span>
         <div class="flujo-step-name">Listo · Entregado</div>
         <div class="flujo-step-sub">Inventario se descuenta automáticamente.</div>
         <span class="flujo-step-role role-cocina">Cocina</span>
       </div>
       <div class="flujo-step">
         <div class="flujo-step-num" style="background:rgba(92,26,43,0.08);color:var(--burgundy);">5</div>
-        <span class="flujo-step-icon">💳</span>
+        <span class="flujo-step-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z"/></svg></span>
         <div class="flujo-step-name">Cobro</div>
         <div class="flujo-step-sub">Efectivo, tarjeta o Nequi. Factura al instante.</div>
         <span class="flujo-step-role role-mesero">Mesero</span>
       </div>
       <div class="flujo-step">
         <div class="flujo-step-num" style="background:rgba(200,169,81,0.12);color:#7a6020;">6</div>
-        <span class="flujo-step-icon">📊</span>
+        <span class="flujo-step-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/></svg></span>
         <div class="flujo-step-name">Contabilizado</div>
         <div class="flujo-step-sub">Ingresos, costos y margen en tiempo real.</div>
         <span class="flujo-step-role role-auto">Auto · Dueño</span>
@@ -398,27 +407,27 @@ img.emoji { height:1em; width:1em; margin:0 .05em 0 .1em; vertical-align:-.15em;
       <div class="ao ao-d2">
         <div class="arq-diagram">
           <div class="arq-node arq-mesero" style="grid-column:2;grid-row:1;">
-            <span class="arq-node-icon">🧑‍🍽️</span>
+            <span class="arq-node-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg></span>
             <div class="arq-node-name">Mesero</div>
             <div class="arq-node-sub">Móvil · Mesa</div>
           </div>
           <div class="arq-node arq-cocina" style="grid-column:1;grid-row:2;">
-            <span class="arq-node-icon">👨‍🍳</span>
+            <span class="arq-node-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047 8.287 8.287 0 0 0 9 9.601a8.983 8.983 0 0 1 3.361-6.867 8.21 8.21 0 0 0 3 2.48Z M12 18a3.75 3.75 0 0 0 .495-7.468 5.99 5.99 0 0 0-1.925 3.547 5.975 5.975 0 0 1-2.133-1.001A3.75 3.75 0 0 0 12 18Z"/></svg></span>
             <div class="arq-node-name">Cocina</div>
             <div class="arq-node-sub">TV · KDS</div>
           </div>
           <div class="arq-node arq-core" style="grid-column:2;grid-row:2;">
-            <span class="arq-node-icon">⚙️</span>
+            <span class="arq-node-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.89c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28ZM15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg></span>
             <div class="arq-node-name">Mesaio Core</div>
             <div class="arq-node-sub">Sync · Lógica</div>
           </div>
           <div class="arq-node arq-admin" style="grid-column:3;grid-row:2;">
-            <span class="arq-node-icon">👔</span>
+            <span class="arq-node-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 .75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349M3.75 21V9.349m0 0a3.001 3.001 0 0 0 3.75-.615A2.993 2.993 0 0 0 9.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 0 0 2.25 1.016 2.993 2.993 0 0 0 2.25-1.016 3.001 3.001 0 0 0 3.75.614m-16.5 0a3.004 3.004 0 0 1-.621-4.72l1.189-1.19A1.5 1.5 0 0 1 5.378 3h13.243a1.5 1.5 0 0 1 1.06.44l1.19 1.189a3 3 0 0 1-.621 4.72M6.75 18h3.75a.75.75 0 0 0 .75-.75V13.5a.75.75 0 0 0-.75-.75H6.75a.75.75 0 0 0-.75.75v3.75c0 .414.336.75.75.75Z"/></svg></span>
             <div class="arq-node-name">Admin</div>
             <div class="arq-node-sub">Dashboard · PC</div>
           </div>
           <div class="arq-node arq-storage" style="grid-column:2;grid-row:3;">
-            <span class="arq-node-icon">🗄️</span>
+            <span class="arq-node-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 2.625c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125m16.5 5.625c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"/></svg></span>
             <div class="arq-node-name">Persistencia</div>
             <div class="arq-node-sub">Local · Cloud</div>
           </div>
@@ -439,7 +448,7 @@ img.emoji { height:1em; width:1em; margin:0 .05em 0 .1em; vertical-align:-.15em;
     <div class="roles-prop-grid">
       <div class="role-prop-card ao ao-d1">
         <div class="role-prop-header">
-          <div class="role-prop-icon icon-mesero">🧑‍🍽️</div>
+          <div class="role-prop-icon icon-mesero"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg></div>
           <div><div class="role-prop-name">Mesero</div><div class="role-prop-device">Celular · junto a la mesa</div></div>
         </div>
         <p class="role-prop-desc">Opera desde el celular junto a la mesa. Toma la orden, la envía a cocina, cobra y genera la factura electrónica. Todo sin papel.</p>
@@ -455,7 +464,7 @@ img.emoji { height:1em; width:1em; margin:0 .05em 0 .1em; vertical-align:-.15em;
       </div>
       <div class="role-prop-card ao ao-d2">
         <div class="role-prop-header">
-          <div class="role-prop-icon icon-cocina">👨‍🍳</div>
+          <div class="role-prop-icon icon-cocina"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047 8.287 8.287 0 0 0 9 9.601a8.983 8.983 0 0 1 3.361-6.867 8.21 8.21 0 0 0 3 2.48Z M12 18a3.75 3.75 0 0 0 .495-7.468 5.99 5.99 0 0 0-1.925 3.547 5.975 5.975 0 0 1-2.133-1.001A3.75 3.75 0 0 0 12 18Z"/></svg></div>
           <div><div class="role-prop-name">Cocina</div><div class="role-prop-device">TV / Tablet · pantalla fija</div></div>
         </div>
         <p class="role-prop-desc">Pantalla KDS dedicada. Las órdenes llegan solas, se preparan y se entregan. El inventario se descuenta solo al marcar "listo".</p>
@@ -471,7 +480,7 @@ img.emoji { height:1em; width:1em; margin:0 .05em 0 .1em; vertical-align:-.15em;
       </div>
       <div class="role-prop-card ao ao-d3">
         <div class="role-prop-header">
-          <div class="role-prop-icon icon-dueno">👔</div>
+          <div class="role-prop-icon icon-dueno"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 .75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349M3.75 21V9.349m0 0a3.001 3.001 0 0 0 3.75-.615A2.993 2.993 0 0 0 9.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 0 0 2.25 1.016 2.993 2.993 0 0 0 2.25-1.016 3.001 3.001 0 0 0 3.75.614m-16.5 0a3.004 3.004 0 0 1-.621-4.72l1.189-1.19A1.5 1.5 0 0 1 5.378 3h13.243a1.5 1.5 0 0 1 1.06.44l1.19 1.189a3 3 0 0 1-.621 4.72M6.75 18h3.75a.75.75 0 0 0 .75-.75V13.5a.75.75 0 0 0-.75-.75H6.75a.75.75 0 0 0-.75.75v3.75c0 .414.336.75.75.75Z"/></svg></div>
           <div><div class="role-prop-name">Dueño</div><div class="role-prop-device">PC · panel de control</div></div>
         </div>
         <p class="role-prop-desc">Control total del negocio. Inventario, facturas, contabilidad, arqueo, cierre de día y dashboard para inversores. Todo en una sola pantalla.</p>
@@ -498,15 +507,15 @@ img.emoji { height:1em; width:1em; margin:0 .05em 0 .1em; vertical-align:-.15em;
       <p class="sec-sub sec-sub-light ao ao-d2" style="margin:0 auto;">Cada módulo habla con los demás. No hay exports de Excel, ni copy-paste de datos entre apps.</p>
     </div>
     <div class="modulos-grid">
-      <div class="modulo-card ao ao-d1"><div class="modulo-num">01</div><span class="modulo-icon">🪑</span><div class="modulo-name">Gestión de Mesas</div><div class="modulo-desc">24 mesas · 4 zonas · estados en tiempo real · mesero asignado · historial de ocupación.</div><span class="modulo-tag tag-activo">Activo</span></div>
-      <div class="modulo-card ao ao-d2"><div class="modulo-num">02</div><span class="modulo-icon">📋</span><div class="modulo-name">Toma de Pedidos</div><div class="modulo-desc">Menú digital por categorías · modificadores · notas especiales · envío a cocina en 1 tap.</div><span class="modulo-tag tag-activo">Activo</span></div>
-      <div class="modulo-card ao ao-d3"><div class="modulo-num">03</div><span class="modulo-icon">🔥</span><div class="modulo-name">Cocina Digital (KDS)</div><div class="modulo-desc">Cola de órdenes con estados · cronómetro · alerta urgente · sin papel · actualización automática.</div><span class="modulo-tag tag-activo">Activo</span></div>
-      <div class="modulo-card ao ao-d1"><div class="modulo-num">04</div><span class="modulo-icon">📦</span><div class="modulo-name">Inventario Inteligente</div><div class="modulo-desc">25 ingredientes · 15 recetas · descuento automático al marcar listo · alertas de stock bajo.</div><span class="modulo-tag tag-activo">Activo</span></div>
-      <div class="modulo-card ao ao-d2"><div class="modulo-num">05</div><span class="modulo-icon">🧾</span><div class="modulo-name">Facturación Electrónica</div><div class="modulo-desc">IVA 19% · CUFE · número correlativo · 3 métodos de pago · imprimible · formato DIAN.</div><span class="modulo-tag tag-activo">Activo</span></div>
-      <div class="modulo-card ao ao-d3"><div class="modulo-num">06</div><span class="modulo-icon">💰</span><div class="modulo-name">Contabilidad</div><div class="modulo-desc">Ingresos · costos · margen bruto · movimientos categorizados · libro diario automático.</div><span class="modulo-tag tag-activo">Activo</span></div>
-      <div class="modulo-card ao ao-d1"><div class="modulo-num">07</div><span class="modulo-icon">🗄️</span><div class="modulo-name">Arqueo de Caja</div><div class="modulo-desc">Cierre de día · efectivo vs sistema · diferencias · acta con firma · historial de cierres.</div><span class="modulo-tag tag-activo">Activo</span></div>
-      <div class="modulo-card ao ao-d2"><div class="modulo-num">08</div><span class="modulo-icon">📈</span><div class="modulo-name">Dashboard Inversores</div><div class="modulo-desc">KPIs clave · gráfico de ingresos · tendencias 7/30/90 días · ticket promedio · exportable.</div><span class="modulo-tag tag-activo">Activo</span></div>
-      <div class="modulo-card ao ao-d3"><div class="modulo-num">09</div><span class="modulo-icon">🔔</span><div class="modulo-name">Alertas en tiempo real</div><div class="modulo-desc">Stock bajo · órdenes demoradas · mesas sin atender · notificaciones por rol en tiempo real.</div><span class="modulo-tag tag-activo">Activo</span></div>
+      <div class="modulo-card ao ao-d1"><div class="modulo-num">01</div><span class="modulo-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"/></svg></span><div class="modulo-name">Gestión de Mesas</div><div class="modulo-desc">24 mesas · 4 zonas · estados en tiempo real · mesero asignado · historial de ocupación.</div><span class="modulo-tag tag-activo">Activo</span></div>
+      <div class="modulo-card ao ao-d2"><div class="modulo-num">02</div><span class="modulo-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z"/></svg></span><div class="modulo-name">Toma de Pedidos</div><div class="modulo-desc">Menú digital por categorías · modificadores · notas especiales · envío a cocina en 1 tap.</div><span class="modulo-tag tag-activo">Activo</span></div>
+      <div class="modulo-card ao ao-d3"><div class="modulo-num">03</div><span class="modulo-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047 8.287 8.287 0 0 0 9 9.601a8.983 8.983 0 0 1 3.361-6.867 8.21 8.21 0 0 0 3 2.48Z M12 18a3.75 3.75 0 0 0 .495-7.468 5.99 5.99 0 0 0-1.925 3.547 5.975 5.975 0 0 1-2.133-1.001A3.75 3.75 0 0 0 12 18Z"/></svg></span><div class="modulo-name">Cocina Digital (KDS)</div><div class="modulo-desc">Cola de órdenes con estados · cronómetro · alerta urgente · sin papel · actualización automática.</div><span class="modulo-tag tag-activo">Activo</span></div>
+      <div class="modulo-card ao ao-d1"><div class="modulo-num">04</div><span class="modulo-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0-3-3m3 3 3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z"/></svg></span><div class="modulo-name">Inventario Inteligente</div><div class="modulo-desc">25 ingredientes · 15 recetas · descuento automático al marcar listo · alertas de stock bajo.</div><span class="modulo-tag tag-activo">Activo</span></div>
+      <div class="modulo-card ao ao-d2"><div class="modulo-num">05</div><span class="modulo-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg></span><div class="modulo-name">Facturación Electrónica</div><div class="modulo-desc">IVA 19% · CUFE · número correlativo · 3 métodos de pago · imprimible · formato DIAN.</div><span class="modulo-tag tag-activo">Activo</span></div>
+      <div class="modulo-card ao ao-d3"><div class="modulo-num">06</div><span class="modulo-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z"/></svg></span><div class="modulo-name">Contabilidad</div><div class="modulo-desc">Ingresos · costos · margen bruto · movimientos categorizados · libro diario automático.</div><span class="modulo-tag tag-activo">Activo</span></div>
+      <div class="modulo-card ao ao-d1"><div class="modulo-num">07</div><span class="modulo-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 2.625c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125m16.5 5.625c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"/></svg></span><div class="modulo-name">Arqueo de Caja</div><div class="modulo-desc">Cierre de día · efectivo vs sistema · diferencias · acta con firma · historial de cierres.</div><span class="modulo-tag tag-activo">Activo</span></div>
+      <div class="modulo-card ao ao-d2"><div class="modulo-num">08</div><span class="modulo-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941"/></svg></span><div class="modulo-name">Dashboard Inversores</div><div class="modulo-desc">KPIs clave · gráfico de ingresos · tendencias 7/30/90 días · ticket promedio · exportable.</div><span class="modulo-tag tag-activo">Activo</span></div>
+      <div class="modulo-card ao ao-d3"><div class="modulo-num">09</div><span class="modulo-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0"/></svg></span><div class="modulo-name">Alertas en tiempo real</div><div class="modulo-desc">Stock bajo · órdenes demoradas · mesas sin atender · notificaciones por rol en tiempo real.</div><span class="modulo-tag tag-activo">Activo</span></div>
     </div>
   </div>
 </section>
@@ -577,7 +586,7 @@ img.emoji { height:1em; width:1em; margin:0 .05em 0 .1em; vertical-align:-.15em;
     <div class="demo-grid">
       <a href="/mesero/" class="demo-card ao ao-d1">
         <div class="demo-card-num">01</div>
-        <span class="demo-card-icon">🧑‍🍽️</span>
+        <span class="demo-card-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg></span>
         <div class="demo-card-name">Vista Mesero</div>
         <div class="demo-card-desc">Optimizada para celular. Toma un pedido, mándalo a cocina y genera una factura de prueba en menos de 2 minutos.</div>
         <ul class="demo-card-features">
@@ -589,7 +598,7 @@ img.emoji { height:1em; width:1em; margin:0 .05em 0 .1em; vertical-align:-.15em;
       </a>
       <a href="/cocina/" class="demo-card ao ao-d2">
         <div class="demo-card-num">02</div>
-        <span class="demo-card-icon">👨‍🍳</span>
+        <span class="demo-card-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047 8.287 8.287 0 0 0 9 9.601a8.983 8.983 0 0 1 3.361-6.867 8.21 8.21 0 0 0 3 2.48Z M12 18a3.75 3.75 0 0 0 .495-7.468 5.99 5.99 0 0 0-1.925 3.547 5.975 5.975 0 0 1-2.133-1.001A3.75 3.75 0 0 0 12 18Z"/></svg></span>
         <div class="demo-card-name">Vista Cocina</div>
         <div class="demo-card-desc">Pantalla KDS en tiempo real. Los pedidos llegan automáticamente y avanzas los estados con un toque.</div>
         <ul class="demo-card-features">
@@ -601,7 +610,7 @@ img.emoji { height:1em; width:1em; margin:0 .05em 0 .1em; vertical-align:-.15em;
       </a>
       <a href="/admin/" class="demo-card ao ao-d3">
         <div class="demo-card-num">03</div>
-        <span class="demo-card-icon">👔</span>
+        <span class="demo-card-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 .75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349M3.75 21V9.349m0 0a3.001 3.001 0 0 0 3.75-.615A2.993 2.993 0 0 0 9.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 0 0 2.25 1.016 2.993 2.993 0 0 0 2.25-1.016 3.001 3.001 0 0 0 3.75.614m-16.5 0a3.004 3.004 0 0 1-.621-4.72l1.189-1.19A1.5 1.5 0 0 1 5.378 3h13.243a1.5 1.5 0 0 1 1.06.44l1.19 1.189a3 3 0 0 1-.621 4.72M6.75 18h3.75a.75.75 0 0 0 .75-.75V13.5a.75.75 0 0 0-.75-.75H6.75a.75.75 0 0 0-.75.75v3.75c0 .414.336.75.75.75Z"/></svg></span>
         <div class="demo-card-name">Panel del Dueño</div>
         <div class="demo-card-desc">El cerebro del negocio. Explora el dashboard, historial de facturas, inventario y cierre de caja con datos reales de demo.</div>
         <ul class="demo-card-features">
